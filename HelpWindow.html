@@ -27,13 +27,16 @@
 <li><a href="#listing-entered-commands-code-history-code">3.12. Listing entered commands : <code>history</code></a></li>
 <li><a href="#undoing-previous-command-code-undo-code">3.13. Undoing previous command : <code>undo</code></a></li>
 <li><a href="#redoing-the-previously-undone-command-code-redo-code">3.14. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.15. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#displaying-average-statistics-code-averages-code">3.16. Displaying average statistics : <code>averages</code></a></li>
-<li><a href="#displaying-total-statistics-code-totals-code">3.17. Displaying total statistics : <code>totals</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.18. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">3.19. Saving the data</a></li>
-<li><a href="#log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code">3.20. Log out of the program : <code>logout</code> <code>[coming in v2.0]</code></a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.21. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#adding-appointments-code-addappt-code">3.15. Adding appointments: <code>addappt</code></a></li>
+<li><a href="#listing-appointments-by-day-code-listapptday-code">3.16. Listing Appointments by Day: <code>listapptday</code></a></li>
+<li><a href="#cancelling-appointments-code-cancelappt-code">3.17. Cancelling Appointments: <code>cancelappt</code></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">3.18. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#displaying-average-statistics-code-averages-code">3.19. Displaying average statistics : <code>averages</code></a></li>
+<li><a href="#displaying-total-statistics-code-totals-code">3.20. Displaying total statistics : <code>totals</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.21. Exiting the program : <code>exit</code></a></li>
+<li><a href="#saving-the-data">3.22. Saving the data</a></li>
+<li><a href="#log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code">3.23. Log out of the program : <code>logout</code> <code>[coming in v2.0]</code></a></li>
+<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.24. Encrypting data files <code>[coming in v2.0]</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -634,42 +637,139 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.15. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="adding-appointments-code-addappt-code"><a class="link" href="#adding-appointments-code-addappt-code">3.15. Adding appointments: <code>addappt</code></a></h3>
+<div class="paragraph">
+<p>Adds an appointment to the appointment schedule.<br>
+Format: <code>addappt d/DATE tm/TIME id/PATIENTID</code> [TODO: PATIENTID]<br></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Date is in dd/mm/yyyy format and time is in military time.<br>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addappt d/03042018 tm/1645 id/38920</code><br>
+Adds appointment scheduled on 3 April 2018 at 4.45pm for patient 38920.<br></p>
+</li>
+<li>
+<p><code>addappt d/12122013 tm/1300 id/100</code><br>
+Adds appointment scheduled on 12 December 2013 at 1.00pm for patient 100.<br></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-appointments-by-day-code-listapptday-code"><a class="link" href="#listing-appointments-by-day-code-listapptday-code">3.16. Listing Appointments by Day: <code>listapptday</code></a></h3>
+<div class="paragraph">
+<p>Shows a list of all the appointments for the specified day.<br>
+Format: <code>listapptday d/DATE</code><br></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>listapptday d/02032017</code><br>
+Lists all appointments on 2 March 2017.<br></p>
+</li>
+<li>
+<p><code>listapptday d/01012000</code><br>
+Lists all appointments on 1 January 2000.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cancelling-appointments-code-cancelappt-code"><a class="link" href="#cancelling-appointments-code-cancelappt-code">3.17. Cancelling Appointments: <code>cancelappt</code></a></h3>
+<div class="paragraph">
+<p>Cancels an appointment from the appointment schedule.<br>
+Format: <code>cancelappt INDEX</code><br></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Cancels the appointment with the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed appointment list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>listapptday d/03042018</code><br>
+<code>cancelappt 1</code><br>
+Cancels the 1st appointment in the list.</p>
+</li>
+<li>
+<p><code>listapptday d/12122018</code><br>
+<code>cancelappt 4</code><br>
+Cancels the 4th appointment in the list.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.18. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Clears all entries from the clinic record.<br>
 Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="displaying-average-statistics-code-averages-code"><a class="link" href="#displaying-average-statistics-code-averages-code">3.16. Displaying average statistics : <code>averages</code></a></h3>
+<h3 id="displaying-average-statistics-code-averages-code"><a class="link" href="#displaying-average-statistics-code-averages-code">3.19. Displaying average statistics : <code>averages</code></a></h3>
 <div class="paragraph">
 <p>Displays all the statistics that are averages.<br>
 Format: <code>averages</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="displaying-total-statistics-code-totals-code"><a class="link" href="#displaying-total-statistics-code-totals-code">3.17. Displaying total statistics : <code>totals</code></a></h3>
+<h3 id="displaying-total-statistics-code-totals-code"><a class="link" href="#displaying-total-statistics-code-totals-code">3.20. Displaying total statistics : <code>totals</code></a></h3>
 <div class="paragraph">
 <p>Displays all the statistics that are totals.<br>
 Format: <code>totals</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.18. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.21. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.19. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.22. Saving the data</a></h3>
 <div class="paragraph">
 <p>ClinicIO data is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code"><a class="link" href="#log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code">3.20. Log out of the program : <code>logout</code> <code>[coming in v2.0]</code></a></h3>
+<h3 id="log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code"><a class="link" href="#log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code">3.23. Log out of the program : <code>logout</code> <code>[coming in v2.0]</code></a></h3>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -688,7 +788,7 @@ Format: <code>logout</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.21. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.24. Encrypting data files <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p><em>{explain how the user can enable/disable data encryption}</em></p>
 </div>
@@ -795,6 +895,22 @@ e.g. <code>enqueue 3 1</code></p>
 <p><strong>Dequeue</strong> : <code>dequeue QINDEX</code><br>
 e.g. <code>dequeue 4</code></p>
 </li>
+<li>
+<p><strong>Help</strong> : <code>help</code></p>
+</li>
+<li>
+<p><strong>Select</strong> : <code>select INDEX</code><br>
+e.g. <code>select 2</code></p>
+</li>
+<li>
+<p><strong>History</strong> : <code>history</code></p>
+</li>
+<li>
+<p><strong>Undo</strong> : <code>undo</code></p>
+</li>
+<li>
+<p><strong>Redo</strong> : <code>redo</code></p>
+</li>
 </ul>
 </div>
 </div>
@@ -840,7 +956,22 @@ e.g. <code>decreasemedicine m/Paracetamol q/20</code></p>
 </div>
 <div class="sect2">
 <h3 id="appointment-commands"><a class="link" href="#appointment-commands">5.7. Appointment Commands</a></h3>
-
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Add Appointment</strong> : <code>addappt [d/DATE] [tm/TIME] [id/PATIENTID]</code><br>
+e.g. <code>addappt d/01012018 tm/1430 id/39201</code></p>
+</li>
+<li>
+<p><strong>List Appointment</strong> : <code>listapptday [d/DATE]</code><br>
+e.g. <code>listapptday d/12122012</code></p>
+</li>
+<li>
+<p><strong>Cancel Appointment</strong> : <code>cancelappt INDEX</code><br>
+e.g. <code>cancelappt 2</code></p>
+</li>
+</ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 02:52:26 UTC</div></div></div></body></html>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 03:34:18 UTC</div></div></div></body></html>

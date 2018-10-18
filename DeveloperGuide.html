@@ -30,11 +30,12 @@
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
-<li><a href="#medicineinventory">3.2. MedicineInventory</a></li>
-<li><a href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></li>
-<li><a href="#login-authentication">3.4. Login Authentication</a></li>
-<li><a href="#logging">3.5. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
+<li><a href="#appointment-feature">3.2. Appointment feature</a></li>
+<li><a href="#medicineinventory">3.3. MedicineInventory</a></li>
+<li><a href="#proposed-data-encryption">3.4. [Proposed] Data Encryption</a></li>
+<li><a href="#login-authentication">3.5. Login Authentication</a></li>
+<li><a href="#logging">3.6. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -535,7 +536,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>stores the ClinicIO data.</p>
 </li>
 <li>
-<p>exposes an unmodifiable <code>ObservableList&lt;Person&gt;</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
+<p>exposes an unmodifiable <code>ObservableList&lt;E&gt;</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
 </li>
 <li>
 <p>does not depend on any of the other three components.</p>
@@ -799,9 +800,76 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="medicineinventory"><a class="link" href="#medicineinventory">3.2. MedicineInventory</a></h3>
+<h3 id="appointment-feature"><a class="link" href="#appointment-feature">3.2. Appointment feature</a></h3>
+<div class="paragraph">
+<p>The Appointment feature provides users the ability to schedule future appointments, view daily appointment schedules and to cancel them.</p>
+</div>
 <div class="sect3">
 <h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.2.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The Appointment feature contains multiple operations to indirectly manipulate the <code>UniqueAppointmentList</code> stored within <code>ModelManager</code>.
+The implemented operations include:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addappt</code> Command - Adds appointments to the appointment schedule.</p>
+</li>
+<li>
+<p><code>cancelappt</code> Command - Cancels appointments found within the appointment schedule.</p>
+</li>
+<li>
+<p><code>listapptday</code> Command - Lists the appointment schedule of the date specified.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each <code>Appointment</code> object consists of a <code>Date</code>, <code>Time</code>, and <code>Patient</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="code-addappt-code-command"><a class="link" href="#code-addappt-code-command">3.2.2. <code>addappt</code> Command</a></h4>
+<div class="paragraph">
+<p>The <code>addappt</code> command behaves similarly to the <code>add</code> command used for <code>Patient</code> and <code>Doctor</code>. The command takes in the parameters required to construct <code>Date</code>, <code>Time</code> and takes in a <code>Patient</code> id.<br>
+The image below illustrates this process.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ApptConstructorSequenceDiagram.png" alt="ApptConstructorSequenceDiagram" width="0">
+</div>
+<div class="title">Figure 10. Appointment construction process.</div>
+</div>
+<div class="paragraph">
+<p>Once the Appointment object is constructed, <code>AddressBook#addAppointment(Appointment appt)</code> is called to add the Appointment object into the <code>UniqueAppointmentList</code>.</p>
+</div>
+<div class="paragraph">
+<p>Before it can successfully add the <code>Appointment</code> object into the list, a check for any appointment clash is carried out via <code>UniqueAppointmentList#hasClash(Appointment appt)</code>. Additionally, duplicates are checked for via <code>UniqueAppointmentList#hasAppointment(Appointment appt)</code>. If no exception is thrown, the Appointment is then successfully added into the <code>UniqueAppointmentList</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>ModelManager#indicateAddressBookChanged()</code> is then called to shift the <code>VersionedAddressBook#pointer</code> to the it&#8217;s latest state. i.e. The addition of a new <code>Appointment</code> object. This means that this command can be undone or redone.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="code-listapptday-code-command"><a class="link" href="#code-listapptday-code-command">3.2.3. <code>listapptday</code> Command</a></h4>
+<div class="paragraph">
+<p>The <code>listapptday</code> command searches for appointments in the <code>UniqueAppointmentList</code> that land on the date that was entered by the user. For example, <code>listapptday 03032018</code> is entered by the user. A <code>Date</code> object with data fields <code>Date#day</code>, <code>Date#Time</code>, <code>Date#Year</code> filled out as 3, 3 and 2018 respectively, is constructed.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="code-cancelappt-code-command"><a class="link" href="#code-cancelappt-code-command">3.2.4. <code>cancelappt</code> Command</a></h4>
+<div class="paragraph">
+<p>Individual patients also contain their own specific <code>AppointmentHistoryList</code> consisting of both cancelled and finished Appointments. <code>cancelAppt</code> is the only command that directly modifies the <code>Patient#AppointmentHistoryList</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.5. Design Considerations</a></h4>
+
+</div>
+</div>
+<div class="sect2">
+<h3 id="medicineinventory"><a class="link" href="#medicineinventory">3.3. MedicineInventory</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>MedicineInventory</code> extends <code>ClinicIO</code> with a medicine inventory. The <code>MedicineInventory</code> provides the user with an organised system to manage the medicines in the clinic.
 It implements the following operations:</p>
@@ -881,7 +949,7 @@ In the example outlined in Step 5, if the <code>Model#hasMedicine(Paracetamol)</
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-to-implement-different-protocols-for-code-medicine-code-with-different-code-medicinetype-code-when-managing-the-code-medicineinventory-code"><a class="link" href="#aspect-how-to-implement-different-protocols-for-code-medicine-code-with-different-code-medicinetype-code-when-managing-the-code-medicineinventory-code">Aspect: How to implement different protocols for <code>Medicine</code> with different <code>MedicineType</code> when managing the <code>MedicineInventory</code></a></h5>
 <div class="ulist">
@@ -917,7 +985,7 @@ In the example outlined in Step 5, if the <code>Model#hasMedicine(Paracetamol)</
 </div>
 </div>
 <div class="sect3">
-<h4 id="aspect-how-to-ensure-that-the-code-medicineinventory-code-has-sufficient-code-medicinequantity-code-of-each-code-medicine-code-at-all-times"><a class="link" href="#aspect-how-to-ensure-that-the-code-medicineinventory-code-has-sufficient-code-medicinequantity-code-of-each-code-medicine-code-at-all-times">3.2.3. Aspect: How to ensure that the <code>MedicineInventory</code> has sufficient <code>MedicineQuantity</code> of each <code>Medicine</code> at all times</a></h4>
+<h4 id="aspect-how-to-ensure-that-the-code-medicineinventory-code-has-sufficient-code-medicinequantity-code-of-each-code-medicine-code-at-all-times"><a class="link" href="#aspect-how-to-ensure-that-the-code-medicineinventory-code-has-sufficient-code-medicinequantity-code-of-each-code-medicine-code-at-all-times">3.3.3. Aspect: How to ensure that the <code>MedicineInventory</code> has sufficient <code>MedicineQuantity</code> of each <code>Medicine</code> at all times</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -951,21 +1019,21 @@ In the example outlined in Step 5, if the <code>Model#hasMedicine(Paracetamol)</
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></h3>
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.4. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="login-authentication"><a class="link" href="#login-authentication">3.4. Login Authentication</a></h3>
+<h3 id="login-authentication"><a class="link" href="#login-authentication">3.5. Login Authentication</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.4.1. Current Implementation</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.5.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>login</code> command authenticates users to gain access to ClinicIO.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.4.2. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.5.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-login-authentication-executes"><a class="link" href="#aspect-how-login-authentication-executes">Aspect: How login authentication executes</a></h5>
 <div class="paragraph">
@@ -975,14 +1043,14 @@ In the example outlined in Step 5, if the <code>Model#hasMedicine(Paracetamol)</
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.5. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.6. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.6, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.7, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1013,7 +1081,7 @@ In the example outlined in Step 5, if the <code>Model#hasMedicine(Paracetamol)</
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.6. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.7. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -1079,7 +1147,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 10. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 11. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 <div class="sect2">
@@ -2343,12 +2411,6 @@ for <code>RemarkCommandParser</code>.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">inform a doctor of their patient&#8217;s medical history</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">medical clinic receptionist</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">create an appointment</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">book patients for consultations in advance</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">medical clinic receptionist</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">prioritize doctors based on patient preference</p></td>
@@ -2383,6 +2445,36 @@ for <code>RemarkCommandParser</code>.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">medical clinic receptionist</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">request for a specific doctor for consultation</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">enable patients to feel comfortable</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">medical clinic receptionist</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">create an appointment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">book patients for consultations in advance</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">medical clinic receptionist</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cancel an appointment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cancel appointments if a patient cannot make the date</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">medical clinic receptionist</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">view a list of appointments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enable receptionists to find free appointment slots</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">medical clinic receptionist</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reschedule appointments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">change appointment bookings in case of an error</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">medical clinic receptionist</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have a calendar view of appointments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">provide easier viewing of the appointment schedule</p></td>
 </tr>
 </tbody>
 </table>
@@ -2925,4 +3017,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 02:52:26 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 03:34:18 UTC</div></div></div></body></html>
