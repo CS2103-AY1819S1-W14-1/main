@@ -21,19 +21,27 @@
 <li><a href="#locating-patients-by-name-code-find-code">3.6. Locating patients by name: <code>find</code></a></li>
 <li><a href="#deleting-a-patient-code-delete-code">3.7. Deleting a patient : <code>delete</code></a></li>
 <li><a href="#selecting-a-patient-code-select-code">3.8. Selecting a patient : <code>select</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">3.9. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">3.10. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.11. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.12. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#displaying-average-statistics-code-averages-code">3.13. Displaying average statistics : <code>averages</code></a></li>
-<li><a href="#displaying-total-statistics-code-totals-code">3.14. Displaying total statistics : <code>totals</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.15. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">3.16. Saving the data</a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.17. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#adding-a-medicine-code-add-medicine-code">3.9. Adding a medicine: <code>add medicine</code></a></li>
+<li><a href="#finding-a-medicine-by-name-code-find-medicine-code">3.10. Finding a medicine by name: <code>find medicine</code></a></li>
+<li><a href="#removing-a-medicine-by-name-code-remove-medicine-code">3.11. Removing a medicine by name : <code>remove medicine</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">3.12. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">3.13. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.14. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">3.15. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#displaying-average-statistics-code-averages-code">3.16. Displaying average statistics : <code>averages</code></a></li>
+<li><a href="#displaying-total-statistics-code-totals-code">3.17. Displaying total statistics : <code>totals</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.18. Exiting the program : <code>exit</code></a></li>
+<li><a href="#saving-the-data">3.19. Saving the data</a></li>
+<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.20. Encrypting data files <code>[coming in v2.0]</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
-<li><a href="#command-summary">5. Command Summary</a></li>
+<li><a href="#command-summary">5. Command Summary</a>
+<ul class="sectlevel2">
+<li><a href="#code-clinicio-code-commands">5.1. <code>ClinicIO</code> Commands</a></li>
+<li><a href="#code-medicineinventory-code-commands">5.2. <code>MedicineInventory</code> Commands</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -384,7 +392,106 @@ Selects the 1st patient in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.9. Listing entered commands : <code>history</code></a></h3>
+<h3 id="adding-a-medicine-code-add-medicine-code"><a class="link" href="#adding-a-medicine-code-add-medicine-code">3.9. Adding a medicine: <code>add medicine</code></a></h3>
+<div class="paragraph">
+<p>Adds a medicine to the medicine inventory<br>
+Format: <code>add medicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+A medicine can have any number of tags (including 0)
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary t/effects last 6 hours</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="finding-a-medicine-by-name-code-find-medicine-code"><a class="link" href="#finding-a-medicine-by-name-code-find-medicine-code">3.10. Finding a medicine by name: <code>find medicine</code></a></h3>
+<div class="paragraph">
+<p>Find a medicine in the medicine inventory<br>
+Format: <code>find medicine MEDICINE_NAME</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The search is case insensitive. e.g <code>ibuprofen</code> will match <code>Ibuprofen</code></p>
+</li>
+<li>
+<p>Only the name is searched.</p>
+</li>
+<li>
+<p>Only full words will be matched. e.g. <code>Ibu</code> will not match <code>Ibuprofen</code></p>
+</li>
+<li>
+<p>Medicine with the matching name will be returned.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find ibuprofen</code><br>
+Returns <code>Ibuprofen</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="removing-a-medicine-by-name-code-remove-medicine-code"><a class="link" href="#removing-a-medicine-by-name-code-remove-medicine-code">3.11. Removing a medicine by name : <code>remove medicine</code></a></h3>
+<div class="paragraph">
+<p>Removes the specified medicine from the medicine inventory.<br>
+Format: <code>remove medicine MEDICINE_NAME</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The medicine name is case insensitive.</p>
+</li>
+<li>
+<p>Medicine with the matching name will be removed.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>remove medicine Paracetemol</code><br>
+Removes the Paracetemol entry from the medicine inventory.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.12. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Format: <code>history</code></p>
@@ -405,7 +512,7 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.10. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.13. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
 <p>Restores the clinic record to the state before the previous <em>undoable</em> command was executed.<br>
 Format: <code>undo</code></p>
@@ -450,7 +557,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.11. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.14. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.<br>
 Format: <code>redo</code></p>
@@ -482,42 +589,42 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.12. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.15. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Clears all entries from the clinic record.<br>
 Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="displaying-average-statistics-code-averages-code"><a class="link" href="#displaying-average-statistics-code-averages-code">3.13. Displaying average statistics : <code>averages</code></a></h3>
+<h3 id="displaying-average-statistics-code-averages-code"><a class="link" href="#displaying-average-statistics-code-averages-code">3.16. Displaying average statistics : <code>averages</code></a></h3>
 <div class="paragraph">
 <p>Displays all the statistics that are averages.<br>
 Format: <code>averages</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="displaying-total-statistics-code-totals-code"><a class="link" href="#displaying-total-statistics-code-totals-code">3.14. Displaying total statistics : <code>totals</code></a></h3>
+<h3 id="displaying-total-statistics-code-totals-code"><a class="link" href="#displaying-total-statistics-code-totals-code">3.17. Displaying total statistics : <code>totals</code></a></h3>
 <div class="paragraph">
 <p>Displays all the statistics that are totals.<br>
 Format: <code>totals</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.15. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.18. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.16. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.19. Saving the data</a></h3>
 <div class="paragraph">
 <p>ClinicIO data is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.17. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.20. Encrypting data files <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p><em>{explain how the user can enable/disable data encryption}</em></p>
 </div>
@@ -536,10 +643,12 @@ There is no need to save manually.</p>
 <div class="sect1">
 <h2 id="command-summary"><a class="link" href="#command-summary">5. Command Summary</a></h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="code-clinicio-code-commands"><a class="link" href="#code-clinicio-code-commands">5.1. <code>ClinicIO</code> Commands</a></h3>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Add</strong> <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code><br>
+<p><strong>Add</strong> : <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code><br>
 e.g. <code>add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague</code></p>
 </li>
 <li>
@@ -600,4 +709,32 @@ e.g.<code>select 2</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-17 09:47:31 UTC</div></div></div></body></html>
+<div class="sect2">
+<h3 id="code-medicineinventory-code-commands"><a class="link" href="#code-medicineinventory-code-commands">5.2. <code>MedicineInventory</code> Commands</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Add Medicine</strong> : <code>addmedicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]&#8230;&#8203;</code><br>
+e.g. <code>addmedicine m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary</code></p>
+</li>
+<li>
+<p><strong>Delete Medicine</strong> : <code>deletemedicine MEDICINE_NAME</code><br>
+e.g. <code>deletemedicine Paracetamol</code></p>
+</li>
+<li>
+<p><strong>Find Medicine</strong> : <code>findmedicine MEDICINE_NAME</code><br>
+e.g. <code>findmedicine Paracetamol</code></p>
+</li>
+<li>
+<p><strong>Increase Medicine Quantity</strong> : <code>increasemedicine m/MEDICINE_NAME q/QUANTITY</code><br>
+e.g. <code>increasemedicine m/Paracetamol q/500</code></p>
+</li>
+<li>
+<p><strong>Decrease Medicine Quantity</strong> : <code>decreasemedicine m/MEDICINE_NAME q/QUANTITY</code><br>
+e.g. <code>decreasemedicine m/Paracetamol q/20</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 02:34:37 UTC</div></div></div></body></html>
