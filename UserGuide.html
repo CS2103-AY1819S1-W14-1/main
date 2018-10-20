@@ -8,68 +8,94 @@
 </div>
 <div id="toc" class="toc">
 <div id="toctitle"></div>
+<ul class="sectlevel0">
+<li><a href="#about-this-guide">About this guide</a>
 <ul class="sectlevel1">
 <li><a href="#introduction">1. Introduction</a></li>
-<li><a href="#quick-start">2. Quick Start</a></li>
-<li><a href="#Features">3. Features</a>
+<li><a href="#installation-guide">2. Installation Guide</a></li>
+<li><a href="#user-interface-walkthrough">3. User Interface Walkthrough</a></li>
+<li><a href="#features">4. Features</a>
 <ul class="sectlevel2">
-<li><a href="#viewing-help-code-help-code">3.1. Viewing help : <code>help</code></a></li>
-<li><a href="#login-code-login-code">3.2. Login : <code>login</code></a></li>
-<li><a href="#adding-a-patient-code-addpatient-code-code-coming-in-v2-0-code">3.3. Adding a patient: <code>addpatient</code> <code>[coming in v2.0]</code></a></li>
-<li><a href="#listing-all-patients-code-listpatient-code-code-coming-in-v2-0-code">3.4. Listing all patients : <code>listpatient</code> <code>[coming in v2.0]</code></a></li>
-<li><a href="#editing-a-patient-code-editpatient-code-code-coming-in-v2-0-code">3.5. Editing a patient : <code>editpatient</code> <code>[coming in v2.0]</code></a></li>
-<li><a href="#locating-patients-by-name-code-findpatient-code-code-coming-in-v2-0-code">3.6. Locating patients by name: <code>findpatient</code> <code>[coming in v2.0]</code></a></li>
-<li><a href="#deleting-a-patient-code-deletepatient-code-code-coming-in-v2-0-code">3.7. Deleting a patient : <code>deletepatient</code> <code>[coming in v2.0]</code></a></li>
-<li><a href="#selecting-a-patient-code-selectpatient-code-code-coming-in-v2-0-code">3.8. Selecting a patient : <code>selectpatient</code> <code>[coming in v2.0]</code></a></li>
-<li><a href="#adding-a-medicine-code-add-medicine-code">3.9. Adding a medicine: <code>add medicine</code></a></li>
-<li><a href="#finding-a-medicine-by-name-code-find-medicine-code">3.10. Finding a medicine by name: <code>find medicine</code></a></li>
-<li><a href="#removing-a-medicine-by-name-code-remove-medicine-code">3.11. Removing a medicine by name : <code>remove medicine</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">3.12. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">3.13. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.14. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#adding-appointments-code-addappt-code">3.15. Adding appointments: <code>addappt</code></a></li>
-<li><a href="#listing-appointments-by-day-code-listapptday-code">3.16. Listing Appointments by Day: <code>listapptday</code></a></li>
-<li><a href="#cancelling-appointments-code-cancelappt-code">3.17. Cancelling Appointments: <code>cancelappt</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.18. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#displaying-average-statistics-code-averages-code">3.19. Displaying average statistics : <code>averages</code></a></li>
-<li><a href="#displaying-total-statistics-code-totals-code">3.20. Displaying total statistics : <code>totals</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.21. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">3.22. Saving the data</a></li>
-<li><a href="#log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code">3.23. Log out of the program : <code>logout</code> <code>[coming in v2.0]</code></a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.24. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#viewing-help-code-help-code">4.1. Viewing help : <code>help</code></a></li>
+<li><a href="#login-code-login-code">4.2. Login : <code>login</code></a></li>
+<li><a href="#adding-a-patient-code-addpatient-code-code-coming-in-v2-0-code">4.3. Adding a patient: <code>addpatient</code> <code>[coming in v2.0]</code></a></li>
+<li><a href="#listing-all-patients-code-listpatient-code-code-coming-in-v2-0-code">4.4. Listing all patients : <code>listpatient</code> <code>[coming in v2.0]</code></a></li>
+<li><a href="#editing-a-patient-code-editpatient-code-code-coming-in-v2-0-code">4.5. Editing a patient : <code>editpatient</code> <code>[coming in v2.0]</code></a></li>
+<li><a href="#locating-patients-by-name-code-findpatient-code-code-coming-in-v2-0-code">4.6. Locating patients by name: <code>findpatient</code> <code>[coming in v2.0]</code></a></li>
+<li><a href="#deleting-a-patient-code-deletepatient-code-code-coming-in-v2-0-code">4.7. Deleting a patient : <code>deletepatient</code> <code>[coming in v2.0]</code></a></li>
+<li><a href="#selecting-a-patient-code-selectpatient-code-code-coming-in-v2-0-code">4.8. Selecting a patient : <code>selectpatient</code> <code>[coming in v2.0]</code></a></li>
+<li><a href="#adding-a-medicine-code-add-medicine-code">4.9. Adding a medicine: <code>add medicine</code></a></li>
+<li><a href="#finding-a-medicine-by-name-code-find-medicine-code">4.10. Finding a medicine by name: <code>find medicine</code></a></li>
+<li><a href="#removing-a-medicine-by-name-code-remove-medicine-code">4.11. Removing a medicine by name : <code>remove medicine</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">4.12. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">4.13. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">4.14. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#adding-appointments-code-addappt-code">4.15. Adding appointments: <code>addappt</code></a></li>
+<li><a href="#listing-appointments-by-day-code-listapptday-code">4.16. Listing Appointments by Day: <code>listapptday</code></a></li>
+<li><a href="#cancelling-appointments-code-cancelappt-code">4.17. Cancelling Appointments: <code>cancelappt</code></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">4.18. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#displaying-average-statistics-code-averages-code">4.19. Displaying average statistics : <code>averages</code></a></li>
+<li><a href="#displaying-total-statistics-code-totals-code">4.20. Displaying total statistics : <code>totals</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">4.21. Exiting the program : <code>exit</code></a></li>
+<li><a href="#saving-the-data">4.22. Saving the data</a></li>
+<li><a href="#log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code">4.23. Log out of the program : <code>logout</code> <code>[coming in v2.0]</code></a></li>
+<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">4.24. Encrypting data files <code>[coming in v2.0]</code></a></li>
 </ul>
 </li>
-<li><a href="#faq">4. FAQ</a></li>
-<li><a href="#command-summary">5. Command Summary</a>
+<li><a href="#faq">5. FAQ</a></li>
+<li><a href="#command-summary">6. Command Summary</a>
 <ul class="sectlevel2">
-<li><a href="#general-commands">5.1. General commands</a></li>
-<li><a href="#user-authentication-commands">5.2. User Authentication Commands</a></li>
-<li><a href="#patient-management-commands">5.3. Patient Management Commands</a></li>
-<li><a href="#queue-commands">5.4. Queue Commands</a></li>
-<li><a href="#analytics-commands">5.5. Analytics Commands</a></li>
-<li><a href="#code-medicineinventory-code-commands">5.6. <code>MedicineInventory</code> Commands</a></li>
-<li><a href="#appointment-commands">5.7. Appointment Commands</a></li>
+<li><a href="#general-commands">6.1. General commands</a></li>
+<li><a href="#user-authentication-commands">6.2. User Authentication Commands</a></li>
+<li><a href="#patient-management-commands">6.3. Patient Management Commands</a></li>
+<li><a href="#queue-commands">6.4. Queue Commands</a></li>
+<li><a href="#analytics-commands">6.5. Analytics Commands</a></li>
+<li><a href="#code-medicineinventory-code-commands">6.6. <code>MedicineInventory</code> Commands</a></li>
+<li><a href="#appointment-commands">6.7. Appointment Commands</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
+</div>
+<h1 id="about-this-guide" class="sect0"><a class="link" href="#about-this-guide">About this guide</a></h1>
+<div class="paragraph">
+<p>This guide provides an overview of ClinicIO and walks you through the installation process.
+In addition, this guide provides in-depth documentation for all features.</p>
+</div>
+<div class="paragraph">
+<p>This guide does not assume any prior technical knowledge. Check the <a href="#faq">Section 5, &#8220;FAQ&#8221;</a> section for frequent user issues.</p>
 </div>
 <div class="sect1">
 <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Working at the front desk in a medical clinic? Meet ClinicIO, a desktop app for you to manage patients' medical record as fast as possible.
-More importantly, ClinicIO is <strong>optimized for Command Line Interface</strong> (CLI) while retaining the benefits of a Graphical User Interface (GUI).
-ClinicIO covers a comprehensive set of actions and is designed to get out of your way!
-Interested? Jump to the <a href="#quick-start">Section 2, &#8220;Quick Start&#8221;</a> to get started. Enjoy!</p>
+<p>ClinicIO is a desktop app to enable you to manage a clinic with ease and efficiency.
+You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.<br></p>
+</div>
+<div class="paragraph">
+<p>Go to the <a href="#installation-guide">Section 2, &#8220;Installation Guide&#8221;</a> to get started on install ClinicIO.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="quick-start"><a class="link" href="#quick-start">2. Quick Start</a></h2>
+<h2 id="installation-guide"><a class="link" href="#installation-guide">2. Installation Guide</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Follow the instructions below to install and use ClinicIO.</p>
+<p>This section is designed to help you to setup ClinicIO with 3 simple steps.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You can move on to <a href="#user-interface-walkthrough">Section 3, &#8220;User Interface Walkthrough&#8221;</a> if you have installed ClinicIO.
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -95,26 +121,37 @@ Ensure you have Java version <code>9</code> or later installed in your Computer.
 <p>Copy the file to the folder you want to use as the home folder for your ClinicIO.</p>
 </li>
 <li>
-<p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
+<p>Double-click <code>clinicio.jar</code> to start the app. You should be able to view the window shown below.</p>
 <div class="imageblock">
 <div class="content">
-<img src="images/Ui.png" alt="Ui" width="790">
+<img src="images/Ui.png" alt="Ui" width="1200">
 </div>
 </div>
-</li>
-<li>
+<div class="paragraph">
+<p><em>Figure 1 Startup Window</em></p>
+</div>
+<div class="paragraph">
 <p>Type the command in the command box and press <kbd>Enter</kbd> to execute it.<br>
 e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
+</div>
 </li>
 </ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Features"><a class="link" href="#Features">3. Features</a></h2>
+<h2 id="user-interface-walkthrough"><a class="link" href="#user-interface-walkthrough">3. User Interface Walkthrough</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>ClinicIO has a list of features that are implemented/working in progress to ease users in the day-to-day operations at the clinic.</p>
+<p>This section is designed to help you familiarise with all of the user componenet in ClinicIO.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="features"><a class="link" href="#features">4. Features</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section is designed to provide a list of features that are implemented/working in progress to ease users in the day-to-day operations at the clinic.</p>
 </div>
 <div class="exampleblock">
 <div class="content">
@@ -140,7 +177,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </div>
 </div>
 <div class="sect2">
-<h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">3.1. Viewing help : <code>help</code></a></h3>
+<h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">4.1. Viewing help : <code>help</code></a></h3>
 <div class="paragraph">
 <p>You can view ClinicIO tutorial.<br>
 Format: <code>help</code></p>
@@ -156,7 +193,7 @@ in a new window.<br></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="login-code-login-code"><a class="link" href="#login-code-login-code">3.2. Login : <code>login</code></a></h3>
+<h3 id="login-code-login-code"><a class="link" href="#login-code-login-code">4.2. Login : <code>login</code></a></h3>
 <div class="paragraph">
 <p>Log in to ClinicIO.<br>
 Format: <code>login r/ROLE n/NAME pass/PASSWORD</code><br></p>
@@ -196,7 +233,7 @@ Format: <code>login r/ROLE n/NAME pass/PASSWORD</code><br></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-patient-code-addpatient-code-code-coming-in-v2-0-code"><a class="link" href="#adding-a-patient-code-addpatient-code-code-coming-in-v2-0-code">3.3. Adding a patient: <code>addpatient</code> <code>[coming in v2.0]</code></a></h3>
+<h3 id="adding-a-patient-code-addpatient-code-code-coming-in-v2-0-code"><a class="link" href="#adding-a-patient-code-addpatient-code-code-coming-in-v2-0-code">4.3. Adding a patient: <code>addpatient</code> <code>[coming in v2.0]</code></a></h3>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -252,14 +289,14 @@ A patient does not need to choose a preferred doctor.
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-all-patients-code-listpatient-code-code-coming-in-v2-0-code"><a class="link" href="#listing-all-patients-code-listpatient-code-code-coming-in-v2-0-code">3.4. Listing all patients : <code>listpatient</code> <code>[coming in v2.0]</code></a></h3>
+<h3 id="listing-all-patients-code-listpatient-code-code-coming-in-v2-0-code"><a class="link" href="#listing-all-patients-code-listpatient-code-code-coming-in-v2-0-code">4.4. Listing all patients : <code>listpatient</code> <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p>Shows a list of all patients in the clinic record.<br>
 Format: <code>listpatient</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="editing-a-patient-code-editpatient-code-code-coming-in-v2-0-code"><a class="link" href="#editing-a-patient-code-editpatient-code-code-coming-in-v2-0-code">3.5. Editing a patient : <code>editpatient</code> <code>[coming in v2.0]</code></a></h3>
+<h3 id="editing-a-patient-code-editpatient-code-code-coming-in-v2-0-code"><a class="link" href="#editing-a-patient-code-editpatient-code-code-coming-in-v2-0-code">4.5. Editing a patient : <code>editpatient</code> <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p>Edits an existing patient in the clinic record.<br>
 Format: <code>editpatient INDEX [n/NAME] [ic/NRIC] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [medProb/MEDICAL_PROBLEMS]&#8230;&#8203; [medList/MEDICATIONS]&#8230;&#8203; [allergies/ALLERGIES]&#8230;&#8203; [preferredDoc/PREFERRED_DOC]</code></p>
@@ -313,7 +350,7 @@ Edits the name of the 2nd patient to be <code>Betsy Crower</code> and clears all
 </div>
 </div>
 <div class="sect2">
-<h3 id="locating-patients-by-name-code-findpatient-code-code-coming-in-v2-0-code"><a class="link" href="#locating-patients-by-name-code-findpatient-code-code-coming-in-v2-0-code">3.6. Locating patients by name: <code>findpatient</code> <code>[coming in v2.0]</code></a></h3>
+<h3 id="locating-patients-by-name-code-findpatient-code-code-coming-in-v2-0-code"><a class="link" href="#locating-patients-by-name-code-findpatient-code-code-coming-in-v2-0-code">4.6. Locating patients by name: <code>findpatient</code> <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p>Finds patients whose names contain any of the given keywords.<br>
 Format: <code>findpatient KEYWORD [MORE_KEYWORDS]</code></p>
@@ -358,7 +395,7 @@ Returns any patient having names <code>Betsy</code>, <code>Tim</code>, or <code>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-patient-code-deletepatient-code-code-coming-in-v2-0-code"><a class="link" href="#deleting-a-patient-code-deletepatient-code-code-coming-in-v2-0-code">3.7. Deleting a patient : <code>deletepatient</code> <code>[coming in v2.0]</code></a></h3>
+<h3 id="deleting-a-patient-code-deletepatient-code-code-coming-in-v2-0-code"><a class="link" href="#deleting-a-patient-code-deletepatient-code-code-coming-in-v2-0-code">4.7. Deleting a patient : <code>deletepatient</code> <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p>Deletes the specified patient from the clinic record.<br>
 Format: <code>deletepatient INDEX</code></p>
@@ -399,7 +436,7 @@ Deletes the 1st patient in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="selecting-a-patient-code-selectpatient-code-code-coming-in-v2-0-code"><a class="link" href="#selecting-a-patient-code-selectpatient-code-code-coming-in-v2-0-code">3.8. Selecting a patient : <code>selectpatient</code> <code>[coming in v2.0]</code></a></h3>
+<h3 id="selecting-a-patient-code-selectpatient-code-code-coming-in-v2-0-code"><a class="link" href="#selecting-a-patient-code-selectpatient-code-code-coming-in-v2-0-code">4.8. Selecting a patient : <code>selectpatient</code> <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p>Selects the patient identified by the index number used in the displayed patient list.<br>
 Format: <code>selectpatient INDEX</code></p>
@@ -440,7 +477,7 @@ Selects the 1st patient in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-medicine-code-add-medicine-code"><a class="link" href="#adding-a-medicine-code-add-medicine-code">3.9. Adding a medicine: <code>add medicine</code></a></h3>
+<h3 id="adding-a-medicine-code-add-medicine-code"><a class="link" href="#adding-a-medicine-code-add-medicine-code">4.9. Adding a medicine: <code>add medicine</code></a></h3>
 <div class="paragraph">
 <p>Adds a medicine to the medicine inventory<br>
 Format: <code>add medicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]&#8230;&#8203;</code></p>
@@ -469,7 +506,7 @@ A medicine can have any number of tags (including 0)
 </div>
 </div>
 <div class="sect2">
-<h3 id="finding-a-medicine-by-name-code-find-medicine-code"><a class="link" href="#finding-a-medicine-by-name-code-find-medicine-code">3.10. Finding a medicine by name: <code>find medicine</code></a></h3>
+<h3 id="finding-a-medicine-by-name-code-find-medicine-code"><a class="link" href="#finding-a-medicine-by-name-code-find-medicine-code">4.10. Finding a medicine by name: <code>find medicine</code></a></h3>
 <div class="paragraph">
 <p>Find a medicine in the medicine inventory<br>
 Format: <code>find medicine MEDICINE_NAME</code></p>
@@ -507,7 +544,7 @@ Returns <code>Ibuprofen</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="removing-a-medicine-by-name-code-remove-medicine-code"><a class="link" href="#removing-a-medicine-by-name-code-remove-medicine-code">3.11. Removing a medicine by name : <code>remove medicine</code></a></h3>
+<h3 id="removing-a-medicine-by-name-code-remove-medicine-code"><a class="link" href="#removing-a-medicine-by-name-code-remove-medicine-code">4.11. Removing a medicine by name : <code>remove medicine</code></a></h3>
 <div class="paragraph">
 <p>Removes the specified medicine from the medicine inventory.<br>
 Format: <code>remove medicine MEDICINE_NAME</code></p>
@@ -539,7 +576,7 @@ Removes the Paracetemol entry from the medicine inventory.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.12. Listing entered commands : <code>history</code></a></h3>
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.12. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Format: <code>history</code></p>
@@ -560,7 +597,7 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.13. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">4.13. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
 <p>Restores the clinic record to the state before the previous <em>undoable</em> command was executed.<br>
 Format: <code>undo</code></p>
@@ -605,7 +642,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.14. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">4.14. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.<br>
 Format: <code>redo</code></p>
@@ -637,7 +674,7 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-appointments-code-addappt-code"><a class="link" href="#adding-appointments-code-addappt-code">3.15. Adding appointments: <code>addappt</code></a></h3>
+<h3 id="adding-appointments-code-addappt-code"><a class="link" href="#adding-appointments-code-addappt-code">4.15. Adding appointments: <code>addappt</code></a></h3>
 <div class="paragraph">
 <p>Adds an appointment to the appointment schedule.<br>
 Format: <code>addappt d/DATE tm/TIME id/PATIENTID</code> [TODO: PATIENTID]<br></p>
@@ -671,7 +708,7 @@ Adds appointment scheduled on 12 December 2013 at 1.00pm for patient 100.<br></p
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-appointments-by-day-code-listapptday-code"><a class="link" href="#listing-appointments-by-day-code-listapptday-code">3.16. Listing Appointments by Day: <code>listapptday</code></a></h3>
+<h3 id="listing-appointments-by-day-code-listapptday-code"><a class="link" href="#listing-appointments-by-day-code-listapptday-code">4.16. Listing Appointments by Day: <code>listapptday</code></a></h3>
 <div class="paragraph">
 <p>Shows a list of all the appointments for the specified day.<br>
 Format: <code>listapptday d/DATE</code><br></p>
@@ -693,7 +730,7 @@ Lists all appointments on 1 January 2000.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cancelling-appointments-code-cancelappt-code"><a class="link" href="#cancelling-appointments-code-cancelappt-code">3.17. Cancelling Appointments: <code>cancelappt</code></a></h3>
+<h3 id="cancelling-appointments-code-cancelappt-code"><a class="link" href="#cancelling-appointments-code-cancelappt-code">4.17. Cancelling Appointments: <code>cancelappt</code></a></h3>
 <div class="paragraph">
 <p>Cancels an appointment from the appointment schedule.<br>
 Format: <code>cancelappt INDEX</code><br></p>
@@ -734,42 +771,42 @@ Cancels the 4th appointment in the list.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.18. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">4.18. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Clears all entries from the clinic record.<br>
 Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="displaying-average-statistics-code-averages-code"><a class="link" href="#displaying-average-statistics-code-averages-code">3.19. Displaying average statistics : <code>averages</code></a></h3>
+<h3 id="displaying-average-statistics-code-averages-code"><a class="link" href="#displaying-average-statistics-code-averages-code">4.19. Displaying average statistics : <code>averages</code></a></h3>
 <div class="paragraph">
 <p>Displays all the statistics that are averages.<br>
 Format: <code>averages</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="displaying-total-statistics-code-totals-code"><a class="link" href="#displaying-total-statistics-code-totals-code">3.20. Displaying total statistics : <code>totals</code></a></h3>
+<h3 id="displaying-total-statistics-code-totals-code"><a class="link" href="#displaying-total-statistics-code-totals-code">4.20. Displaying total statistics : <code>totals</code></a></h3>
 <div class="paragraph">
 <p>Displays all the statistics that are totals.<br>
 Format: <code>totals</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.21. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.21. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.22. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">4.22. Saving the data</a></h3>
 <div class="paragraph">
 <p>ClinicIO data is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code"><a class="link" href="#log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code">3.23. Log out of the program : <code>logout</code> <code>[coming in v2.0]</code></a></h3>
+<h3 id="log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code"><a class="link" href="#log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code">4.23. Log out of the program : <code>logout</code> <code>[coming in v2.0]</code></a></h3>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -788,7 +825,7 @@ Format: <code>logout</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.24. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">4.24. Encrypting data files <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p><em>{explain how the user can enable/disable data encryption}</em></p>
 </div>
@@ -796,8 +833,11 @@ Format: <code>logout</code></p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="faq"><a class="link" href="#faq">4. FAQ</a></h2>
+<h2 id="faq"><a class="link" href="#faq">5. FAQ</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>This section is designed to help you answer any issues that are frequently asked by others.</p>
+</div>
 <div class="paragraph">
 <p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
 <strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClinicIO folder.</p>
@@ -805,13 +845,13 @@ Format: <code>logout</code></p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="command-summary"><a class="link" href="#command-summary">5. Command Summary</a></h2>
+<h2 id="command-summary"><a class="link" href="#command-summary">6. Command Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This is a comprehensive list of commands for ClinicIO.</p>
+<p>This section is designed to provide a comprehensive list of commands for you.</p>
 </div>
 <div class="sect2">
-<h3 id="general-commands"><a class="link" href="#general-commands">5.1. General commands</a></h3>
+<h3 id="general-commands"><a class="link" href="#general-commands">6.1. General commands</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -833,7 +873,7 @@ Format: <code>logout</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="user-authentication-commands"><a class="link" href="#user-authentication-commands">5.2. User Authentication Commands</a></h3>
+<h3 id="user-authentication-commands"><a class="link" href="#user-authentication-commands">6.2. User Authentication Commands</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -847,7 +887,7 @@ e.g. <code>login r/doctor n/Adam Bell pass/-------</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="patient-management-commands"><a class="link" href="#patient-management-commands">5.3. Patient Management Commands</a></h3>
+<h3 id="patient-management-commands"><a class="link" href="#patient-management-commands">6.3. Patient Management Commands</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -877,7 +917,7 @@ e.g.<code>selectpatient 2</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="queue-commands"><a class="link" href="#queue-commands">5.4. Queue Commands</a></h3>
+<h3 id="queue-commands"><a class="link" href="#queue-commands">6.4. Queue Commands</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -915,7 +955,7 @@ e.g. <code>select 2</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="analytics-commands"><a class="link" href="#analytics-commands">5.5. Analytics Commands</a></h3>
+<h3 id="analytics-commands"><a class="link" href="#analytics-commands">6.5. Analytics Commands</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -928,7 +968,7 @@ e.g. <code>select 2</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="code-medicineinventory-code-commands"><a class="link" href="#code-medicineinventory-code-commands">5.6. <code>MedicineInventory</code> Commands</a></h3>
+<h3 id="code-medicineinventory-code-commands"><a class="link" href="#code-medicineinventory-code-commands">6.6. <code>MedicineInventory</code> Commands</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -955,7 +995,7 @@ e.g. <code>decreasemedicine m/Paracetamol q/20</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="appointment-commands"><a class="link" href="#appointment-commands">5.7. Appointment Commands</a></h3>
+<h3 id="appointment-commands"><a class="link" href="#appointment-commands">6.7. Appointment Commands</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -974,4 +1014,4 @@ e.g. <code>cancelappt 2</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 03:34:18 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-20 06:50:45 UTC</div></div></div></body></html>
