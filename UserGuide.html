@@ -34,12 +34,15 @@
 <li><a href="#listing-appointments-by-day-code-listapptday-code">4.16. Listing Appointments by Day: <code>listapptday</code></a></li>
 <li><a href="#cancelling-appointments-code-cancelappt-code">4.17. Cancelling Appointments: <code>cancelappt</code></a></li>
 <li><a href="#clearing-all-entries-code-clear-code">4.18. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#displaying-average-statistics-code-averages-code">4.19. Displaying average statistics : <code>averages</code></a></li>
-<li><a href="#displaying-total-statistics-code-totals-code">4.20. Displaying total statistics : <code>totals</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">4.21. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">4.22. Saving the data</a></li>
-<li><a href="#log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code">4.23. Log out of the program : <code>logout</code> <code>[coming in v2.0]</code></a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">4.24. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#displaying-patient-statistics-code-patientstats-code">4.19. Displaying patient statistics : <code>patientstats</code></a></li>
+<li><a href="#displaying-appointment-statistics-code-appointmentstats-code">4.20. Displaying appointment statistics : <code>appointmentstats</code></a></li>
+<li><a href="#displaying-doctor-statistics-code-doctorstats-code">4.21. Displaying doctor statistics : <code>doctorstats</code></a></li>
+<li><a href="#displaying-medicine-statistics-code-medstats-code">4.22. Displaying medicine statistics : <code>medstats</code></a></li>
+<li><a href="#exporting-patient-records-code-export-code">4.23. Exporting patient records : <code>export</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">4.24. Exiting the program : <code>exit</code></a></li>
+<li><a href="#saving-the-data">4.25. Saving the data</a></li>
+<li><a href="#log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code">4.26. Log out of the program : <code>logout</code> <code>[coming in v2.0]</code></a></li>
+<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">4.27. Encrypting data files <code>[coming in v2.0]</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">5. FAQ</a></li>
@@ -49,8 +52,8 @@
 <li><a href="#user-authentication-commands">6.2. User Authentication Commands</a></li>
 <li><a href="#patient-management-commands">6.3. Patient Management Commands</a></li>
 <li><a href="#queue-commands">6.4. Queue Commands</a></li>
-<li><a href="#analytics-commands">6.5. Analytics Commands</a></li>
-<li><a href="#code-medicineinventory-code-commands">6.6. <code>MedicineInventory</code> Commands</a></li>
+<li><a href="#data-commands">6.5. Data Commands</a></li>
+<li><a href="#medicine-inventory-commands">6.6. Medicine inventory Commands</a></li>
 <li><a href="#appointment-commands">6.7. Appointment Commands</a></li>
 </ul>
 </li>
@@ -778,35 +781,129 @@ Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="displaying-average-statistics-code-averages-code"><a class="link" href="#displaying-average-statistics-code-averages-code">4.19. Displaying average statistics : <code>averages</code></a></h3>
+<h3 id="displaying-patient-statistics-code-patientstats-code"><a class="link" href="#displaying-patient-statistics-code-patientstats-code">4.19. Displaying patient statistics : <code>patientstats</code></a></h3>
 <div class="paragraph">
-<p>Displays all the statistics that are averages.<br>
-Format: <code>averages</code></p>
+<p>Displays the following information about patients:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>A summary of the number of patients over various time periods.</p>
+</li>
+<li>
+<p>The number of patients segmented by each day of the week.</p>
+</li>
+<li>
+<p>The number of patients segmented by different time periods within a day.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Format: <code>patientstats</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="displaying-total-statistics-code-totals-code"><a class="link" href="#displaying-total-statistics-code-totals-code">4.20. Displaying total statistics : <code>totals</code></a></h3>
+<h3 id="displaying-appointment-statistics-code-appointmentstats-code"><a class="link" href="#displaying-appointment-statistics-code-appointmentstats-code">4.20. Displaying appointment statistics : <code>appointmentstats</code></a></h3>
 <div class="paragraph">
-<p>Displays all the statistics that are totals.<br>
-Format: <code>totals</code></p>
+<p>Displays the following information about appointments:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>A summary of the number of scheduled appointments over various time periods.</p>
+</li>
+<li>
+<p>The availability of appointment slots as compared to the number of scheduled appointments.</p>
+</li>
+<li>
+<p>The proportion of appointments that are follow-ups, as opposed to walk-in.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Format: <code>appointmentstats</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.21. Exiting the program : <code>exit</code></a></h3>
+<h3 id="displaying-doctor-statistics-code-doctorstats-code"><a class="link" href="#displaying-doctor-statistics-code-doctorstats-code">4.21. Displaying doctor statistics : <code>doctorstats</code></a></h3>
+<div class="paragraph">
+<p>Displays the following information about doctors:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>A summary of the average number of consultations per doctor over various time periods.</p>
+</li>
+<li>
+<p>The number of patient preferences for each doctor.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Format: <code>doctorstats</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="displaying-medicine-statistics-code-medstats-code"><a class="link" href="#displaying-medicine-statistics-code-medstats-code">4.22. Displaying medicine statistics : <code>medstats</code></a></h3>
+<div class="paragraph">
+<p>Displays the following information about medicines:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>A summary of the quantity of medicines prescribed over various time periods.</p>
+</li>
+<li>
+<p>The average spending on medicines per patient.</p>
+</li>
+<li>
+<p>A breakdown of medicines by their quantity issued.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Format: <code>medstats</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="exporting-patient-records-code-export-code"><a class="link" href="#exporting-patient-records-code-export-code">4.23. Exporting patient records : <code>export</code></a></h3>
+<div class="paragraph">
+<p>Exports patient data.<br>
+Format: <code>exportpatient</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.24. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">4.22. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">4.25. Saving the data</a></h3>
 <div class="paragraph">
 <p>ClinicIO data is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code"><a class="link" href="#log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code">4.23. Log out of the program : <code>logout</code> <code>[coming in v2.0]</code></a></h3>
+<h3 id="log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code"><a class="link" href="#log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code">4.26. Log out of the program : <code>logout</code> <code>[coming in v2.0]</code></a></h3>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -825,7 +922,7 @@ Format: <code>logout</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">4.24. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">4.27. Encrypting data files <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p><em>{explain how the user can enable/disable data encryption}</em></p>
 </div>
@@ -936,39 +1033,36 @@ e.g. <code>enqueue 3 1</code></p>
 e.g. <code>dequeue 4</code></p>
 </li>
 <li>
-<p><strong>Help</strong> : <code>help</code></p>
-</li>
-<li>
 <p><strong>Select</strong> : <code>select INDEX</code><br>
 e.g. <code>select 2</code></p>
 </li>
-<li>
-<p><strong>History</strong> : <code>history</code></p>
-</li>
-<li>
-<p><strong>Undo</strong> : <code>undo</code></p>
-</li>
-<li>
-<p><strong>Redo</strong> : <code>redo</code></p>
-</li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="analytics-commands"><a class="link" href="#analytics-commands">6.5. Analytics Commands</a></h3>
+<h3 id="data-commands"><a class="link" href="#data-commands">6.5. Data Commands</a></h3>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Averages</strong> : <code>averages</code></p>
+<p><strong>Patient Statistics</strong> : <code>patientstats</code></p>
 </li>
 <li>
-<p><strong>Totals</strong> : <code>totals</code></p>
+<p><strong>Appointment Statistics</strong> : <code>apptstats</code></p>
+</li>
+<li>
+<p><strong>Doctor Statistics</strong> : <code>doctorstats</code></p>
+</li>
+<li>
+<p><strong>Medicine Statistics</strong> : <code>medstats</code></p>
+</li>
+<li>
+<p><strong>Export Patient Records</strong> : <code>exportpatient</code></p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="code-medicineinventory-code-commands"><a class="link" href="#code-medicineinventory-code-commands">6.6. <code>MedicineInventory</code> Commands</a></h3>
+<h3 id="medicine-inventory-commands"><a class="link" href="#medicine-inventory-commands">6.6. Medicine inventory Commands</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1014,4 +1108,4 @@ e.g. <code>cancelappt 2</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-23 04:04:26 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-23 09:20:41 UTC</div></div></div></body></html>

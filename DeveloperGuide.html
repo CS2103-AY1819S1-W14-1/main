@@ -32,10 +32,11 @@
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
 <li><a href="#appointment-feature">3.2. Appointment feature</a></li>
 <li><a href="#medicineinventory">3.3. MedicineInventory</a></li>
-<li><a href="#proposed-data-encryption">3.4. [Proposed] Data Encryption</a></li>
-<li><a href="#login-authentication">3.5. Login Authentication</a></li>
-<li><a href="#logging">3.6. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
+<li><a href="#analytics-feature">3.4. Analytics feature</a></li>
+<li><a href="#proposed-data-encryption">3.5. [Proposed] Data Encryption</a></li>
+<li><a href="#login-authentication">3.6. Login Authentication</a></li>
+<li><a href="#logging">3.7. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.8. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -1019,21 +1020,90 @@ In the example outlined in Step 5, if the <code>Model#hasMedicine(Paracetamol)</
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.4. [Proposed] Data Encryption</a></h3>
+<h3 id="analytics-feature"><a class="link" href="#analytics-feature">3.4. Analytics feature</a></h3>
+<div class="paragraph">
+<p>The analytics feature allows users to view numerical statistics and visualizations across the various functions of a
+clinic.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current Implementation</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="images/AnalyticsClassDiagram.png" alt="AnalyticsClassDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The abstract <code>Statistics</code> class specified methods for the computation and retrieval of two groups of statistics. The
+first group consists of statistics to be displayed as a summary while the second is for ones that are visualized. Each
+of the statistics classes inherit from <code>Statistics</code>. They are encapsulated in <code>Analytics</code> which acts as a
+wrapper class and employs the delegation pattern. Additionally, each of them depend on <code>DateTimeCount</code> which provides
+the number of occurrences for various date and time periods.</p>
+</div>
+<div class="paragraph">
+<p>The following operations are implemented:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>patientstats</code> Command - displays information on patients.</p>
+</li>
+<li>
+<p><code>apptstats</code> Command - displays information on appointments.</p>
+</li>
+<li>
+<p><code>doctorstats</code> Command - displays information on doctors.</p>
+</li>
+<li>
+<p><code>medstats</code> command - displays information on medicines.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="code-patientstats-code-command"><a class="link" href="#code-patientstats-code-command">3.4.2. <code>patientstats</code> Command</a></h4>
+<div class="paragraph">
+<p>{add implementation details}</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="code-apptstats-code-command"><a class="link" href="#code-apptstats-code-command">3.4.3. <code>apptstats</code> Command</a></h4>
+<div class="paragraph">
+<p>{add implementation details}</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="code-doctorstats-code-command"><a class="link" href="#code-doctorstats-code-command">3.4.4. <code>doctorstats</code> Command</a></h4>
+<div class="paragraph">
+<p>{add implementation details}</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="code-medstats-code-command"><a class="link" href="#code-medstats-code-command">3.4.5. <code>medstats</code> Command</a></h4>
+<div class="paragraph">
+<p>{add implementation details}</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.6. Design Considerations</a></h4>
+
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.5. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="login-authentication"><a class="link" href="#login-authentication">3.5. Login Authentication</a></h3>
+<h3 id="login-authentication"><a class="link" href="#login-authentication">3.6. Login Authentication</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.5.1. Current Implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.6.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>login</code> command authenticates users to gain access to ClinicIO.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.5.2. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.6.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-login-authentication-executes"><a class="link" href="#aspect-how-login-authentication-executes">Aspect: How login authentication executes</a></h5>
 <div class="paragraph">
@@ -1043,14 +1113,14 @@ In the example outlined in Step 5, if the <code>Model#hasMedicine(Paracetamol)</
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.6. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.7. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.7, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.8, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1081,7 +1151,7 @@ In the example outlined in Step 5, if the <code>Model#hasMedicine(Paracetamol)</
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.7. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.8. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -3017,4 +3087,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-23 04:04:26 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-23 09:20:41 UTC</div></div></div></body></html>
