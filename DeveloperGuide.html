@@ -29,14 +29,15 @@
 </li>
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
-<li><a href="#appointment-feature">3.2. Appointment feature</a></li>
-<li><a href="#medicineinventory">3.3. MedicineInventory</a></li>
-<li><a href="#analytics-feature">3.4. Analytics feature</a></li>
-<li><a href="#proposed-data-encryption">3.5. [Proposed] Data Encryption</a></li>
-<li><a href="#login">3.6. Login</a></li>
-<li><a href="#logging">3.7. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.8. Configuration</a></li>
+<li><a href="#queue-feature">3.1. Queue feature</a></li>
+<li><a href="#undo-redo-feature">3.2. Undo/Redo feature</a></li>
+<li><a href="#appointment-feature">3.3. Appointment feature</a></li>
+<li><a href="#medicineinventory">3.4. MedicineInventory</a></li>
+<li><a href="#analytics-feature">3.5. Analytics feature</a></li>
+<li><a href="#proposed-data-encryption">3.6. [Proposed] Data Encryption</a></li>
+<li><a href="#login">3.7. Login</a></li>
+<li><a href="#logging">3.8. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.9. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -599,9 +600,230 @@ As a more OOP model, we can store a <code>Tag</code> list in <code>ClinicIO</cod
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
 <div class="sect2">
-<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">3.1. Undo/Redo feature</a></h3>
+<h3 id="queue-feature"><a class="link" href="#queue-feature">3.1. Queue feature</a></h3>
+<div class="paragraph">
+<p>This feature allows the user to perform operations related to the queue. In particular, it provides the functionality to assign a patient into the queue, remove a patient from the queue and show the list of patients in the queue.</p>
+</div>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">3.1.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The Queue feature contains several operations to indirectly manipulate the two queues underlying the feature.
+The two queues are <code>patientQueue</code> and <code>preferenceQueue</code>, both of which are hidden from the end user. To the end user, there
+exists only one queue. When a patient gets assigned to the queue without any preferred doctor, the patient will be inserted into
+the <code>patientQueue</code> underneath. In the scenario where a patient has a preferred doctor, the patient will be inserted into the
+<code>preferenceQueue</code>.<br></p>
+</div>
+<div class="paragraph">
+<p>When a room is available, the system will look for the first patient in the <code>preferenceQueue</code> whose preferred doctor is in the room.
+It will then compare this patient with the frontmost patient from the <code>patientQueue</code> on their arrival time. The patient who arrives
+earlier will get to consult with the doctor.<br></p>
+</div>
+<div class="paragraph">
+<p>Both queues are composed of <code>java#ArrayList</code> as it provides richer functionalities compared to <code>java#Queue</code> to manipulate items in the list.
+This allows the system to handle the situation where a patient in the middle of the queue decides to leave the queue.
+In that case, the receptionist, who is the end user of ClinicIO, can simply type in a command to remove the patient from the queue.<br></p>
+</div>
+<div class="paragraph">
+<p>The implemented operations for Queue are:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>enqueuepatient</code> Command - Assigns a patient into the queue.<br></p>
+</li>
+<li>
+<p><code>dequeuepatient</code> Command - Removes a patient from anywhere in the queue.<br></p>
+</li>
+<li>
+<p><code>showqueue</code> Command - Shows a list of all patients in the queue.<br></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the queue-related operations behave at each step.<br></p>
+</div>
+<div class="paragraph">
+<p>Step 1: The user lists all the patients using the <code>list</code> command. All patients in the ClinicIO record are be displayed.<br></p>
+</div>
+<div class="paragraph">
+<p>Step 2: The user executes <code>enqueuepatient 5</code> command to assign the 5th patient in the list into the queue. This patient has no preferred doctor. Now the queue has 1 patient. Underlying the queue, the patient is assigned into <code>patientQueue</code>. The <code>preferenceQueue</code> remains empty.<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/q1.png" alt="q1">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/q2.png" alt="q2">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 3: The user finds all patients with names <code>Damith</code> using <code>find Damith</code> command. All patients with names <code>Damith</code> in the ClinicIO record will be displayed.<br></p>
+</div>
+<div class="paragraph">
+<p>Step 4: The user executes <code>enqueuepatient 2</code> to assign the 2nd patient whose name contains <code>Damith</code> into the queue. This patient has a preferred doctor. Now the queue has 2 patients. Underlying the queue, this patient is assigned into <code>preferenceQueue</code>.<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/q3.png" alt="q3">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/q4.png" alt="q4">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 5: The user keeps adding patients until there are 5 patients in the queue. The <code>patientQueue</code> and <code>preferenceQueue</code> underneath look like this:<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/q5.png" alt="q5">
+</div>
+</div>
+<div class="paragraph">
+<p>The end user only sees one queue:<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/q6.png" alt="q6">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 6: The user lists all patients in the queue by using <code>showqueue</code> command. All patients currently waiting in the queue are displayed.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-enqueuepatient-command-executes"><a class="link" href="#aspect-how-enqueuepatient-command-executes">Aspect: How enqueuepatient command executes</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Inserts the patient into one of the two underlying queues.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easier to implement. Slightly faster than the other alternative.</p>
+</li>
+<li>
+<p>Con: May have performance issue in terms of memory usage.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Insert the patient into only one queue.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pro: Uses less memory as only one data structure is needed.</p>
+</li>
+<li>
+<p>Con: Time complexity is slightly worse than the current implementation.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-how-dequeuepatient-command-executes"><a class="link" href="#aspect-how-dequeuepatient-command-executes">Aspect: How dequeuepatient command executes</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Looks for the queue (patientQueue or preferenceQueue) from which the patient is to be removed. Then searches for the patient and removes from the queue.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pro: Slightly faster than the other alternative.</p>
+</li>
+<li>
+<p>Con: May have performance issue in terms of memory usage.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Naively looks for the patient in the queue, assuming Alternative 2 of <code>enqueuepatient</code> command is used (only one underlying queue).</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Uses less memory. Easy to implement as only one naive search is required.</p>
+</li>
+<li>
+<p>Con: Time complexity is slightly worse than the current implementation.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-how-showqueue-command-executes"><a class="link" href="#aspect-how-showqueue-command-executes">Aspect: How showqueue command executes</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Shows a list of patients filtered according to <code>Patient#isQueuing()</code> which is basically the queuing status of the patient.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-data-structures-to-support-the-queue-related-commands"><a class="link" href="#aspect-data-structures-to-support-the-queue-related-commands">Aspect: Data structures to support the queue-related commands</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Uses two ArrayLists to store the patients.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easier to implement. Provides more functionalities compared to Queues/LinkedList.</p>
+</li>
+<li>
+<p>Con: Uses more memory than using only one ArrayList.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Uses one ArrayList to store the patients.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pro: Uses less memory than Alternative 1.</p>
+</li>
+<li>
+<p>Con: Time complexity of looking for a particular patient is worse.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 3: </strong> Uses Queue/LinkedList</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pro: Easy to implement. Very fast operation for popping the frontmost patient.</p>
+</li>
+<li>
+<p>Con: Limited functionalities. Removing a patient from the middle of the data structure requires extra codes.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">3.2. Undo/Redo feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.2.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
 It extends <code>ClinicIO</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
@@ -731,7 +953,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.2. Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
 <div class="ulist">
@@ -801,12 +1023,12 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="appointment-feature"><a class="link" href="#appointment-feature">3.2. Appointment feature</a></h3>
+<h3 id="appointment-feature"><a class="link" href="#appointment-feature">3.3. Appointment feature</a></h3>
 <div class="paragraph">
 <p>The Appointment feature provides users the ability to schedule future appointments, view daily appointment schedules and to cancel them.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.2.1. Current Implementation</a></h4>
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The Appointment feature contains multiple operations to indirectly manipulate the <code>UniqueAppointmentList</code> stored within <code>ModelManager</code>.
 The implemented operations include:<br></p>
@@ -829,7 +1051,7 @@ The implemented operations include:<br></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="code-addappt-code-command"><a class="link" href="#code-addappt-code-command">3.2.2. <code>addappt</code> Command</a></h4>
+<h4 id="code-addappt-code-command"><a class="link" href="#code-addappt-code-command">3.3.2. <code>addappt</code> Command</a></h4>
 <div class="paragraph">
 <p>The <code>addappt</code> command behaves similarly to the <code>add</code> command used for <code>Patient</code> and <code>Doctor</code>. The command takes in the parameters required to construct <code>Date</code>, <code>Time</code> and takes in a <code>Patient</code> id.<br>
 The image below illustrates this process.</p>
@@ -851,26 +1073,26 @@ The image below illustrates this process.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="code-listapptday-code-command"><a class="link" href="#code-listapptday-code-command">3.2.3. <code>listapptday</code> Command</a></h4>
+<h4 id="code-listapptday-code-command"><a class="link" href="#code-listapptday-code-command">3.3.3. <code>listapptday</code> Command</a></h4>
 <div class="paragraph">
 <p>The <code>listapptday</code> command searches for appointments in the <code>UniqueAppointmentList</code> that land on the date that was entered by the user. For example, <code>listapptday 03032018</code> is entered by the user. A <code>Date</code> object with data fields <code>Date#day</code>, <code>Date#Time</code>, <code>Date#Year</code> filled out as 3, 3 and 2018 respectively, is constructed.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="code-cancelappt-code-command"><a class="link" href="#code-cancelappt-code-command">3.2.4. <code>cancelappt</code> Command</a></h4>
+<h4 id="code-cancelappt-code-command"><a class="link" href="#code-cancelappt-code-command">3.3.4. <code>cancelappt</code> Command</a></h4>
 <div class="paragraph">
 <p>Individual patients also contain their own specific <code>AppointmentHistoryList</code> consisting of both cancelled and finished Appointments. <code>cancelAppt</code> is the only command that directly modifies the <code>Patient#AppointmentHistoryList</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.5. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.5. Design Considerations</a></h4>
 
 </div>
 </div>
 <div class="sect2">
-<h3 id="medicineinventory"><a class="link" href="#medicineinventory">3.3. MedicineInventory</a></h3>
+<h3 id="medicineinventory"><a class="link" href="#medicineinventory">3.4. MedicineInventory</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>MedicineInventory</code> extends <code>ClinicIO</code> with a medicine inventory. The <code>MedicineInventory</code> provides the user with an organised system to manage the medicines in the clinic.
 It implements the following operations:</p>
@@ -950,7 +1172,7 @@ In the example outlined in Step 5, if the <code>Model#hasMedicine(Paracetamol)</
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-to-implement-different-protocols-for-code-medicine-code-with-different-code-medicinetype-code-when-managing-the-code-medicineinventory-code"><a class="link" href="#aspect-how-to-implement-different-protocols-for-code-medicine-code-with-different-code-medicinetype-code-when-managing-the-code-medicineinventory-code">Aspect: How to implement different protocols for <code>Medicine</code> with different <code>MedicineType</code> when managing the <code>MedicineInventory</code></a></h5>
 <div class="ulist">
@@ -986,7 +1208,7 @@ In the example outlined in Step 5, if the <code>Model#hasMedicine(Paracetamol)</
 </div>
 </div>
 <div class="sect3">
-<h4 id="aspect-how-to-ensure-that-the-code-medicineinventory-code-has-sufficient-code-medicinequantity-code-of-each-code-medicine-code-at-all-times"><a class="link" href="#aspect-how-to-ensure-that-the-code-medicineinventory-code-has-sufficient-code-medicinequantity-code-of-each-code-medicine-code-at-all-times">3.3.3. Aspect: How to ensure that the <code>MedicineInventory</code> has sufficient <code>MedicineQuantity</code> of each <code>Medicine</code> at all times</a></h4>
+<h4 id="aspect-how-to-ensure-that-the-code-medicineinventory-code-has-sufficient-code-medicinequantity-code-of-each-code-medicine-code-at-all-times"><a class="link" href="#aspect-how-to-ensure-that-the-code-medicineinventory-code-has-sufficient-code-medicinequantity-code-of-each-code-medicine-code-at-all-times">3.4.3. Aspect: How to ensure that the <code>MedicineInventory</code> has sufficient <code>MedicineQuantity</code> of each <code>Medicine</code> at all times</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1020,13 +1242,13 @@ In the example outlined in Step 5, if the <code>Model#hasMedicine(Paracetamol)</
 </div>
 </div>
 <div class="sect2">
-<h3 id="analytics-feature"><a class="link" href="#analytics-feature">3.4. Analytics feature</a></h3>
+<h3 id="analytics-feature"><a class="link" href="#analytics-feature">3.5. Analytics feature</a></h3>
 <div class="paragraph">
 <p>The analytics feature allows users to view numerical statistics and visualizations across the various functions of a
 clinic.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current Implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current Implementation</a></h4>
 <div class="imageblock">
 <div class="content">
 <img src="images/AnalyticsClassDiagram.png" alt="AnalyticsClassDiagram" width="800">
@@ -1060,47 +1282,47 @@ the number of occurrences for various date and time periods.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="code-patientstats-code-command"><a class="link" href="#code-patientstats-code-command">3.4.2. <code>patientstats</code> Command</a></h4>
+<h4 id="code-patientstats-code-command"><a class="link" href="#code-patientstats-code-command">3.5.2. <code>patientstats</code> Command</a></h4>
 <div class="paragraph">
 <p>{add implementation details}</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="code-apptstats-code-command"><a class="link" href="#code-apptstats-code-command">3.4.3. <code>apptstats</code> Command</a></h4>
+<h4 id="code-apptstats-code-command"><a class="link" href="#code-apptstats-code-command">3.5.3. <code>apptstats</code> Command</a></h4>
 <div class="paragraph">
 <p>{add implementation details}</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="code-doctorstats-code-command"><a class="link" href="#code-doctorstats-code-command">3.4.4. <code>doctorstats</code> Command</a></h4>
+<h4 id="code-doctorstats-code-command"><a class="link" href="#code-doctorstats-code-command">3.5.4. <code>doctorstats</code> Command</a></h4>
 <div class="paragraph">
 <p>{add implementation details}</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="code-medstats-code-command"><a class="link" href="#code-medstats-code-command">3.4.5. <code>medstats</code> Command</a></h4>
+<h4 id="code-medstats-code-command"><a class="link" href="#code-medstats-code-command">3.5.5. <code>medstats</code> Command</a></h4>
 <div class="paragraph">
 <p>{add implementation details}</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.6. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.5.6. Design Considerations</a></h4>
 
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.5. [Proposed] Data Encryption</a></h3>
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.6. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="login"><a class="link" href="#login">3.6. Login</a></h3>
+<h3 id="login"><a class="link" href="#login">3.7. Login</a></h3>
 <div class="paragraph">
 <p>ClinicIO ensures appropriate user access rights are issued by authenticating users at login.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.6.1. Current Implementation</a></h4>
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.7.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The login mechanism facilitated by using <code>UniqueDoctorList</code> or <code>UniqueReceptionistList</code> to retrieve a list of doctors or receptionist based on the user&#8217;s role.<br></p>
 </div>
@@ -1161,7 +1383,7 @@ or Model#hasReceptionist() and Model#getReceptionist() for receptionists respect
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.6.2. Design Considerations</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.7.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-retrieval-of-password"><a class="link" href="#aspect-retrieval-of-password">Aspect: Retrieval of password</a></h5>
 <div class="paragraph">
@@ -1183,14 +1405,14 @@ In addition, this will detract from the user experience due to the shift in focu
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.7. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.8. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.8, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.9, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1221,7 +1443,7 @@ In addition, this will detract from the user experience due to the shift in focu
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.8. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.9. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -3157,4 +3379,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-28 05:23:57 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-28 05:27:50 UTC</div></div></div></body></html>
