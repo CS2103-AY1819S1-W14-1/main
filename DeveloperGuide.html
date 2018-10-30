@@ -34,10 +34,11 @@
 <li><a href="#appointment-feature">3.3. Appointment feature</a></li>
 <li><a href="#medicineinventory">3.4. MedicineInventory</a></li>
 <li><a href="#analytics-feature">3.5. Analytics feature</a></li>
-<li><a href="#proposed-data-encryption">3.6. [Proposed] Data Encryption</a></li>
-<li><a href="#login">3.7. Login</a></li>
-<li><a href="#logging">3.8. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.9. Configuration</a></li>
+<li><a href="#export-feature">3.6. Export feature</a></li>
+<li><a href="#proposed-data-encryption">3.7. [Proposed] Data Encryption</a></li>
+<li><a href="#login">3.8. Login</a></li>
+<li><a href="#logging">3.9. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.10. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -1249,6 +1250,9 @@ clinic.</p>
 </div>
 <div class="sect3">
 <h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The following class diagram represents the relationships between the classes in the <code>analytics</code> package.</p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/AnalyticsClassDiagram.png" alt="AnalyticsClassDiagram" width="800">
@@ -1311,18 +1315,130 @@ the number of occurrences for various date and time periods.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.6. [Proposed] Data Encryption</a></h3>
+<h3 id="export-feature"><a class="link" href="#export-feature">3.6. Export feature</a></h3>
+<div class="paragraph">
+<p>The export feature allows users to extract patient related data out of the program, into Comma Separated Values(CSV)
+format.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.6.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The following activity diagram represents the workflow of the export functionality.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ExportActivityDiagram.png" alt="ExportActivityDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>ExportPatientData</code> class contains <code>static</code> methods for filtering and organizing the relevant data. These methods
+depend on a list of patients. It then passes the data to <code>ExportUtil</code> in order to write to a CSV file. <code>ExportUtil</code> also
+checks the validity of the data to be written. The names and locations of the CSV files are predetermined by
+<code>ExportPatientData</code>. All exported files are stored in the root folder of the program.</p>
+</div>
+<div class="paragraph">
+<p>The following operations are implemented:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>exportpatients</code> Command - exports all patients' personal information into <code>ClinicIO_patientdata.csv</code>.</p>
+</li>
+<li>
+<p><code>exportpatientsappointments</code> Command - exports all patients' appointment records into <code>ClinicIO_patientsappointments
+.csv</code>.</p>
+</li>
+<li>
+<p><code>exportpatientsconsultations</code> Command - exports all patients' consultation records into
+<code>ClinicIO_patientsconsultations.csv</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.6.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-file-format"><a class="link" href="#aspect-file-format">Aspect: File format</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> CSV</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Human readable. Simple schema, easy to edit manually. Supported on all target platforms. Easier to implement.</p>
+</li>
+<li>
+<p>Con: Does not allow complex relationships, resulting in repetitive data.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> XLS (Native Excel format)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Can store more complex relationships between data. Data can be stored in the form of charts and graphs.</p>
+</li>
+<li>
+<p>Cons: Less widely supported. Consumes more memory. More difficult to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-file-location-and-naming"><a class="link" href="#aspect-file-location-and-naming">Aspect: File location and Naming</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Predetermined within the program to be stored in the root folder with fixed names.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Users can easily find it as it is in the same location as the program and has a standard name. Faster
+operation. Easier to implement.</p>
+</li>
+<li>
+<p>Con: Reduces flexibility, another step is required if the user needs it in another directory.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Specifiable by user</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pro: Gives users more control.</p>
+</li>
+<li>
+<p>Cons: Slower operation due to time taken to enter filename and location. More difficult to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.7. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="login"><a class="link" href="#login">3.7. Login</a></h3>
+<h3 id="login"><a class="link" href="#login">3.8. Login</a></h3>
 <div class="paragraph">
 <p>ClinicIO ensures appropriate user access rights are issued by authenticating users at login.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.7.1. Current Implementation</a></h4>
+<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.8.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The login mechanism facilitated by using <code>UniqueDoctorList</code> or <code>UniqueReceptionistList</code> to retrieve a list of doctors or receptionist based on the user&#8217;s role.<br></p>
 </div>
@@ -1396,7 +1512,7 @@ or Model#hasReceptionist() and Model#getReceptionist() for receptionists respect
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.7.2. Design Considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.8.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-retrieval-of-password"><a class="link" href="#aspect-retrieval-of-password">Aspect: Retrieval of password</a></h5>
 <div class="paragraph">
@@ -1418,14 +1534,14 @@ In addition, this will detract from the user experience due to the shift in focu
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.8. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.9. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.9, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.10, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1456,7 +1572,7 @@ In addition, this will detract from the user experience due to the shift in focu
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.9. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.10. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -3392,4 +3508,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-29 18:36:21 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-30 12:49:51 UTC</div></div></div></body></html>
