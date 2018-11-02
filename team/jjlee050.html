@@ -157,13 +157,126 @@ ClinicIO can be used to manage patient records, queues, medical inventory, appoi
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="user-interface-walkthrough"><a class="link" href="#user-interface-walkthrough">User Interface Walkthrough</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section is designed to help you familiarise with all of the user component in ClinicIO.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example of how ClinicIO looks like:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/user-guide-ui-walkthrough-overview.png" alt="user guide ui walkthrough overview" width="900">
+</div>
+</div>
+<div class="paragraph">
+<p>It consists of 8 parts: <a href="#Menu Bar">Menu Bar</a>, <a href="#Command Box">Command Box</a>,
+<a href="#Result Display">Result Display</a>, <a href="#List Panel">List Panel</a>,
+<a href="#Card">Card</a>, <a href="#Display Panel">Display Panel</a>
+<a href="#Sync Status Bar">Sync Status Bar</a>, <a href="#User Session Status Bar">User Session Status Bar</a>,
+each of the sections is explained as below.</p>
+</div>
 <div class="sect2">
-<h3 id="user-authentication-commands"><a class="link" href="#user-authentication-commands">User Authentication Commands</a></h3>
+<h3 id="menu-bar"><a class="link" href="#menu-bar">Menu Bar</a></h3>
+<div class="paragraph">
+<p>The <strong>Menu Bar</strong> provide you quick access to functions as below.</p>
+</div>
+<div class="paragraph">
+<p>Here are the available options currently:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>File: Provide access to file functions.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Exit: Exit the program.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Help: Show ClinicIO tutorial.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can also press F1 to show ClinicIO tutorial.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="command-box"><a class="link" href="#command-box">Command Box</a></h3>
+<div class="paragraph">
+<p>The <strong>Command Box</strong> allow you to enter command input.<br></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="result-display"><a class="link" href="#result-display">Result Display</a></h3>
+<div class="paragraph">
+<p>The <strong>Result Display</strong> provides you information with regards to the result of the command.<br></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="list-panel"><a class="link" href="#list-panel">List Panel</a></h3>
+<div class="paragraph">
+<p>The <strong>List Panel</strong> displays a list of objects.<br></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="card"><a class="link" href="#card">Card</a></h3>
+<div class="paragraph">
+<p>The <strong>Card</strong> displays the object with minimal information.<br></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="display-panel"><a class="link" href="#display-panel">Display Panel</a></h3>
+<div class="paragraph">
+<p>The <strong>Display Panel</strong> displays the object in detail.<br></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sync-status-bar"><a class="link" href="#sync-status-bar">Sync Status Bar</a></h3>
+<div class="paragraph">
+<p>The <strong>Sync Status Bar</strong> displays the last updated date and time of any changes to the data.<br></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="user-session-status-bar"><a class="link" href="#user-session-status-bar">User Session Status Bar</a></h3>
+<div class="paragraph">
+<p>The <strong>User Session Status Bar</strong> displays the current user session.<br></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="user-authentication"><a class="link" href="#user-authentication">User Authentication</a></h3>
+<div class="paragraph">
+<p>ClinicIO&#8217;s User Authentication ensure that clinic staff are provided with correct
+access rights.</p>
+</div>
+<div class="paragraph">
+<p>Here are the list of commands:</p>
+</div>
 <div class="sect3">
 <h4 id="login-code-login-code"><a class="link" href="#login-code-login-code">Login : <code>login</code></a></h4>
 <div class="paragraph">
-<p>Log in to ClinicIO.<br>
+<p>You can login to ClinicIO.<br>
 Format: <code>login r/ROLE n/NAME pass/PASSWORD</code><br></p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Do not use this feature if you are already logged in.<br>
+</td>
+</tr>
+</table>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -176,7 +289,7 @@ Format: <code>login r/ROLE n/NAME pass/PASSWORD</code><br></p>
 <p>The roles are in lowercase.</p>
 </li>
 <li>
-<p>Password will be censored when you entered.</p>
+<p>Password will be censored except the last character when you entered.</p>
 </li>
 <li>
 <p>Password can only be 6 to 12 characters long.</p>
@@ -186,15 +299,31 @@ Format: <code>login r/ROLE n/NAME pass/PASSWORD</code><br></p>
 </div>
 </div>
 <div class="paragraph">
+<p>Prior to logging in to ClinicIO, the ClinicIO user status will show that you have not logged in yet (Shown as below):</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/user-guide-login-before.png" alt="user guide login before" width="500">
+</div>
+</div>
+<div class="paragraph">
+<p>Once you have login successfully, the ClinicIO user status will be updated as below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/user-guide-login-after.png" alt="user guide login after" width="500">
+</div>
+</div>
+<div class="paragraph">
 <p>Examples:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>login r/doctor n/Adam Bell pass/-------</code><br></p>
+<p><code>login r/doctor n/Adam Bell pass/------1</code><br></p>
 </li>
 <li>
-<p><code>login r/receptionist n/Mary Jane pass/-------</code><br></p>
+<p><code>login r/receptionist n/Mary Jane pass/------3</code><br></p>
 </li>
 </ul>
 </div>
@@ -214,13 +343,20 @@ You must login in order to use this feature.<br>
 </table>
 </div>
 <div class="paragraph">
-<p>Log out of the program.<br>
+<p>You can log out of ClinicIO.<br>
 Format: <code>logout</code></p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="patient-management-commands"><a class="link" href="#patient-management-commands">Patient Management Commands</a></h3>
+<h3 id="patient-management"><a class="link" href="#patient-management">Patient Management</a></h3>
+<div class="paragraph">
+<p>ClinicIO provides a centralised patient management system
+to allow you to manage the clinic&#8217;s patient record more efficiently.</p>
+</div>
+<div class="paragraph">
+<p>Here are the list of commands:</p>
+</div>
 <div class="sect3">
 <h4 id="adding-a-patient-code-addpatient-code-code-coming-in-v2-0-code"><a class="link" href="#adding-a-patient-code-addpatient-code-code-coming-in-v2-0-code">Adding a patient: <code>addpatient</code> <code>[coming in v2.0]</code></a></h4>
 <div class="admonitionblock warning">
@@ -230,13 +366,13 @@ Format: <code>logout</code></p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-You must login as an receptionist in order to use this feature.<br>
+You must login as a receptionist in order to use this feature.<br>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Adds a patient to the clinic record.<br>
+<p>You can add a patient to the clinic record.<br>
 Format: <code>addpatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]&#8230;&#8203; [medList/MEDICATIONS]&#8230;&#8203; [allergies/ALLERGIES]&#8230;&#8203; [preferredDoc/PREFERRED_DOC]</code></p>
 </div>
 <div class="admonitionblock tip">
@@ -280,14 +416,14 @@ A patient does not need to choose a preferred doctor.
 <div class="sect3">
 <h4 id="listing-all-patients-code-listpatient-code-code-coming-in-v2-0-code"><a class="link" href="#listing-all-patients-code-listpatient-code-code-coming-in-v2-0-code">Listing all patients : <code>listpatient</code> <code>[coming in v2.0]</code></a></h4>
 <div class="paragraph">
-<p>Shows a list of all patients in the clinic record.<br>
+<p>You can view a list of all patients in the clinic record.<br>
 Format: <code>listpatient</code></p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="editing-a-patient-code-editpatient-code-code-coming-in-v2-0-code"><a class="link" href="#editing-a-patient-code-editpatient-code-code-coming-in-v2-0-code">Editing a patient : <code>editpatient</code> <code>[coming in v2.0]</code></a></h4>
 <div class="paragraph">
-<p>Edits an existing patient in the clinic record.<br>
+<p>You can edit an existing patient in the clinic record.<br>
 Format: <code>editpatient INDEX [n/NAME] [ic/NRIC] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [medProb/MEDICAL_PROBLEMS]&#8230;&#8203; [medList/MEDICATIONS]&#8230;&#8203; [allergies/ALLERGIES]&#8230;&#8203; [preferredDoc/PREFERRED_DOC]</code></p>
 </div>
 <div class="sidebarblock">
@@ -341,7 +477,7 @@ Edits the name of the 2nd patient to be <code>Betsy Crower</code> and clears all
 <div class="sect3">
 <h4 id="locating-patients-by-name-code-findpatient-code-code-coming-in-v2-0-code"><a class="link" href="#locating-patients-by-name-code-findpatient-code-code-coming-in-v2-0-code">Locating patients by name: <code>findpatient</code> <code>[coming in v2.0]</code></a></h4>
 <div class="paragraph">
-<p>Finds patients whose names contain any of the given keywords.<br>
+<p>You can find patients whose names contain any of the given keywords.<br>
 Format: <code>findpatient KEYWORD [MORE_KEYWORDS]</code></p>
 </div>
 <div class="sidebarblock">
@@ -386,7 +522,7 @@ Returns any patient having names <code>Betsy</code>, <code>Tim</code>, or <code>
 <div class="sect3">
 <h4 id="deleting-a-patient-code-deletepatient-code-code-coming-in-v2-0-code"><a class="link" href="#deleting-a-patient-code-deletepatient-code-code-coming-in-v2-0-code">Deleting a patient : <code>deletepatient</code> <code>[coming in v2.0]</code></a></h4>
 <div class="paragraph">
-<p>Deletes the specified patient from the clinic record.<br>
+<p>You can delete the specified patient from the clinic record.<br>
 Format: <code>deletepatient INDEX</code></p>
 </div>
 <div class="sidebarblock">
@@ -555,4 +691,4 @@ In addition, this will detract from the user experience due to the shift in focu
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-02 04:47:23 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-02 05:43:13 UTC</div></div></div></body></html>
