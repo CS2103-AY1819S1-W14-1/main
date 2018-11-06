@@ -1,109 +1,46 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>ClinicIO - Developer Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><meta name="author" content="Thank you for your interest in contributing to ClinicIO!"><title>ClinicIO - Developer Guide</title><link rel="stylesheet" href="./gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">ClinicIO</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link active" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-W14-1/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>ClinicIO - Developer Guide</h1></div><div id="content"><div id="preamble">
+<link rel="stylesheet" href="./coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">ClinicIO</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-W14-1/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>ClinicIO - Developer Guide</h1><div class="details"><span class="author" id="author">Thank you for your interest in contributing to ClinicIO!</span><br></div></div><div id="content"><div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>By: <code>W14-1</code>      Since: <code>Sept 2018</code>      Licence: <code>MIT</code></p>
 </div>
 </div>
-<div id="toc" class="toc">
-<div id="toctitle"></div>
-<ul class="sectlevel1">
-<li><a href="#setting-up">1. Setting up</a>
-<ul class="sectlevel2">
-<li><a href="#prerequisites">1.1. Prerequisites</a></li>
-<li><a href="#setting-up-the-project-in-your-computer">1.2. Setting up the project in your computer</a></li>
-<li><a href="#verifying-the-setup">1.3. Verifying the setup</a></li>
-<li><a href="#configurations-to-do-before-writing-code">1.4. Configurations to do before writing code</a></li>
-</ul>
+</div>
+<h1 id="about-this-guide" class="sect0"><a class="link" href="#about-this-guide">About this guide</a></h1>
+<div class="paragraph">
+<p>This guide provides an overview of ClinicIO and walks you through the installation process.
+In addition, this guide provides in-depth documentation for all features and cover everything you need to know
+when developing ClinicIO.</p>
+</div>
+<div class="paragraph">
+<p>This guide assume that readers has certain developers knowledge with Java and JavaFX.</p>
+</div>
+<div class="paragraph">
+<p>If you are new to development, you can try working step-by-step tutorial from Oracle:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.oracle.com/javase/tutorial/">Java™ Tutorials from Oracle</a></p>
 </li>
-<li><a href="#design">2. Design</a>
-<ul class="sectlevel2">
-<li><a href="#Design-Architecture">2.1. Architecture</a></li>
-<li><a href="#Design-Ui">2.2. UI component</a></li>
-<li><a href="#Design-Logic">2.3. Logic component</a></li>
-<li><a href="#Design-Model">2.4. Model component</a></li>
-<li><a href="#Design-Storage">2.5. Storage component</a></li>
-<li><a href="#Design-Commons">2.6. Common classes</a></li>
-</ul>
-</li>
-<li><a href="#implementation">3. Implementation</a>
-<ul class="sectlevel2">
-<li><a href="#queue-feature">3.1. Queue feature</a></li>
-<li><a href="#undo-redo-feature">3.2. Undo/Redo feature</a></li>
-<li><a href="#appointment-feature">3.3. Appointment feature</a></li>
-<li><a href="#medicineinventory">3.4. MedicineInventory</a></li>
-<li><a href="#analytics-feature">3.5. Analytics feature</a></li>
-<li><a href="#export-feature">3.6. Export feature</a></li>
-<li><a href="#proposed-data-encryption">3.7. [Proposed] Data Encryption</a></li>
-<li><a href="#login">3.8. Login</a></li>
-<li><a href="#logging">3.9. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.10. Configuration</a></li>
-</ul>
-</li>
-<li><a href="#documentation">4. Documentation</a>
-<ul class="sectlevel2">
-<li><a href="#editing-documentation">4.1. Editing Documentation</a></li>
-<li><a href="#publishing-documentation">4.2. Publishing Documentation</a></li>
-<li><a href="#converting-documentation-to-pdf-format">4.3. Converting Documentation to PDF format</a></li>
-<li><a href="#Docs-SiteWideDocSettings">4.4. Site-wide Documentation Settings</a></li>
-<li><a href="#Docs-PerFileDocSettings">4.5. Per-file Documentation Settings</a></li>
-<li><a href="#site-template">4.6. Site Template</a></li>
-</ul>
-</li>
-<li><a href="#Testing">5. Testing</a>
-<ul class="sectlevel2">
-<li><a href="#running-tests">5.1. Running Tests</a></li>
-<li><a href="#types-of-tests">5.2. Types of tests</a></li>
-<li><a href="#troubleshooting-testing">5.3. Troubleshooting Testing</a></li>
-</ul>
-</li>
-<li><a href="#dev-ops">6. Dev Ops</a>
-<ul class="sectlevel2">
-<li><a href="#build-automation">6.1. Build Automation</a></li>
-<li><a href="#continuous-integration">6.2. Continuous Integration</a></li>
-<li><a href="#coverage-reporting">6.3. Coverage Reporting</a></li>
-<li><a href="#documentation-previews">6.4. Documentation Previews</a></li>
-<li><a href="#user-interface-previews">6.5. User Interface Previews</a></li>
-<li><a href="#making-a-release">6.6. Making a Release</a></li>
-<li><a href="#managing-dependencies">6.7. Managing Dependencies</a></li>
-</ul>
-</li>
-<li><a href="#GetStartedProgramming">Appendix A: Suggested Programming Tasks to Get Started</a>
-<ul class="sectlevel2">
-<li><a href="#GetStartedProgramming-EachComponent">A.1. Improving each component</a></li>
-<li><a href="#GetStartedProgramming-RemarkCommand">A.2. Creating a new command: <code>remark</code></a></li>
-</ul>
-</li>
-<li><a href="#product-scope">Appendix B: Product Scope</a></li>
-<li><a href="#user-stories">Appendix C: User Stories</a></li>
-<li><a href="#use-cases">Appendix D: Use Cases</a>
-<ul class="sectlevel2">
-<li><a href="#use-case-find-patients-record">D.1. Use case: Find patients record</a></li>
-<li><a href="#use-case-add-a-patient-record">D.2. Use case: add a patient record</a></li>
-<li><a href="#use-case-edit-patient-record">D.3. Use case: Edit patient record</a></li>
-<li><a href="#use-case-delete-patient-record">D.4. Use case: Delete patient record</a></li>
-<li><a href="#use-case-assign-patient-to-a-different-queue-for-each-room">D.5. Use case: Assign patient to a different queue for each room</a></li>
-<li><a href="#use-case-view-clinicio-analytics">D.6. Use case: View ClinicIO analytics</a></li>
-</ul>
-</li>
-<li><a href="#non-functional-requirements">Appendix E: Non Functional Requirements</a></li>
-<li><a href="#glossary">Appendix F: Glossary</a></li>
-<li><a href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a>
-<ul class="sectlevel2">
-<li><a href="#launch-and-shutdown">G.1. Launch and Shutdown</a></li>
-<li><a href="#deleting-a-patient">G.2. Deleting a patient</a></li>
-<li><a href="#saving-data">G.3. Saving data</a></li>
-</ul>
+<li>
+<p><a href="https://docs.oracle.com/javafx/2/get_started/jfxpub-get_started.htm">JavaFX Tutorials from Oracle</a></p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>If you are new to contributing to ClinicIO, head over to <a href="#Setting Up">Setting Up</a> to start
+set up ClinicIO project.</p>
 </div>
 <div class="sect1">
 <h2 id="setting-up"><a class="link" href="#setting-up">1. Setting up</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="prerequisites"><a class="link" href="#prerequisites">1.1. Prerequisites</a></h3>
+<div class="paragraph">
+<p>Before you start setting up the project, these are the list of prerequisites that you need to install:<br></p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1427,23 +1364,52 @@ operation. Easier to implement.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.7. [Proposed] Data Encryption</a></h3>
-<div class="paragraph">
-<p><em>{Explain here how the data encryption feature will be implemented}</em></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="login"><a class="link" href="#login">3.8. Login</a></h3>
+<h3 id="user-authentication"><a class="link" href="#user-authentication">3.7. User Authentication</a></h3>
 <div class="paragraph">
 <p>ClinicIO ensures appropriate user access rights are issued by authenticating users at login.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.8.1. Current Implementation</a></h4>
+<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.7.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>ClinicIO&#8217;s login mechanism is facilitated by <code>UniqueStaffList</code> to retrieve a list of staff.<br></p>
+<p>The User Authentication feature comprises of <code>LoginCommand</code> and <code>LogoutCommand</code>.</p>
+</div>
+<div class="sect4">
+<h5 id="code-logincommand-code"><a class="link" href="#code-logincommand-code"><code>LoginCommand</code></a></h5>
+<div class="paragraph">
+<p>The <code>LoginCommand</code> contains multiple operations to manipulate the <code>UniqueStaffList</code> indirectly.
+The implemented operations include:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ClinicIo#hasStaff(): Check if the staff record exists inside ClinicIO</p>
+</li>
+<li>
+<p>ClinicIo#getStaff(): Retrieve the staff record from the <code>UniqueStaffList</code></p>
+</li>
+<li>
+<p>Password#verifyPassword(): Check if password entered by user matches the staff record that was found in the <code>UniqueStaffList</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>These operations are exposed in the Model interface as Model#hasStaff() and Model#checkStaffCred()  respectively.</p>
+<p>These operations are exposed in the <code>Model</code> interface as <code>Model#checkStaffCredentials()</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>HashUtil</code> is used to manage the encryption and verification of password.</p>
+</div>
+<div class="paragraph">
+<p>These are operations inside <code>HashUtil</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>HashUtil#hashToString(): Hash the password</p>
+</li>
+<li>
+<p>HashUtil#verifyPassword(): Check if the password matches the hashed password</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Given below is a scenario to illustrate the login authentication at each step:<br></p>
@@ -1467,7 +1433,7 @@ operation. Easier to implement.</p>
 <p>Step 6: Once verification has been made successfully, the <code>login</code> command raise an <code>SuccessfulLoginEvent</code> to indicate that a successful attempt to login has been made.<br></p>
 </div>
 <div class="paragraph">
-<p>The following sequence diagram shows how the login authentication works:</p>
+<p>The following sequence diagram shows how the login works:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1475,7 +1441,7 @@ operation. Easier to implement.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The following activity diagram summarizes what happens when a user executes the login command:</p>
+<p>The following activity diagram summarizes what happens when a user executes <code>LoginCommand</code>:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1483,13 +1449,49 @@ operation. Easier to implement.</p>
 </div>
 </div>
 </div>
+<div class="sect4">
+<h5 id="code-logoutcommand-code"><a class="link" href="#code-logoutcommand-code"><code>LogoutCommand</code></a></h5>
+<div class="paragraph">
+<p>The <code>LogoutCommand</code> post a <code>LogoutClinicIoEvent</code> to notify the UI that you want to log out of ClinicIO. It uses
+the <code>EventCenter</code> to communicate between components without requiring the components to register with
+each other explicitly.</p>
+</div>
+<div class="paragraph">
+<p>Here is a step-by-step on how <code>LogoutCommand</code> notify <code>MainWindow</code> that you want to log out of ClinicIo:<br></p>
+</div>
+<div class="paragraph">
+<p>Step 1: The <code>LogoutCommand</code> post a new <code>LogoutClinicIoEvent</code> to the <code>EventsCenter</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 2: The <code>eventBus</code> post the newly created <code>LogoutClinicIoEvent</code> (from Step 1) to make the event available to any listeners in <code>EventBus</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 3: ClinicIo will listen for <code>handleLogoutClinicIoEvent()</code> to receive the event and update the user session status.</p>
+</div>
+</div>
+</div>
 <div class="sect3">
-<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.8.2. Design Considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.7.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-retrieval-of-password"><a class="link" href="#aspect-retrieval-of-password">Aspect: Retrieval of password</a></h5>
-<div class="paragraph">
-<p>An alternative is to open an additional alert window to prompt the user for a password.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Create a <code>PasswordPrefixFormatter</code> to handle
+<code>CommandBox</code> whenever user type 'pass/' prefix.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: More secure for being able to mask password.</p>
+</li>
+<li>
+<p>Cons: Complex as it will require certain manipulation of the password in order to mask password.</p>
+</li>
+</ul>
 </div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: Open an additional alert window to prompt the user for a password.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1502,18 +1504,56 @@ In addition, this will detract from the user experience due to the shift in focu
 </li>
 </ul>
 </div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-keep-track-of-user-session"><a class="link" href="#aspect-keep-track-of-user-session">Aspect: Keep track of user session</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Have a <code>UserSession</code> class to handle user session</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros : Allow developers to handle user session easily.</p>
+</li>
+<li>
+<p>Cons : Too troublesome as user will to login to ClinicIO at every startup.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: Save user session state in a file.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: More convenience for users as they does not need to login on every startup.</p>
+</li>
+<li>
+<p>Cons: Less secure as users, who understand how ClinicIO works,
+could edit the role of the user to have unauthorised access
+to ClinicIO.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.9. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.8. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.10, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.9, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1544,7 +1584,7 @@ In addition, this will detract from the user experience due to the shift in focu
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.10. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.9. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -3480,4 +3520,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-06 08:16:47 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-06 11:07:06 UTC</div></div></div></body></html>

@@ -618,17 +618,52 @@ Selects the 1st patient in the results of the <code>find</code> command.</p>
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="login"><a class="link" href="#login">Login</a></h3>
+<h3 id="user-authentication-2"><a class="link" href="#user-authentication-2">User Authentication</a></h3>
 <div class="paragraph">
 <p>ClinicIO ensures appropriate user access rights are issued by authenticating users at login.</p>
 </div>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
 <div class="paragraph">
-<p>ClinicIO&#8217;s login mechanism is facilitated by <code>UniqueStaffList</code> to retrieve a list of staff.<br></p>
+<p>The User Authentication feature comprises of <code>LoginCommand</code> and <code>LogoutCommand</code>.</p>
+</div>
+<div class="sect4">
+<h5 id="code-logincommand-code"><a class="link" href="#code-logincommand-code"><code>LoginCommand</code></a></h5>
+<div class="paragraph">
+<p>The <code>LoginCommand</code> contains multiple operations to manipulate the <code>UniqueStaffList</code> indirectly.
+The implemented operations include:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ClinicIo#hasStaff(): Check if the staff record exists inside ClinicIO</p>
+</li>
+<li>
+<p>ClinicIo#getStaff(): Retrieve the staff record from the <code>UniqueStaffList</code></p>
+</li>
+<li>
+<p>Password#verifyPassword(): Check if password entered by user matches the staff record that was found in the <code>UniqueStaffList</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>These operations are exposed in the Model interface as Model#hasStaff() and Model#checkStaffCred()  respectively.</p>
+<p>These operations are exposed in the <code>Model</code> interface as <code>Model#checkStaffCredentials()</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>HashUtil</code> is used to manage the encryption and verification of password.</p>
+</div>
+<div class="paragraph">
+<p>These are operations inside <code>HashUtil</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>HashUtil#hashToString(): Hash the password</p>
+</li>
+<li>
+<p>HashUtil#verifyPassword(): Check if the password matches the hashed password</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Given below is a scenario to illustrate the login authentication at each step:<br></p>
@@ -652,7 +687,7 @@ Selects the 1st patient in the results of the <code>find</code> command.</p>
 <p>Step 6: Once verification has been made successfully, the <code>login</code> command raise an <code>SuccessfulLoginEvent</code> to indicate that a successful attempt to login has been made.<br></p>
 </div>
 <div class="paragraph">
-<p>The following sequence diagram shows how the login authentication works:</p>
+<p>The following sequence diagram shows how the login works:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -660,7 +695,7 @@ Selects the 1st patient in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The following activity diagram summarizes what happens when a user executes the login command:</p>
+<p>The following activity diagram summarizes what happens when a user executes <code>LoginCommand</code>:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -668,13 +703,49 @@ Selects the 1st patient in the results of the <code>find</code> command.</p>
 </div>
 </div>
 </div>
+<div class="sect4">
+<h5 id="code-logoutcommand-code"><a class="link" href="#code-logoutcommand-code"><code>LogoutCommand</code></a></h5>
+<div class="paragraph">
+<p>The <code>LogoutCommand</code> post a <code>LogoutClinicIoEvent</code> to notify the UI that you want to log out of ClinicIO. It uses
+the <code>EventCenter</code> to communicate between components without requiring the components to register with
+each other explicitly.</p>
+</div>
+<div class="paragraph">
+<p>Here is a step-by-step on how <code>LogoutCommand</code> notify <code>MainWindow</code> that you want to log out of ClinicIo:<br></p>
+</div>
+<div class="paragraph">
+<p>Step 1: The <code>LogoutCommand</code> post a new <code>LogoutClinicIoEvent</code> to the <code>EventsCenter</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 2: The <code>eventBus</code> post the newly created <code>LogoutClinicIoEvent</code> (from Step 1) to make the event available to any listeners in <code>EventBus</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 3: ClinicIo will listen for <code>handleLogoutClinicIoEvent()</code> to receive the event and update the user session status.</p>
+</div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-retrieval-of-password"><a class="link" href="#aspect-retrieval-of-password">Aspect: Retrieval of password</a></h5>
-<div class="paragraph">
-<p>An alternative is to open an additional alert window to prompt the user for a password.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Create a <code>PasswordPrefixFormatter</code> to handle
+<code>CommandBox</code> whenever user type 'pass/' prefix.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: More secure for being able to mask password.</p>
+</li>
+<li>
+<p>Cons: Complex as it will require certain manipulation of the password in order to mask password.</p>
+</li>
+</ul>
 </div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: Open an additional alert window to prompt the user for a password.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -687,8 +758,46 @@ In addition, this will detract from the user experience due to the shift in focu
 </li>
 </ul>
 </div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-keep-track-of-user-session"><a class="link" href="#aspect-keep-track-of-user-session">Aspect: Keep track of user session</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Have a <code>UserSession</code> class to handle user session</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros : Allow developers to handle user session easily.</p>
+</li>
+<li>
+<p>Cons : Too troublesome as user will to login to ClinicIO at every startup.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: Save user session state in a file.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: More convenience for users as they does not need to login on every startup.</p>
+</li>
+<li>
+<p>Cons: Less secure as users, who understand how ClinicIO works,
+could edit the role of the user to have unauthorised access
+to ClinicIO.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-06 08:16:47 UTC</div></div></div></body></html>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-06 11:07:06 UTC</div></div></div></body></html>
