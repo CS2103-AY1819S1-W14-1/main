@@ -494,7 +494,7 @@ to allow you to manage the clinic&#8217;s patient record more efficiently.</p>
 <p>Here are the list of commands:</p>
 </div>
 <div class="sect3">
-<h4 id="adding-a-patient-code-addpatient-code-code-coming-in-v2-0-code"><a class="link" href="#adding-a-patient-code-addpatient-code-code-coming-in-v2-0-code">4.3.1. Adding a patient: <code>addpatient</code> <code>[coming in v2.0]</code></a></h4>
+<h4 id="adding-a-patient-code-addpatient-code"><a class="link" href="#adding-a-patient-code-addpatient-code">4.3.1. Adding a patient: <code>addpatient</code></a></h4>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -508,8 +508,10 @@ You must login as a receptionist in order to use this feature.<br>
 </table>
 </div>
 <div class="paragraph">
-<p>You can add a patient to the clinic record.<br>
-Format: <code>addpatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]&#8230;&#8203; [medList/MEDICATIONS]&#8230;&#8203; [allergies/ALLERGIES]&#8230;&#8203; [preferredDoc/PREFERRED_DOC]</code></p>
+<p>You can add a patient to the clinic record.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>addpatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]&#8230;&#8203; [med/MEDICATIONS]&#8230;&#8203; [alrg/ALLERGIES]&#8230;&#8203; [preDr/PREFERRED_DOC]</code></p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -535,16 +537,28 @@ A patient does not need to choose a preferred doctor.
 </tr>
 </table>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You must choose a preferred doctor that exists inside ClinicIO record.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Examples:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>addpatient n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John street, block 123, #01-01 allergies/Dairy Products</code></p>
+<p><code>addpatient n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John street, block 123, #01-01 alrg/Dairy Products</code></p>
 </li>
 <li>
-<p><code>addpatient n/Betsy Crowe ic/S2231414A e/betsycrowe@example.com a/Newgate Prison p/1234567 medProb/High Blood Pressure, Asthma</code></p>
+<p><code>addpatient n/Betsy Crowe ic/S2231414A e/betsycrowe@example.com a/Newgate Prison p/1234567 medProb/High Blood Pressure med/Chlorothiazide</code></p>
 </li>
 </ul>
 </div>
@@ -560,7 +574,7 @@ Format: <code>listpatient</code></p>
 <h4 id="editing-a-patient-code-editpatient-code-code-coming-in-v2-0-code"><a class="link" href="#editing-a-patient-code-editpatient-code-code-coming-in-v2-0-code">4.3.3. Editing a patient : <code>editpatient</code> <code>[coming in v2.0]</code></a></h4>
 <div class="paragraph">
 <p>You can edit an existing patient in the clinic record.<br>
-Format: <code>editpatient INDEX [n/NAME] [ic/NRIC] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [medProb/MEDICAL_PROBLEMS]&#8230;&#8203; [medList/MEDICATIONS]&#8230;&#8203; [allergies/ALLERGIES]&#8230;&#8203; [preferredDoc/PREFERRED_DOC]</code></p>
+Format: <code>editpatient INDEX [n/NAME] [ic/NRIC] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [medProb/MEDICAL_PROBLEMS]&#8230;&#8203; [med/MEDICATIONS]&#8230;&#8203; [alrg/ALLERGIES]&#8230;&#8203; [preDr/PREFERRED_DOC]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -582,13 +596,13 @@ Format: <code>editpatient INDEX [n/NAME] [ic/NRIC] [p/PHONE_NUMBER] [e/EMAIL] [a
 <p>You can remove all the patient&#8217;s medical problems by typing <code>medProb/</code> without specifying any medical problems after it.</p>
 </li>
 <li>
-<p>You can remove all the patient&#8217;s medications by typing <code>medList/</code> without specifying any medications after it.</p>
+<p>You can remove all the patient&#8217;s medications by typing <code>med/</code> without specifying any medications after it.</p>
 </li>
 <li>
-<p>You can remove all the patient&#8217;s allergies by typing <code>allergies/</code> without specifying any allergies after it.</p>
+<p>You can remove all the patient&#8217;s allergies by typing <code>alrg/</code> without specifying any allergies after it.</p>
 </li>
 <li>
-<p>You can remove all the patient&#8217;s preferred doctor by typing <code>preferredDoc/</code> without specifying any preferred doctor after it.</p>
+<p>You can remove all the patient&#8217;s preferred doctor by typing <code>preDr/</code> without specifying any preferred doctor after it.</p>
 </li>
 </ul>
 </div>
@@ -1339,7 +1353,7 @@ Cancels the 4th appointment in the list.</p>
 <ul>
 <li>
 <p><strong>Login</strong> : <code>login r/ROLE n/NAME pass/PASSWORD</code><br>
-e.g. <code>login r/doctor n/Adam Bell pass/-------</code></p>
+e.g. <code>login r/doctor n/Adam Bell pass/doctor1</code></p>
 </li>
 <li>
 <p><strong>Logout</strong> : <code>logout</code></p>
@@ -1352,15 +1366,15 @@ e.g. <code>login r/doctor n/Adam Bell pass/-------</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Add patient</strong> <code>addpatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]&#8230;&#8203; [medList/MEDICATIONS]&#8230;&#8203; [allergies/ALLERGIES]&#8230;&#8203; [preferredDoc/PREFERRED_DOC]</code><br>
-e.g. <code>addpatient n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John&#8217;s Lane, block 123, #01-01 allergies/Dairy Products</code></p>
+<p><strong>Add patient</strong> <code>addpatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]&#8230;&#8203; [med/MEDICATIONS]&#8230;&#8203; [alrg/ALLERGIES]&#8230;&#8203; [preDr/PREFERRED_DOC]</code><br>
+e.g. <code>addpatient n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John&#8217;s Lane, block 123, #01-01 alrg/Dairy Products</code></p>
 </li>
 <li>
 <p><strong>Delete patient</strong> : <code>deletepatient INDEX</code><br>
 e.g. <code>deletepatient 3</code></p>
 </li>
 <li>
-<p><strong>Edit patient</strong> : <code>editpatient INDEX [n/NAME] [ic/NRIC] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [medProb/MEDICAL_PROBLEMS]&#8230;&#8203; [medList/MEDICATIONS]&#8230;&#8203; [allergies/ALLERGIES]&#8230;&#8203; [preferredDoc/PREFERRED_DOC]</code><br>
+<p><strong>Edit patient</strong> : <code>editpatient INDEX [n/NAME] [ic/NRIC] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [medProb/MEDICAL_PROBLEMS]&#8230;&#8203; [med/MEDICATIONS]&#8230;&#8203; [alrg/ALLERGIES]&#8230;&#8203; [preDr/PREFERRED_DOC]</code><br>
 e.g. <code>editpatient 2 n/James Lee e/jameslee@example.com</code></p>
 </li>
 <li>
@@ -1471,4 +1485,4 @@ e.g. <code>cancelappt 2</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 11:35:28 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 13:53:35 UTC</div></div></div></body></html>
