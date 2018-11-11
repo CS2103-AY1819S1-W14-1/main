@@ -69,7 +69,42 @@ In addition, this guide provides in-depth documentation for all features.</p>
 You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.<br></p>
 </div>
 <div class="paragraph">
-<p>Go to the <a href="#installation-guide">Section 2, &#8220;Installation Guide&#8221;</a> to get started on install ClinicIO.</p>
+<p>As a doctor, you will be able to do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>View patient record</p>
+</li>
+<li>
+<p>Enter patient additional medical information.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As a receptionist, you will be able to do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Manage patient record</p>
+</li>
+<li>
+<p>Manage clinic queue</p>
+</li>
+<li>
+<p>Manage medicine inventory in the clinic</p>
+</li>
+<li>
+<p>Manage future patient appointment</p>
+</li>
+<li>
+<p>View statistics and export data.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Head to the <a href="#installation-guide">Section 2, &#8220;Installation Guide&#8221;</a> to get started on install ClinicIO.</p>
 </div>
 </div>
 </div>
@@ -409,7 +444,7 @@ Format: <code>login r/ROLE n/NAME pass/PASSWORD</code><br></p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-Do not use this feature if you are already logged in.<br>
+If you have already logged in, you cannot login again.<br>
 </td>
 </tr>
 </table>
@@ -564,10 +599,44 @@ You must choose a preferred doctor that exists inside ClinicIO record.
 </div>
 </div>
 <div class="sect3">
-<h4 id="listing-all-patients-code-listpatient-code-code-coming-in-v2-0-code"><a class="link" href="#listing-all-patients-code-listpatient-code-code-coming-in-v2-0-code">4.3.2. Listing all patients : <code>listpatient</code> <code>[coming in v2.0]</code></a></h4>
+<h4 id="deleting-a-patient-code-deletepatient-code-code-coming-in-v2-0-code"><a class="link" href="#deleting-a-patient-code-deletepatient-code-code-coming-in-v2-0-code">4.3.2. Deleting a patient : <code>deletepatient</code> <code>[coming in v2.0]</code></a></h4>
 <div class="paragraph">
-<p>You can view a list of all patients in the clinic record.<br>
-Format: <code>listpatient</code></p>
+<p>You can delete the specified patient from the clinic record.<br>
+Format: <code>deletepatient INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the patient at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed patient list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>deletepatient 2</code><br>
+Deletes the 2nd patient in the clinic record.</p>
+</li>
+<li>
+<p><code>find Betsy</code><br>
+<code>deletepatient 1</code><br>
+Deletes the 1st patient in the results of the <code>find</code> command.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
@@ -625,10 +694,12 @@ Edits the name of the 2nd patient to be <code>Betsy Crower</code> and clears all
 </div>
 </div>
 <div class="sect3">
-<h4 id="locating-patients-by-name-code-findpatient-code-code-coming-in-v2-0-code"><a class="link" href="#locating-patients-by-name-code-findpatient-code-code-coming-in-v2-0-code">4.3.4. Locating patients by name: <code>findpatient</code> <code>[coming in v2.0]</code></a></h4>
+<h4 id="locating-patients-by-name-code-findpatient-code"><a class="link" href="#locating-patients-by-name-code-findpatient-code">4.3.4. Locating patients by name: <code>findpatient</code></a></h4>
 <div class="paragraph">
-<p>You can find patients whose names contain any of the given keywords.<br>
-Format: <code>findpatient KEYWORD [MORE_KEYWORDS]</code></p>
+<p>You can find patients whose names contain any of the given keywords.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>findpatient KEYWORD [MORE_KEYWORDS]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -670,44 +741,24 @@ Returns any patient having names <code>Betsy</code>, <code>Tim</code>, or <code>
 </div>
 </div>
 <div class="sect3">
-<h4 id="deleting-a-patient-code-deletepatient-code-code-coming-in-v2-0-code"><a class="link" href="#deleting-a-patient-code-deletepatient-code-code-coming-in-v2-0-code">4.3.5. Deleting a patient : <code>deletepatient</code> <code>[coming in v2.0]</code></a></h4>
+<h4 id="listing-all-patients-code-listpatient-code"><a class="link" href="#listing-all-patients-code-listpatient-code">4.3.5. Listing all patients : <code>listpatient</code></a></h4>
 <div class="paragraph">
-<p>You can delete the specified patient from the clinic record.<br>
-Format: <code>deletepatient INDEX</code></p>
+<p>You can view a list of all patients in the clinic record.<br></p>
 </div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Deletes the patient at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the displayed patient list.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+You must login in order to use this feature.<br>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-<code>deletepatient 2</code><br>
-Deletes the 2nd patient in the clinic record.</p>
-</li>
-<li>
-<p><code>find Betsy</code><br>
-<code>deletepatient 1</code><br>
-Deletes the 1st patient in the results of the <code>find</code> command.</p>
-</li>
-</ul>
+<p>Format: <code>listpatient</code></p>
 </div>
 </div>
 <div class="sect3">
@@ -1309,13 +1360,17 @@ Cancels the 4th appointment in the list.</p>
 <div class="paragraph">
 <p>This section is designed to help you answer any issues that are frequently asked by others.</p>
 </div>
-<div class="paragraph">
-<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
-<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClinicIO folder.</p>
-</div>
-<div class="paragraph">
-<p><strong>Q</strong>: How to save data in ClinicIO?<br>
-<strong>A</strong>: There is no need for you to save manually. ClinicIO will automatically save data to the hard disk after any command that changes the data.<br></p>
+<div class="qlist qanda">
+<ol>
+<li>
+<p><em>How do I transfer my data to another Computer?</em></p>
+<p>Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClinicIO folder.</p>
+</li>
+<li>
+<p><em>How to save data in ClinicIO?</em></p>
+<p>There is no need for you to save manually. ClinicIO will automatically save data to the hard disk after any command that changes the data.<br></p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -1485,4 +1540,4 @@ e.g. <code>cancelappt 2</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 17:56:14 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 19:50:53 UTC</div></div></div></body></html>
