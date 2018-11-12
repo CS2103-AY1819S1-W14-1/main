@@ -593,12 +593,92 @@ Selects the 1st patient in the results of the <code>find</code> command.</p>
 </tbody>
 </table>
 <div class="sect2">
+<h3 id="patient-management-2"><a class="link" href="#patient-management-2">Patient Management</a></h3>
+<div class="paragraph">
+<p>ClinicIO provides a centralised patient management system to allow you to manage the clinic’s patient record more efficiently.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
+<div class="paragraph">
+<p>The Patient Management comprises of <code>AddPatientCommand</code>, <code>ListPatientCommand</code>, <code>EditPatientCommand</code> and <code>DeletePatientCommand</code>
+which is the equivalent of <a href="#crud">Create, Read, Update and Delete (CRUD)</a>.</p>
+</div>
+<div class="sect4">
+<h5 id="code-addpatientcommand-code"><a class="link" href="#code-addpatientcommand-code"><code>AddPatientCommand</code></a></h5>
+<div class="paragraph">
+<p>The <code>AddPatientCommand</code> add patient to the ClinicIO. <code>AddPatientCommand</code> requires the current <code>UserSession</code> to be login as a receptionist
+in order to add patient.</p>
+</div>
+<div class="paragraph">
+<p>The following code snippet shows how <code>AddPatientCommand</code> is executed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="annotation">@Override</span>
+    <span class="directive">public</span> CommandResult execute(Model model, CommandHistory history)
+            <span class="directive">throws</span> CommandException {
+        requireNonNull(model);
+
+        <span class="keyword">if</span> (!UserSession.isLogin()) { <i class="conum" data-value="1"></i><b>(1)</b>
+            <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_NOT_LOGIN);
+        } <span class="keyword">else</span> <span class="keyword">if</span> (model.hasPatient(toAdd)) { <i class="conum" data-value="2"></i><b>(2)</b>
+            <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_DUPLICATE_PATIENT);
+        }
+
+        model.addPatient(toAdd); <i class="conum" data-value="3"></i><b>(3)</b>
+        model.commitClinicIo();
+        <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(<span class="predefined-type">String</span>.format(MESSAGE_SUCCESS, toAdd));    }
+    }</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Check if user is login as receptionist</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Check if there is an existing patient record in ClinicIO</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Add patient to ClinicIO</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="code-listpatientcommand-code"><a class="link" href="#code-listpatientcommand-code"><code>ListPatientCommand</code></a></h5>
+<div class="paragraph">
+<p>The <code>ListPatientCommand</code> retrieve all patients in the <code>UniquePatientList</code> by creating a FilteredAppointmentList and display all patients in the <code>PatientListPanel</code>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="code-editpatientcommand-code"><a class="link" href="#code-editpatientcommand-code"><code>EditPatientCommand</code></a></h5>
+<div class="paragraph">
+<p>{Add implementation}</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="code-deletepatientcommand-code"><a class="link" href="#code-deletepatientcommand-code"><code>DeletePatientCommand</code></a></h5>
+<div class="paragraph">
+<p>{Add implementation}</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+
+</div>
+</div>
+<div class="sect2">
 <h3 id="user-authentication-2"><a class="link" href="#user-authentication-2">User Authentication</a></h3>
 <div class="paragraph">
 <p>ClinicIO ensures appropriate user access rights are issued by authenticating users at login.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">Current Implementation</a></h4>
 <div class="paragraph">
 <p>The User Authentication feature comprises of <code>LoginCommand</code> and <code>LogoutCommand</code>.</p>
 </div>
@@ -662,12 +742,16 @@ The implemented operations include:<br></p>
 <p>Step 6: Once verification has been made successfully, the <code>login</code> command raise an <code>SuccessfulLoginEvent</code> to indicate that a successful attempt to login has been made.<br></p>
 </div>
 <div class="paragraph">
-<p>The following sequence diagram shows how the login works:</p>
+<p>The following sequence diagrams shows how the login works:</p>
+</div>
+<div class="paragraph">
+<p><strong>Logic</strong></p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="../images/LoginSequenceDiagram.png" alt="LoginSequenceDiagram" width="1080">
 </div>
+<div class="title">Figure 1. Sequence Diagram for the <code>LoginCommand</code> for the logic component.</div>
 </div>
 <div class="paragraph">
 <p>The following activity diagram summarizes what happens when a user executes <code>LoginCommand</code>:</p>
@@ -676,6 +760,7 @@ The implemented operations include:<br></p>
 <div class="content">
 <img src="../images/LoginActivityDiagram.png" alt="LoginActivityDiagram" width="1080">
 </div>
+<div class="title">Figure 2. Activity Diagram for the <code>LoginCommand</code></div>
 </div>
 </div>
 <div class="sect4">
@@ -700,7 +785,7 @@ each other explicitly.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-retrieval-of-password"><a class="link" href="#aspect-retrieval-of-password">Aspect: Retrieval of password</a></h5>
 <div class="ulist">
@@ -775,4 +860,4 @@ to ClinicIO.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 19:52:48 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 00:16:41 UTC</div></div></div></body></html>
