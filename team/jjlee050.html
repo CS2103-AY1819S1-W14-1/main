@@ -663,7 +663,7 @@ Selects the 1st patient in the results of the <code>find</code> command.</p>
 <h3 id="patient-management-feature"><a class="link" href="#patient-management-feature">Patient Management feature</a></h3>
 <div class="paragraph">
 <p>ClinicIO provides a centralised patient management system to allow you to manage the clinic’s patient record more efficiently.
-This patient management is the equivalent of <a href="#crud">Create, Read, Update and Delete (CRUD)</a>.</p>
+This patient management is the equivalent of Create, Read, Update and Delete (CRUD).</p>
 </div>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
@@ -702,6 +702,33 @@ This patient management is the equivalent of <a href="#crud">Create, Read, Updat
 The <code>AddPatientCommandParser</code> can parse command as usual despite not having a list of medical problems and medications, allergies and a preferred doctor.
 Furthermore, <code>addpatient</code> command requires user to be login as a receptionist in order to add patient. If the <code>preDr</code> prefix is being specify, user must ensure
 that the <code>preferredDoctor</code> exists inside the staff records.</p>
+</div>
+<div class="paragraph">
+<p>Here is a step-by-step on how <code>addpatient</code> command execute:<br></p>
+</div>
+<div class="paragraph">
+<p>Step 1: The user executes the <code>addpatient</code> command.<br></p>
+</div>
+<div class="paragraph">
+<p>Step 2: The <code>addpatient</code> command calls <code>UserSession#isLoginAsReceptionist()</code> to ensure that user is logged in as a receptionist.<br></p>
+</div>
+<div class="paragraph">
+<p>Step 3: Once the verfication has been made, the <code>addpatient</code> command call <code>Model#hasPatient()</code> to avoid duplicate patient being added.<br></p>
+</div>
+<div class="paragraph">
+<p>Step 4: Once the verfication has been made, the <code>addpatient</code> command call <code>Model#hasStaff()</code> and <code>preferredDoctor.getRole().equals(DOCTOR)</code> to check if the preferred doctor is a doctor in ClinicIO.<br></p>
+</div>
+<div class="paragraph">
+<p>Step 5: Once the verfication has been made, the <code>addpatient</code> command call <code>Model#addPatient</code> to add patient to the patient record.</p>
+</div>
+<div class="paragraph">
+<p>Step 6: The <code>addpatient</code> command raises a <code>SwitchTabEvent</code> to notify ui to switch tabs.<br></p>
+</div>
+<div class="paragraph">
+<p>Step 7: The <code>addpatient</code> command call <code>Model#commitClinicIo()</code> to finalise the changes made to the patient record.</p>
+</div>
+<div class="paragraph">
+<p>Step 8: The <code>addpatient</code> command provide the success message to indicate that patient has been added to ClinicIO.</p>
 </div>
 <div class="paragraph">
 <p>The following code snippet shows how <code>addpatient</code> Command is executed:</p>
@@ -768,17 +795,118 @@ that the <code>preferredDoctor</code> exists inside the staff records.</p>
 <div class="paragraph">
 <p>The <code>listpatient</code> Command retrieve all patients in the <code>UniquePatientList</code> by creating a FilteredAppointmentList and display all patients in the <code>PatientListPanel</code>.</p>
 </div>
+<div class="paragraph">
+<p>Here is a step-by-step on how <code>listpatient</code> command execute:<br></p>
+</div>
+<div class="paragraph">
+<p>Step 1: The user executes the <code>listpatient</code> command.<br></p>
+</div>
+<div class="paragraph">
+<p>Step 2: The <code>listpatient</code> command calls <code>UserSession#isLogin()</code> to ensure that user is logged in.<br></p>
+</div>
+<div class="paragraph">
+<p>Step 3: Once the verfication has been made, the <code>listpatient</code> command call <code>Model#updateFilteredPatientList()</code> to retrieve all patients found in <code>UniqueStaffList</code>.<br></p>
+</div>
+<div class="paragraph">
+<p>Step 4: The <code>listpatient</code> command raises a <code>SwitchTabEvent</code> to notify ui to switch tabs.<br></p>
+</div>
 </div>
 <div class="sect4">
 <h5 id="code-findpatient-code-command"><a class="link" href="#code-findpatient-code-command"><code>findpatient</code> Command</a></h5>
 <div class="paragraph">
-<p>The <code>findpatient</code></p>
+<p>The <code>findpatient</code> Command find patient with the name as keywords using <code>PatientNameContainsKeywordsPredicate</code>.</p>
+</div>
+<div class="paragraph">
+<p>Here is a step-by-step on how <code>findpatient</code> command execute:<br></p>
+</div>
+<div class="paragraph">
+<p>Step 1: The user executes the <code>findpatient</code> command by specifying all the names to search.<br></p>
+</div>
+<div class="paragraph">
+<p>Step 2: The <code>findPatient</code> command calls <code>UserSession#isLogin()</code> to ensure that user is logged in.<br></p>
+</div>
+<div class="paragraph">
+<p>Step 3: Once the verfication has been made, the <code>findpatient</code> command call <code>Model#updateFilteredPatientList()</code> to retrieve all patients found in <code>UniqueStaffList</code> containing keywords in <code>PatientNameContainsKeywordsPredicate</code>.<br></p>
+</div>
+<div class="paragraph">
+<p>Step 4: The <code>findpatient</code> command raises a <code>SwitchTabEvent</code> to notify ui to switch tabs.<br></p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how <code>findpatient</code> command works:</p>
+</div>
+<div class="paragraph">
+<p><strong>Logic</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/FindPatientLogicSequenceDiagram.png" alt="FindPatientLogicSequenceDiagram" width="1080">
+</div>
+<div class="title">Figure 11. Sequence Diagram for the <code>findpatient</code> Command for the logic component.</div>
+</div>
+<div class="paragraph">
+<p> <br>
+<strong>Model</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/FindPatientModelSequenceDiagram.png" alt="FindPatientModelSequenceDiagram" width="1080">
+</div>
+<div class="title">Figure 12. Sequence Diagram for the <code>findpatient</code> Command for the model component.</div>
+</div>
+<div class="paragraph">
+<p> <br>
+<strong>Commons</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/FindPatientCommonsSequenceDiagram.png" alt="FindPatientCommonsSequenceDiagram" width="1080">
+</div>
+<div class="title">Figure 13. Sequence Diagram for the <code>findpatient</code> Command for the commons component.</div>
+</div>
+<div class="paragraph">
+<p> <br></p>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
-
+<div class="sect4">
+<h5 id="aspect-manipulate-the-list"><a class="link" href="#aspect-manipulate-the-list">Aspect: Manipulate the list</a></h5>
+<div class="paragraph">
+<p>There are various places to execute command. Here are some options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Handle at the model component</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros : Prevent logic from being heavy of data manipulaiton.</p>
+</li>
+<li>
+<p>Cons : Too challenging to ensure all necessary methods are at the model.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: Handle at the logic component</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement by retrieving the <code>UniquePatientList</code> to do manipulation of data</p>
+</li>
+<li>
+<p>Cons: Loses the purpose of having model and logic components. The logic will be
+loaded with codes while model will be light on codes.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -808,7 +936,7 @@ that the <code>preferredDoctor</code> exists inside the staff records.</p>
 <div class="content">
 <img src="../images/LoginClassDiagram.png" alt="LoginClassDiagram" width="1080">
 </div>
-<div class="title">Figure 11. Class Diagram for the Staff.</div>
+<div class="title">Figure 14. Class Diagram for the Staff.</div>
 </div>
 <div class="sect4">
 <h5 id="code-login-code-command"><a class="link" href="#code-login-code-command"><code>login</code> Command</a></h5>
@@ -876,7 +1004,7 @@ The implemented operations include:<br></p>
 <div class="content">
 <img src="../images/LoginLogicSequenceDiagram.png" alt="LoginLogicSequenceDiagram" width="1080">
 </div>
-<div class="title">Figure 12. Sequence Diagram for the <code>login</code> Command for the logic component.</div>
+<div class="title">Figure 15. Sequence Diagram for the <code>login</code> Command for the logic component.</div>
 </div>
 <div class="paragraph">
 <p> <br>
@@ -886,7 +1014,7 @@ The implemented operations include:<br></p>
 <div class="content">
 <img src="../images/LoginModelSequenceDiagram.png" alt="LoginModelSequenceDiagram" width="1080">
 </div>
-<div class="title">Figure 13. Sequence Diagram for the <code>login</code> Command for the model component.</div>
+<div class="title">Figure 16. Sequence Diagram for the <code>login</code> Command for the model component.</div>
 </div>
 <div class="paragraph">
 <p> <br>
@@ -896,7 +1024,7 @@ The implemented operations include:<br></p>
 <div class="content">
 <img src="../images/LoginCommonsSequenceDiagram.png" alt="LoginCommonsSequenceDiagram" width="1080">
 </div>
-<div class="title">Figure 14. Sequence Diagram for the <code>login</code> Command for the commons component.</div>
+<div class="title">Figure 17. Sequence Diagram for the <code>login</code> Command for the commons component.</div>
 </div>
 <div class="paragraph">
 <p> <br>
@@ -906,7 +1034,7 @@ The following activity diagram summarizes what happens when a user executes <cod
 <div class="content">
 <img src="../images/LoginActivityDiagram.png" alt="LoginActivityDiagram" width="1080">
 </div>
-<div class="title">Figure 15. Activity Diagram for the <code>login</code> Command</div>
+<div class="title">Figure 18. Activity Diagram for the <code>login</code> Command</div>
 </div>
 <div class="paragraph">
 <p> <br></p>
@@ -920,10 +1048,10 @@ the <code>EventCenter</code> to communicate between components without requiring
 each other explicitly.</p>
 </div>
 <div class="paragraph">
-<p>Here is a step-by-step on how <code>LogoutCommand</code> notify <code>MainWindow</code> that you want to log out of ClinicIo:<br></p>
+<p>Here is a step-by-step on how <code>logout</code> command notify <code>MainWindow</code> that you want to log out of ClinicIo:<br></p>
 </div>
 <div class="paragraph">
-<p>Step 1: The <code>LogoutCommand</code> post a new <code>LogoutClinicIoEvent</code> to the <code>EventsCenter</code>.</p>
+<p>Step 1: The <code>logout</code> command post a new <code>LogoutClinicIoEvent</code> to the <code>EventsCenter</code>.</p>
 </div>
 <div class="paragraph">
 <p>Step 2: The <code>eventBus</code> post the newly created <code>LogoutClinicIoEvent</code> (from Step 1) to make the event available to any listeners in <code>EventBus</code>.</p>
@@ -1009,4 +1137,4 @@ to ClinicIO.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:05:37 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:12:56 UTC</div></div></div></body></html>
