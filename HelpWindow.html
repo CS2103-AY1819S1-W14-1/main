@@ -31,7 +31,7 @@
 <li><a href="#user-authentication">4.2. User Authentication</a></li>
 <li><a href="#patient-management">4.3. Patient Management</a></li>
 <li><a href="#queue-commands">4.4. Queue Commands</a></li>
-<li><a href="#data-commands">4.5. Data Commands</a></li>
+<li><a href="#data-management">4.5. Data Management</a></li>
 <li><a href="#medicine-inventory-commands">4.6. Medicine Inventory Commands</a></li>
 <li><a href="#appointment-commands">4.7. Appointment Commands</a></li>
 </ul>
@@ -43,7 +43,7 @@
 <li><a href="#user-authentication-commands">6.2. User Authentication Commands</a></li>
 <li><a href="#patient-management-commands">6.3. Patient Management Commands</a></li>
 <li><a href="#queue-commands-2">6.4. Queue Commands</a></li>
-<li><a href="#data-commands-2">6.5. Data Commands</a></li>
+<li><a href="#data-commands">6.5. Data Commands</a></li>
 <li><a href="#medicine-inventory-commands-2">6.6. Medicine Inventory Commands</a></li>
 <li><a href="#appointment-commands-2">6.7. Appointment Commands</a></li>
 </ul>
@@ -903,9 +903,59 @@ Selects the 1st Cassandra as displayed in the list resulting from the <code>find
 </div>
 </div>
 <div class="sect2">
-<h3 id="data-commands"><a class="link" href="#data-commands">4.5. Data Commands</a></h3>
+<h3 id="data-management"><a class="link" href="#data-management">4.5. Data Management</a></h3>
 <div class="sect3">
-<h4 id="displaying-patient-statistics-code-patientstats-code-code-coming-in-v2-0-code"><a class="link" href="#displaying-patient-statistics-code-patientstats-code-code-coming-in-v2-0-code">4.5.1. Displaying patient statistics : <code>patientstats</code> <code>[coming in v2.0]</code></a></h4>
+<h4 id="analytics"><a class="link" href="#analytics">4.5.1. Analytics</a></h4>
+<div class="paragraph">
+<p>The analytics feature allows users to view statistics across the various functions of a clinic. These are viewed in
+isolation with separate commands for each department. However, they share a similar user interface composed of two
+distinct sections. They are the <strong>summary</strong> and the <strong>visualizations</strong> as shown in the following screenshot:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AnalyticsScreenshot.png" alt="AnalyticsScreenshot" width="500">
+</div>
+</div>
+<div class="sect4">
+<h5 id="summary"><a class="link" href="#summary">Summary</a></h5>
+<div class="paragraph">
+<p>The summary displays the number of occurrences of events such as the <code>Number of appointments</code> in the screenshot above.
+They can be raw totals or averages. This will be indicated by the title. The numbers are categorized according to the
+following time periods:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>Today</code>: The occurrences on the present real life date.</p>
+</li>
+<li>
+<p><code>This Week</code>: The occurrences in the present real life week spanning from Monday to Sunday.</p>
+</li>
+<li>
+<p><code>This Month</code>: The occurrences in the present real life month.</p>
+</li>
+<li>
+<p><code>This Year</code>: The occurrences in the present real life year.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="visualizations"><a class="link" href="#visualizations">Visualizations</a></h5>
+<div class="paragraph">
+<p>The pane below the summary displays visualizations. There may be multiple visualizations which can be cycled through
+using the <code>Next</code> and <code>Previous</code> buttons. The visualizations may be either one of a vertical bar chart, horizontal bar
+chart, vertically stacked bar chart or a line chart.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="analytics-commands"><a class="link" href="#analytics-commands">4.5.2. Analytics Commands</a></h4>
+<div class="paragraph">
+<p>The following commands can be used to display the different types of statistics.</p>
+</div>
+<div class="sect4">
+<h5 id="displaying-patient-statistics-code-patientstats-code"><a class="link" href="#displaying-patient-statistics-code-patientstats-code">Displaying patient statistics : <code>patientstats</code></a></h5>
 <div class="paragraph">
 <p>Displays the following information about patients:</p>
 </div>
@@ -930,8 +980,8 @@ Selects the 1st Cassandra as displayed in the list resulting from the <code>find
 <p>Format: <code>patientstats</code></p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="displaying-appointment-statistics-code-apptstats-code"><a class="link" href="#displaying-appointment-statistics-code-apptstats-code">4.5.2. Displaying appointment statistics : <code>apptstats</code></a></h4>
+<div class="sect4">
+<h5 id="displaying-appointment-statistics-code-apptstats-code"><a class="link" href="#displaying-appointment-statistics-code-apptstats-code">Displaying appointment statistics : <code>apptstats</code></a></h5>
 <div class="paragraph">
 <p>Displays the following information about appointments:</p>
 </div>
@@ -945,6 +995,9 @@ Selects the 1st Cassandra as displayed in the list resulting from the <code>find
 <li>
 <p>The availability of appointment slots as compared to the number of scheduled appointments.</p>
 </li>
+<li>
+<p>The number of appointments scheduled for each month in the current year.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -953,8 +1006,8 @@ Selects the 1st Cassandra as displayed in the list resulting from the <code>find
 <p>Format: <code>apptstats</code></p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="displaying-doctor-statistics-code-doctorstats-code"><a class="link" href="#displaying-doctor-statistics-code-doctorstats-code">4.5.3. Displaying doctor statistics : <code>doctorstats</code></a></h4>
+<div class="sect4">
+<h5 id="displaying-doctor-statistics-code-doctorstats-code"><a class="link" href="#displaying-doctor-statistics-code-doctorstats-code">Displaying doctor statistics : <code>doctorstats</code></a></h5>
 <div class="paragraph">
 <p>Displays the following information about doctors:</p>
 </div>
@@ -968,6 +1021,9 @@ Selects the 1st Cassandra as displayed in the list resulting from the <code>find
 <li>
 <p>The number of patient preferences for each doctor.</p>
 </li>
+<li>
+<p>The total number of consultations for each doctor.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -976,163 +1032,152 @@ Selects the 1st Cassandra as displayed in the list resulting from the <code>find
 <p>Format: <code>doctorstats</code></p>
 </div>
 </div>
+</div>
 <div class="sect3">
-<h4 id="displaying-medicine-statistics-code-medstats-code-code-coming-in-v2-0-code"><a class="link" href="#displaying-medicine-statistics-code-medstats-code-code-coming-in-v2-0-code">4.5.4. Displaying medicine statistics : <code>medstats</code> <code>[coming in v2.0]</code></a></h4>
+<h4 id="exporting-patient-data"><a class="link" href="#exporting-patient-data">4.5.3. Exporting Patient Data</a></h4>
 <div class="paragraph">
-<p>Displays the following information about medicines:</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>A summary of the quantity of medicines prescribed over various time periods.</p>
-</li>
-<li>
-<p>The average spending on medicines per patient.</p>
-</li>
-<li>
-<p>A breakdown of medicines by their quantity issued.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Format: <code>medstats</code></p>
+<p>ClinicIO allows the exporting of patient related data to Comma Separated Values (csv) files. The filenames are
+predetermined and specific to the type of data being exported. The files are generated in the same file directory as the
+program.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="exporting-patient-personal-information-code-exportpatients-code"><a class="link" href="#exporting-patient-personal-information-code-exportpatients-code">4.5.5. Exporting patient personal information : <code>exportpatients</code></a></h4>
+<h4 id="export-commands"><a class="link" href="#export-commands">4.5.4. Export Commands</a></h4>
+<div class="paragraph">
+<p>The following commands can be used to export the different types of patient data.</p>
+</div>
+<div class="sect4">
+<h5 id="exporting-patient-personal-information-code-exportpatients-code"><a class="link" href="#exporting-patient-personal-information-code-exportpatients-code">Exporting patient personal information : <code>exportpatients</code></a></h5>
 <div class="paragraph">
 <p>Exports all patients' personal information to a csv file named <code>ClinicIO_patientdata.csv</code>.<br>
 Format: <code>exportpatients</code></p>
 </div>
 <div class="paragraph">
-<p>The personal information consists of the following fields:</p>
+<p>The personal information consists of the following fields, in order:</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Name: the patient&#8217;s name.</p>
+<p><code>Name</code>: the patient&#8217;s name.</p>
 </li>
 <li>
-<p>Address: the patient&#8217;s address.</p>
+<p><code>Address</code>: the patient&#8217;s address.</p>
 </li>
 <li>
-<p>Phone: the patient&#8217;s phone number.</p>
+<p><code>Phone</code>: the patient&#8217;s phone number.</p>
 </li>
 <li>
-<p>Email: the patient&#8217;s email address.</p>
+<p><code>Email</code>: the patient&#8217;s email address.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="exporting-patients-appointment-records-code-exportpatientsappointments-code"><a class="link" href="#exporting-patients-appointment-records-code-exportpatientsappointments-code">4.5.6. Exporting patients appointment records : <code>exportpatientsappointments</code></a></h4>
+<div class="sect4">
+<h5 id="exporting-patients-appointment-records-code-exportpatientsappointments-code"><a class="link" href="#exporting-patients-appointment-records-code-exportpatientsappointments-code">Exporting patients appointment records : <code>exportpatientsappointments</code></a></h5>
 <div class="paragraph">
 <p>Exports all patients' appointment records to csv file named <code>ClinicIO_patientsappointments.csv</code>.<br>
 Format: <code>exportpatientsappointments</code></p>
 </div>
 <div class="paragraph">
-<p>Each appointment record consists of the following fields:</p>
+<p>Each appointment record consists of the following fields, in order:</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Name: the patient&#8217;s name.</p>
+<p><code>Name</code>: the patient&#8217;s name.</p>
 </li>
 <li>
-<p>Address: the patient&#8217;s address.</p>
+<p><code>Address</code>: the patient&#8217;s address.</p>
 </li>
 <li>
-<p>Phone: the patient&#8217;s phone number.</p>
+<p><code>Phone</code>: the patient&#8217;s phone number.</p>
 </li>
 <li>
-<p>Email: the patient&#8217;s email address.</p>
+<p><code>Email</code>: the patient&#8217;s email address.</p>
 </li>
 <li>
-<p>Date: the appointment&#8217;s date.</p>
+<p><code>Date</code>: the appointment&#8217;s date.</p>
 </li>
 <li>
-<p>Time: the appointment&#8217;s time.</p>
+<p><code>Time</code>: the appointment&#8217;s time.</p>
 </li>
 <li>
-<p>Status: the appointment&#8217;s status. May be either <code>APPROVED</code> or <code>CANCELLED</code>.</p>
+<p><code>Status</code>: the appointment&#8217;s status. May be either <code>APPROVED</code> or <code>CANCELLED</code>.</p>
 </li>
 <li>
-<p>Type: the type of appointment. May be either <code>NEW</code> or <code>FOLLOW_UP</code>.</p>
+<p><code>Type</code>: the type of appointment. May be either <code>NEW</code> or <code>FOLLOW_UP</code>.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Go to <a href="#appointment-commands">Section 4.7, &#8220;Appointment Commands&#8221;</a> for more details.</p>
+<p>Go to <a href="#appointment-commands">Section 4.7, &#8220;Appointment Commands&#8221;</a> for more details on appointments.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="exporting-patients-consultation-records-code-exportpatientsconsultations-code"><a class="link" href="#exporting-patients-consultation-records-code-exportpatientsconsultations-code">4.5.7. Exporting patients consultation records : <code>exportpatientsconsultations</code></a></h4>
+<div class="sect4">
+<h5 id="exporting-patients-consultation-records-code-exportpatientsconsultations-code"><a class="link" href="#exporting-patients-consultation-records-code-exportpatientsconsultations-code">Exporting patients consultation records : <code>exportpatientsconsultations</code></a></h5>
 <div class="paragraph">
 <p>Exports all patients' consultation records to csv file named <code>ClinicIO_patientsconsultations.csv</code>.<br>
 Format: <code>exportpatientsconsultations</code></p>
 </div>
 <div class="paragraph">
-<p>Each consultation record consists of the following fields:</p>
+<p>Each consultation record consists of the following fields, in order:</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Name: the patient&#8217;s name.</p>
+<p><code>Name</code>: the patient&#8217;s name.</p>
 </li>
 <li>
-<p>Address: the patient&#8217;s address.</p>
+<p><code>Address</code>: the patient&#8217;s address.</p>
 </li>
 <li>
-<p>Phone: the patient&#8217;s phone number.</p>
+<p><code>Phone</code>: the patient&#8217;s phone number.</p>
 </li>
 <li>
-<p>Email: the patient&#8217;s email address.</p>
+<p><code>Email</code>: the patient&#8217;s email address.</p>
 </li>
 <li>
-<p>Date: the consultation&#8217;s date.</p>
+<p><code>Date</code>: the consultation&#8217;s date.</p>
 </li>
 <li>
-<p>Arrival Time: the arrival time of the patient at the clinic.</p>
+<p><code>Arrival Time</code>: the arrival time of the patient at the clinic.</p>
 </li>
 <li>
-<p>Consultation Time: the consultation&#8217;s start time.</p>
+<p><code>Consultation Time</code>: the consultation&#8217;s start time.</p>
 </li>
 <li>
-<p>End time: the end time of the consultation.</p>
+<p><code>End time</code>: the end time of the consultation.</p>
 </li>
 <li>
-<p>Doctor: the doctor being consulted.</p>
+<p><code>Doctor</code>: the doctor being consulted.</p>
 </li>
 <li>
-<p>Prescription: the prescribed ascribed to the patient.</p>
+<p><code>Prescription</code>: the prescribed ascribed to the patient.</p>
 </li>
 <li>
-<p>Description: the doctor&#8217;s notes on the patient.</p>
+<p><code>Description</code>: the doctor&#8217;s notes on the patient.</p>
 </li>
 <li>
-<p>Appointment: whether the consultation is the result of an appointment. May be either <code>YES</code> or <code>NO</code>.</p>
+<p><code>Appointment</code>: whether the consultation is the result of an appointment. May be either <code>YES</code> or <code>NO</code>.</p>
 </li>
 <li>
-<p>Appointment Date: the date of the appointment resulting in the consultation. Empty if no appointment was made.</p>
+<p><code>Appointment Date</code>: the date of the appointment resulting in the consultation. Empty if no appointment was made.</p>
 </li>
 <li>
-<p>Appointment Time: the time of the appointment resulting in the consultation. Empty if no appointment was made.</p>
+<p><code>Appointment Time</code>: the time of the appointment resulting in the consultation. Empty if no appointment was made.</p>
 </li>
 </ul>
+</div>
 </div>
 </div>
 </div>
@@ -1466,7 +1511,7 @@ e.g. <code>dequeuepatient 4</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="data-commands-2"><a class="link" href="#data-commands-2">6.5. Data Commands</a></h3>
+<h3 id="data-commands"><a class="link" href="#data-commands">6.5. Data Commands</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1540,4 +1585,4 @@ e.g. <code>cancelappt 2</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 03:24:42 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 03:39:20 UTC</div></div></div></body></html>

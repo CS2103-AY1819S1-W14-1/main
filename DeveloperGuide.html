@@ -1317,74 +1317,364 @@ In the example outlined in Step 5, if the <code>Model#hasMedicine(Paracetamol)</
 </div>
 <div class="sect2">
 <h3 id="analytics-feature"><a class="link" href="#analytics-feature">4.5. Analytics feature</a></h3>
-<div class="paragraph">
-<p>The analytics feature allows users to view numerical statistics and visualizations across the various functions of a
-clinic.</p>
-</div>
 <div class="sect3">
-<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">4.5.1. Current Implementation</a></h4>
+<h4 id="implementation-2"><a class="link" href="#implementation-2">4.5.1. Implementation</a></h4>
 <div class="paragraph">
-<p>The following class diagram represents the relationships between the classes in the <code>analytics</code> package.</p>
+<p>The following class diagram represents the relationships between classes in the <code>analytics</code> package.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/AnalyticsClassDiagram.png" alt="AnalyticsClassDiagram" width="800">
+<img src="images/AnalyticsClassDiagram.png" alt="AnalyticsClassDiagram" width="500">
 </div>
 </div>
 <div class="paragraph">
-<p>The abstract <code>Statistics</code> class specified methods for the computation and retrieval of two groups of statistics. The
+<p>The abstract <code>Statistics</code> class specifies methods for the computation and retrieval of two groups of statistics. The
 first group consists of statistics to be displayed as a summary while the second is for ones that are visualized. Each
 of the statistics classes inherit from <code>Statistics</code>. They are encapsulated in <code>Analytics</code> which acts as a
-wrapper class and employs the delegation pattern. Additionally, each of them depend on <code>DateTimeCount</code> which provides
-the number of occurrences for various date and time periods.</p>
+wrapper class for the various statistics and employs the delegation pattern. Each of the statistics classes may depend
+on`DateUtil` and <code>TimeUtil</code>. These classes contain utility methods for date and time information such as the number of
+occurrences in a certain date or time period. The occurrences can be of events such as appointments.</p>
 </div>
+<div class="sect4">
+<h5 id="data-management"><a class="link" href="#data-management">Data Management</a></h5>
 <div class="paragraph">
-<p>The following operations are implemented:<br></p>
+<p>Each of the statistics classes depend on the following classes for storing data:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>patientstats</code> Command - displays information on patients.</p>
+<p><code>StatData</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>acts as a structure to encapsulate all statistics data to be displayed for simpler transport from <code>Analytics</code> to
+<code>AnalyticsDisplay</code>.</p>
 </li>
 <li>
-<p><code>apptstats</code> Command - displays information on appointments.</p>
+<p>contains <code>SummaryData</code> and <code>CircularList</code> objects. The latter stores <code>VisualizationData</code> objects.</p>
 </li>
 <li>
-<p><code>doctorstats</code> Command - displays information on doctors.</p>
+<p>interfaces directly with the statistics classes to receive data.</p>
 </li>
 <li>
-<p><code>medstats</code> command - displays information on medicines.</p>
+<p>used by <code>AnalyticsDisplay</code> to obtain fields required to create summary and visualizations.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>SummaryData</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>acts as a structure to encapsulate information required to create summaries.</p>
+</li>
+<li>
+<p>contains the following fields:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>title</code>: the title of the summary information.</p>
+</li>
+<li>
+<p><code>summaryElements</code>: the texts and their accompanying values.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CircularList</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>used for storing <code>VisualizationData</code> objects. Allows visualizations to be cycled backwards and forwards on the user
+interface.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>VisualizationData</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>acts a structure to encapsulate information required to create visualizations.</p>
+</li>
+<li>
+<p>contains the following fields:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>id</code>: the id of the chart. Used as an identifier to apply Cascading Style Sheet (CSS) to style each chart
+individually.</p>
+</li>
+<li>
+<p><code>type</code>: the type of the chart. May be either one of a vertical bar chart, horizontal bar chart, vertically stacked
+bar chart or a line chart.</p>
+</li>
+<li>
+<p><code>isContinuous</code>: indicates if the chart is continuous or categorical. Used by <code>Plot</code> to create the appropriate chart.</p>
+</li>
+<li>
+<p><code>chartTitle</code>: the title of the chart.</p>
+</li>
+<li>
+<p><code>xTitle</code>: the title of the horizontal axis if the chart is vertical or the vertical axis if horizontal.</p>
+</li>
+<li>
+<p><code>yTitle</code>: the title of the vertical axis if the chart is vertical or the horizontal axis if horizontal.</p>
+</li>
+<li>
+<p><code>dataGroups</code>: the groups of data points to be plotted. <strong class="red">Must</strong> be the same in number as <code>dataGroupsLabels</code>.</p>
+</li>
+<li>
+<p><code>dataGroupsLabels</code>: the label for each group of data. Used in the legend of the chart. <strong class="red">Must</strong> be the same in
+number as
+ <code>dataGroups</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>Tuple</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>used to store pairs of values as a convenient means by which to transport data points.</p>
+</li>
+<li>
+<p>used mostly within a <code>List</code>, allowing order to be preserved.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
 </div>
+</div>
 <div class="sect3">
-<h4 id="code-patientstats-code-command"><a class="link" href="#code-patientstats-code-command">4.5.2. <code>patientstats</code> Command</a></h4>
+<h4 id="processes"><a class="link" href="#processes">4.5.2. Processes</a></h4>
 <div class="paragraph">
-<p>{add implementation details}</p>
+<p>This section describes the processes that take place in order to display analytics.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="code-apptstats-code-command"><a class="link" href="#code-apptstats-code-command">4.5.3. <code>apptstats</code> Command</a></h4>
+<div class="sect4">
+<h5 id="all-statistics-commands"><a class="link" href="#all-statistics-commands">All Statistics Commands</a></h5>
 <div class="paragraph">
-<p>{add implementation details}</p>
+<p>The following apply to all the different types of statistics:</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>Analytics</code> updates the appropriate statistics object with the latest appropriate lists (e.g. appointments) from
+<code>ModelManager</code>.</p>
+</li>
+<li>
+<p>The particular statistics object then calculates the summary for the various time periods mentioned above.</p>
+</li>
+<li>
+<p>The particular statistics object then calculates data for one or more visualizations and updates <code>StatData</code>.</p>
+</li>
+<li>
+<p><code>Analytics</code> retrieves <code>StatData</code> from the statistics object and passes it to <code>ModelManager</code>.</p>
+</li>
+<li>
+<p><code>ModelManager</code> raises an <code>AnalyticsDisplayEvent</code> containing <code>StatData</code>.</p>
+</li>
+<li>
+<p><code>AnalyticsDisplay</code> retrieves <code>StatData</code> from <code>AnalyticsDisplayEvent</code> and passes it to <code>AnalyticsPlot</code>.</p>
+</li>
+<li>
+<p><code>AnalyticsPlot</code> updates the summary user interface.</p>
+</li>
+<li>
+<p><code>AnalyticsPlot</code> decides and plots the appropriate chart on the user interface.</p>
+</li>
+</ol>
 </div>
-<div class="sect3">
-<h4 id="code-doctorstats-code-command"><a class="link" href="#code-doctorstats-code-command">4.5.4. <code>doctorstats</code> Command</a></h4>
+<div class="sect5">
+<h6 id="code-patientstats-code-command"><a class="link" href="#code-patientstats-code-command"><code>patientstats</code> Command</a></h6>
 <div class="paragraph">
-<p>{add implementation details}</p>
+<p>The following are the processes performed specifically by <code>PatientStatistics</code>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>PatientStatistics</code> calculates the summary of the number of patients.</p>
+</li>
+<li>
+<p><code>PatientStatistics</code> calculates the number of patients for the following time periods in a day:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>9AM - 12PM</code>, <code>12PM - 3PM</code>, <code>3PM - 6PM</code>, <code>6PM -9PM</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>PatientStatistics</code> updates <code>StatData</code> with this data for a vertical bar chart visualization.</p>
+</li>
+<li>
+<p><code>PatientStatistics</code> calculates the total historical number of patients for each day in a week.</p>
+</li>
+<li>
+<p><code>PatientStatistics</code> updates <code>StatData</code> with this data for a vertical bar chart visualization.</p>
+</li>
+</ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="code-medstats-code-command"><a class="link" href="#code-medstats-code-command">4.5.5. <code>medstats</code> Command</a></h4>
+</div>
+<div class="sect4">
+<h5 id="code-apptstats-code-command"><a class="link" href="#code-apptstats-code-command"><code>apptstats</code> Command</a></h5>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+By default, 24 appointment slots are available in day.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
-<p>{add implementation details}</p>
+<p>The following are the processes performed specifically by <code>AppointmentStatistics</code>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>AppointmentStatistics</code> calculates the summary of the number of appointments.</p>
+</li>
+<li>
+<p><code>AppointmentStatistics</code> calculates the number of scheduled and available appointment slots for each day of the
+following week.</p>
+</li>
+<li>
+<p><code>AppointmentStatistics</code> updates <code>StatData</code> object with this data for a stacked bar chart visualization.</p>
+</li>
+<li>
+<p><code>AppointmentStatistics</code> calculates the number of scheduled appointments for each date in the current year.</p>
+</li>
+<li>
+<p><code>AppointmentStatistics</code> updates <code>StatData</code> object with this data for a line chart visualization.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="code-doctorstats-code-command"><a class="link" href="#code-doctorstats-code-command"><code>doctorstats</code> Command</a></h5>
+<div class="paragraph">
+<p>The following are the processes performed specifically by <code>DoctorStatistics</code>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>DoctorStatistics</code> calculates the summary of the average number of consultations per doctor.</p>
+</li>
+<li>
+<p><code>DoctorStatistics</code> calculates the number of patients who prefer each doctor.</p>
+</li>
+<li>
+<p><code>DoctorStatistics</code> updates <code>StatData</code> object with data for a horizontal bar chart visualization.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.5.6. Design Considerations</a></h4>
-
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.5.3. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-computing-statistics"><a class="link" href="#aspect-computing-statistics">Aspect: Computing statistics</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Compute statistics only upon request</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pro: This reduces unnecessary computational workload.</p>
+</li>
+<li>
+<p>Con: There is greater computational workload upon request of the statistics which may result in the user having to
+wait longer (if at all) to view them.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Compute statistics every time there is a change in the underlying data</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pro: There is no chance of the user having to wait to view statistics.</p>
+</li>
+<li>
+<p>Con: This increases the computational workload which may provide little benefit if statistics are not viewed
+frequently by the user.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-user-interface-for-the-different-types-of-statistics"><a class="link" href="#aspect-user-interface-for-the-different-types-of-statistics">Aspect: User interface for the different types of statistics</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Single, predetermined user interface</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: It is consistent, making it easier for users to process the information. It easier to implement due to the
+reusability of code.</p>
+</li>
+<li>
+<p>Con: It lowers flexibility by mandating all statistics types to only have a summary and visualization component.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Customized user interface for each type of statistic</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pro: It allows displays of quantitative information that are better suited for each individual statistics type. This
+results in greater flexibility even in the future as users may have changing analytics needs.</p>
+</li>
+<li>
+<p>Cons: It may lower design consistency, forcing users to readjust each time they view it. It is more difficult to
+implement.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 3:</strong> Allow users to pick and choose which statistics they want to view.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pro: This provides the greatest flexibility as users have total control in which statistics they view.</p>
+</li>
+<li>
+<p>Cons: The burden is placed on the user having to decide which statistics they want to view. It is more difficult to
+implement as a consistent user interface needs to be designed to accomodate all the possible combinations.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1394,13 +1684,13 @@ the number of occurrences for various date and time periods.</p>
 format.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">4.6.1. Current Implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">4.6.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The following activity diagram represents the workflow of the export functionality.</p>
+<p>The following swimlane diagram represents the workflow of the export functionality.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/ExportActivityDiagram.png" alt="ExportActivityDiagram" width="800">
+<img src="images/ExportSwimlaneDiagram.png" alt="ExportSwimlaneDiagram" width="500">
 </div>
 </div>
 <div class="paragraph">
@@ -1439,10 +1729,11 @@ checks the validity of the data to be written. The names and locations of the CS
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Human readable. Simple schema, easy to edit manually. Supported on all target platforms. Easier to implement.</p>
+<p>Pros: It is human editable and has a simple schema, making it easier to understand. It is supported on all target
+platforms. Additionally, it is easier to implement.</p>
 </li>
 <li>
-<p>Con: Does not allow complex relationships, resulting in repetitive data.</p>
+<p>Con: It does not allow complex relationships. This may result in repetitive data.</p>
 </li>
 </ul>
 </div>
@@ -1452,10 +1743,11 @@ checks the validity of the data to be written. The names and locations of the CS
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Can store more complex relationships between data. Data can be stored in the form of charts and graphs.</p>
+<p>Pros: It allows more complex relationships between data to be stored. Data can also be stored in the form of charts
+and graphs.</p>
 </li>
 <li>
-<p>Cons: Less widely supported. Consumes more memory. More difficult to implement.</p>
+<p>Cons: It is less widely supported and consumes more memory. It is also more difficult to implement.</p>
 </li>
 </ul>
 </div>
@@ -1464,32 +1756,34 @@ checks the validity of the data to be written. The names and locations of the CS
 </div>
 </div>
 <div class="sect4">
-<h5 id="aspect-file-location-and-naming"><a class="link" href="#aspect-file-location-and-naming">Aspect: File location and Naming</a></h5>
+<h5 id="aspect-file-location-and-naming"><a class="link" href="#aspect-file-location-and-naming">Aspect: File location and naming</a></h5>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Predetermined within the program to be stored in the root folder with fixed names.</p>
+<p><strong>Alternative 1 (current choice):</strong> File location and naming are predetermined within the program and they are to be
+stored in the root folder.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Users can easily find it as it is in the same location as the program and has a standard name. Faster
-operation. Easier to implement.</p>
+<p>Pros: Users can easily find it as it is in the same location as the program and has a standard name. It also
+results in a quicker operation and is easier to implement.</p>
 </li>
 <li>
-<p>Con: Reduces flexibility, another step is required if the user needs it in another directory.</p>
+<p>Con: It reduces flexibility as another step is required if the user needs it in another directory.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Specifiable by user</p>
+<p><strong>Alternative 2:</strong> File location and naming are specifiable by user.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pro: Gives users more control.</p>
+<p>Pro: This would give users more control.</p>
 </li>
 <li>
-<p>Cons: Slower operation due to time taken to enter filename and location. More difficult to implement.</p>
+<p>Cons: It results in a slower operation due to the time taken to enter filename and location. It is also more
+difficult to implement.</p>
 </li>
 </ul>
 </div>
@@ -1505,7 +1799,7 @@ operation. Easier to implement.</p>
 <p>ClinicIO ensures appropriate user access rights are issued by authenticating users at login.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">4.7.1. Current Implementation</a></h4>
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">4.7.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The User Authentication feature comprises of <code>LoginCommand</code> and <code>LogoutCommand</code>.</p>
 </div>
@@ -1692,7 +1986,7 @@ to ClinicIO.</p>
 <p>ClinicIO provides a centralised patient management system to allow you to manage the clinic’s patient record more efficiently.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-8"><a class="link" href="#current-implementation-8">4.8.1. Current Implementation</a></h4>
+<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">4.8.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The Patient Management comprises of <code>AddPatientCommand</code>, <code>ListPatientCommand</code>, <code>EditPatientCommand</code> and <code>DeletePatientCommand</code>
 which is the equivalent of <a href="#crud">Create, Read, Update and Delete (CRUD)</a>.</p>
@@ -3798,4 +4092,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 03:24:42 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 03:39:20 UTC</div></div></div></body></html>
