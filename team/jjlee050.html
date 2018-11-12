@@ -20,9 +20,8 @@
 ClinicIO can be used to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.</p>
 </div>
 <div class="paragraph">
-<p>As the team lead, I am responsible for the overall team coordination. This
-involves providing a clear set of goals and directions for the team, oversee the whole project and
-listen to teammates feedback for improvements. Furthermore, I am also in charge of Scheduling and Tracking, Deliverables and Deadlines. This involves
+<p>As the team lead, I am responsible for the overall team coordination. This involves providing a clear set of goals and directions for the team, overseeing the whole project and listening to teammates feedback for improvements.
+Furthermore, I am also in charge of Scheduling and Tracking, Deliverables and Deadlines. This involves
 defining, assigning, and tracking project tasks, ensuring that project deliverables is produced on time and in the right format.</p>
 </div>
 <div class="paragraph">
@@ -77,7 +76,7 @@ It requires an in-depth understanding of ClinicIO&#8217;s architecture.</p>
 <p>Justification: This feature provide more security to ensure that user has the appropriate rights to access the commands.</p>
 </li>
 <li>
-<p>Highlights: This enhancement affects existing commands and commands to be added in future. The implementation was challenging as all commands is relying on this feature to run the system with more secure and efficient.</p>
+<p>Highlights: This enhancement affects both existing commands and commands that would be added in the future. The implementation was challenging as all commands is relying on this feature to run the system more securely and efficiently.</p>
 </li>
 <li>
 <p>Credits: <a href="https://github.com/patrickfav/bcrypt">BCrypt - A password hashing library for Java</a></p>
@@ -162,7 +161,7 @@ It requires an in-depth understanding of ClinicIO&#8217;s architecture.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Integrated a third party library (BCrypt) to the project (<a href="https://github.com">#42</a>)</p>
+<p>Integrated a third party library (BCrypt) to the project</p>
 </li>
 </ul>
 </div>
@@ -241,6 +240,7 @@ If you have already logged in, you cannot login again.<br>
 <div class="content">
 <img src="../images/user-guide-login-before.png" alt="user guide login before" width="500">
 </div>
+<div class="title">Figure 1. User login before</div>
 </div>
 <div class="paragraph">
 <p>Once you have login successfully, the ClinicIO user status will be updated as below:</p>
@@ -249,6 +249,7 @@ If you have already logged in, you cannot login again.<br>
 <div class="content">
 <img src="../images/user-guide-login-after.png" alt="user guide login after" width="500">
 </div>
+<div class="title">Figure 2. User login after</div>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -265,7 +266,7 @@ If you have already logged in, you cannot login again.<br>
 </div>
 </div>
 <div class="sect3">
-<h4 id="log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code"><a class="link" href="#log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code">Log out of the program : <code>logout</code> <code>[coming in v2.0]</code></a></h4>
+<h4 id="log-out-of-the-program-code-logout-code"><a class="link" href="#log-out-of-the-program-code-logout-code">Log out of the program : <code>logout</code></a></h4>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -281,6 +282,15 @@ You must login in order to use this feature.<br>
 <div class="paragraph">
 <p>You can log out of ClinicIO.<br>
 Format: <code>logout</code></p>
+</div>
+<div class="paragraph">
+<p>Once you entered the logout command, you will be redirected back to the startup page.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Ui.png" alt="Ui" width="500">
+</div>
+<div class="title">Figure 3. User logout success</div>
 </div>
 </div>
 </div>
@@ -312,6 +322,24 @@ You must login as a receptionist in order to use this feature.<br>
 </div>
 <div class="paragraph">
 <p>Format: <code>addpatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]&#8230;&#8203; [med/MEDICATIONS]&#8230;&#8203; [alrg/ALLERGIES]&#8230;&#8203; [preDr/PREFERRED_DOC]</code></p>
+</div>
+<div class="paragraph">
+<p>You just need to type in the <code>addpatient</code> command as shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/user-guide-addpatient-before.png" alt="user guide addpatient before" width="500">
+</div>
+<div class="title">Figure 4. Before adding patient</div>
+</div>
+<div class="paragraph">
+<p>Then, the new patient will be added to the list as shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/user-guide-addpatient-after.png" alt="user guide addpatient after" width="500">
+</div>
+<div class="title">Figure 5. After adding patient</div>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -463,6 +491,18 @@ Edits the name of the 2nd patient to be <code>Betsy Crower</code> and clears all
 <div class="paragraph">
 <p>You can find patients whose names contain any of the given keywords.<br></p>
 </div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+You must login in order to use this feature.<br>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Format: <code>findpatient KEYWORD [MORE_KEYWORDS]</code></p>
 </div>
@@ -488,6 +528,24 @@ Edits the name of the 2nd patient to be <code>Betsy Crower</code> and clears all
 </ul>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>You just need to type in the <code>findpatient</code> command as shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/user-guide-findpatient-before.png" alt="user guide findpatient before" width="500">
+</div>
+<div class="title">Figure 6. Before finding patient</div>
+</div>
+<div class="paragraph">
+<p>Then, any patient that matches the keywords will be displayed as shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/user-guide-findpatient-after.png" alt="user guide findpatient after" width="500">
+</div>
+<div class="title">Figure 7. After adding patient</div>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -524,6 +582,24 @@ You must login in order to use this feature.<br>
 </div>
 <div class="paragraph">
 <p>Format: <code>listpatient</code></p>
+</div>
+<div class="paragraph">
+<p>You just need to type in the <code>listpatient</code> command as shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/user-guide-listpatient-before.png" alt="user guide listpatient before" width="500">
+</div>
+<div class="title">Figure 8. Before showing all patient</div>
+</div>
+<div class="paragraph">
+<p>Then, all patients will be displayed as shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/user-guide-listpatient-after.png" alt="user guide listpatient after" width="500">
+</div>
+<div class="title">Figure 9. After showing all patient</div>
 </div>
 </div>
 <div class="sect3">
@@ -614,7 +690,7 @@ This patient management is the equivalent of <a href="#crud">Create, Read, Updat
 <div class="content">
 <img src="../images/PatientClassDiagram.png" alt="PatientClassDiagram" width="1080">
 </div>
-<div class="title">Figure 1. Class Diagram for the Patient.</div>
+<div class="title">Figure 10. Class Diagram for the Patient.</div>
 </div>
 <div class="paragraph">
 <p> <br></p>
@@ -732,7 +808,7 @@ that the <code>preferredDoctor</code> exists inside the staff records.</p>
 <div class="content">
 <img src="../images/LoginClassDiagram.png" alt="LoginClassDiagram" width="1080">
 </div>
-<div class="title">Figure 2. Class Diagram for the Staff.</div>
+<div class="title">Figure 11. Class Diagram for the Staff.</div>
 </div>
 <div class="sect4">
 <h5 id="code-login-code-command"><a class="link" href="#code-login-code-command"><code>login</code> Command</a></h5>
@@ -800,7 +876,7 @@ The implemented operations include:<br></p>
 <div class="content">
 <img src="../images/LoginLogicSequenceDiagram.png" alt="LoginLogicSequenceDiagram" width="1080">
 </div>
-<div class="title">Figure 3. Sequence Diagram for the <code>login</code> Command for the logic component.</div>
+<div class="title">Figure 12. Sequence Diagram for the <code>login</code> Command for the logic component.</div>
 </div>
 <div class="paragraph">
 <p> <br>
@@ -810,7 +886,7 @@ The implemented operations include:<br></p>
 <div class="content">
 <img src="../images/LoginModelSequenceDiagram.png" alt="LoginModelSequenceDiagram" width="1080">
 </div>
-<div class="title">Figure 4. Sequence Diagram for the <code>login</code> Command for the model component.</div>
+<div class="title">Figure 13. Sequence Diagram for the <code>login</code> Command for the model component.</div>
 </div>
 <div class="paragraph">
 <p> <br>
@@ -820,7 +896,7 @@ The implemented operations include:<br></p>
 <div class="content">
 <img src="../images/LoginCommonsSequenceDiagram.png" alt="LoginCommonsSequenceDiagram" width="1080">
 </div>
-<div class="title">Figure 5. Sequence Diagram for the <code>login</code> Command for the commons component.</div>
+<div class="title">Figure 14. Sequence Diagram for the <code>login</code> Command for the commons component.</div>
 </div>
 <div class="paragraph">
 <p> <br>
@@ -830,7 +906,7 @@ The following activity diagram summarizes what happens when a user executes <cod
 <div class="content">
 <img src="../images/LoginActivityDiagram.png" alt="LoginActivityDiagram" width="1080">
 </div>
-<div class="title">Figure 6. Activity Diagram for the <code>login</code> Command</div>
+<div class="title">Figure 15. Activity Diagram for the <code>login</code> Command</div>
 </div>
 <div class="paragraph">
 <p> <br></p>
@@ -933,4 +1009,4 @@ to ClinicIO.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:18:56 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:04:34 UTC</div></div></div></body></html>

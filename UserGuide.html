@@ -15,14 +15,15 @@
 <li><a href="#installation-guide">2. Installation Guide</a></li>
 <li><a href="#user-interface-walkthrough">3. User Interface Walkthrough</a>
 <ul class="sectlevel2">
-<li><a href="#menu-bar">3.1. Menu Bar</a></li>
-<li><a href="#command-box">3.2. Command Box</a></li>
-<li><a href="#result-display">3.3. Result Display</a></li>
-<li><a href="#list-panel">3.4. List Panel</a></li>
-<li><a href="#card">3.5. Card</a></li>
-<li><a href="#display-panel">3.6. Display Panel</a></li>
-<li><a href="#sync-status-bar">3.7. Sync Status Bar</a></li>
-<li><a href="#user-session-status-bar">3.8. User Session Status Bar</a></li>
+<li><a href="#Menu-Bar">3.1. Menu Bar</a></li>
+<li><a href="#Command-Box">3.2. Command Box</a></li>
+<li><a href="#Result-Display">3.3. Result Display</a></li>
+<li><a href="#Tab-Pane">3.4. Tab Pane</a></li>
+<li><a href="#List-Panel">3.5. List Panel</a></li>
+<li><a href="#Card">3.6. Card</a></li>
+<li><a href="#Display-Pane">3.7. Display Panel</a></li>
+<li><a href="#SSB">3.8. Sync Status Bar</a></li>
+<li><a href="#USSB">3.9. User Session Status Bar</a></li>
 </ul>
 </li>
 <li><a href="#features">4. Features</a>
@@ -67,41 +68,6 @@ In addition, this guide provides in-depth documentation for all features.</p>
 <div class="paragraph">
 <p>ClinicIO is a desktop app to enable you to manage a clinic with ease and efficiency.
 You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.<br></p>
-</div>
-<div class="paragraph">
-<p>As a doctor, you will be able to do the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>View patient record</p>
-</li>
-<li>
-<p>Enter patient additional medical information.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>As a receptionist, you will be able to do the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Manage patient record</p>
-</li>
-<li>
-<p>Manage clinic queue</p>
-</li>
-<li>
-<p>Manage medicine inventory in the clinic</p>
-</li>
-<li>
-<p>Manage future patient appointment</p>
-</li>
-<li>
-<p>View statistics and export data.</p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
 <p>Head to the <a href="#installation-guide">Section 2, &#8220;Installation Guide&#8221;</a> to get started on install ClinicIO.</p>
@@ -151,20 +117,18 @@ Ensure you have Java version <code>9</code> or later installed in your Computer.
 </li>
 <li>
 <p>Double-click <code>clinicio.jar</code> to start the app. You should be able to view the window shown below.</p>
+</li>
+</ol>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/Ui.png" alt="Ui" width="1200">
 </div>
-</div>
-<div class="paragraph">
-<p><em>Figure 1 Startup Window</em></p>
+<div class="title">Figure 1. Startup Window</div>
 </div>
 <div class="paragraph">
 <p>Type the command in the command box and press <kbd>Enter</kbd> to execute it.<br>
 e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
-</div>
-</li>
-</ol>
 </div>
 </div>
 </div>
@@ -181,18 +145,25 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="content">
 <img src="images/user-guide-ui-walkthrough-overview.png" alt="user guide ui walkthrough overview" width="900">
 </div>
+<div class="title">Figure 2. Ui Screen after login.</div>
 </div>
 <div class="paragraph">
-<p>It consists of 8 parts: <a href="#Menu Bar">Menu Bar</a>, <a href="#Command Box">Command Box</a>,
-<a href="#Result Display">Result Display</a>, <a href="#List Panel">List Panel</a>,
-<a href="#Card">Card</a>, <a href="#Display Panel">Display Panel</a>
-<a href="#Sync Status Bar">Sync Status Bar</a>, <a href="#User Session Status Bar">User Session Status Bar</a>,
+<p>It consists of 9 parts: <a href="#Menu-Bar">Menu Bar</a>, <a href="#Command-Box">Command Box</a>,
+<a href="#Result-Display">Result Display</a>, <a href="#Tab-Pane">Tab Pane</a>, <a href="#List-Panel">List Panel</a>,
+<a href="#Card">Card</a>, <a href="#Display-Panel">Display Panel</a>
+<a href="#SSB">Sync Status Bar</a>, <a href="#USSB">User Session Status Bar</a>,
 each of the sections is explained as below.</p>
 </div>
 <div class="sect2">
-<h3 id="menu-bar"><a class="link" href="#menu-bar">3.1. Menu Bar</a></h3>
+<h3 id="Menu-Bar"><a class="link" href="#Menu-Bar">3.1. Menu Bar</a></h3>
 <div class="paragraph">
 <p>The <strong>Menu Bar</strong> provide you quick access to functions as below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/user-guide-ui-walkthrough-menu-bar.png" alt="user guide ui walkthrough menu bar" width="900">
+</div>
+<div class="title">Figure 3. Screenshot of Menu Bar</div>
 </div>
 <div class="paragraph">
 <p>Here are the available options currently:<br></p>
@@ -219,43 +190,74 @@ each of the sections is explained as below.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="command-box"><a class="link" href="#command-box">3.2. Command Box</a></h3>
+<h3 id="Command-Box"><a class="link" href="#Command-Box">3.2. Command Box</a></h3>
 <div class="paragraph">
 <p>The <strong>Command Box</strong> allow you to enter command input.<br></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="result-display"><a class="link" href="#result-display">3.3. Result Display</a></h3>
+<h3 id="Result-Display"><a class="link" href="#Result-Display">3.3. Result Display</a></h3>
 <div class="paragraph">
 <p>The <strong>Result Display</strong> provides you information with regards to the result of the command.<br></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="list-panel"><a class="link" href="#list-panel">3.4. List Panel</a></h3>
+<h3 id="Tab-Pane"><a class="link" href="#Tab-Pane">3.4. Tab Pane</a></h3>
+<div class="paragraph">
+<p>The <strong>Tab Pane</strong> provides you with more accessibility to different areas of ClinicIO system.<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/user-guide-ui-walkthrough-tab-pane.png" alt="user guide ui walkthrough tab pane" width="900">
+</div>
+<div class="title">Figure 4. Screenshot of Tab Pane</div>
+</div>
+<div class="paragraph">
+<p>There are 4 tabs in the tab pane altogether. The sections are as follow:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Patient</p>
+</li>
+<li>
+<p>Queue</p>
+</li>
+<li>
+<p>Appointment</p>
+</li>
+<li>
+<p>Medicine</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="List-Panel"><a class="link" href="#List-Panel">3.5. List Panel</a></h3>
 <div class="paragraph">
 <p>The <strong>List Panel</strong> displays a list of objects.<br></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="card"><a class="link" href="#card">3.5. Card</a></h3>
+<h3 id="Card"><a class="link" href="#Card">3.6. Card</a></h3>
 <div class="paragraph">
 <p>The <strong>Card</strong> displays the object with minimal information.<br></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="display-panel"><a class="link" href="#display-panel">3.6. Display Panel</a></h3>
+<h3 id="Display-Pane"><a class="link" href="#Display-Pane">3.7. Display Panel</a></h3>
 <div class="paragraph">
 <p>The <strong>Display Panel</strong> displays the object in detail.<br></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="sync-status-bar"><a class="link" href="#sync-status-bar">3.7. Sync Status Bar</a></h3>
+<h3 id="SSB"><a class="link" href="#SSB">3.8. Sync Status Bar</a></h3>
 <div class="paragraph">
 <p>The <strong>Sync Status Bar</strong> displays the last updated date and time of any changes to the data.<br></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="user-session-status-bar"><a class="link" href="#user-session-status-bar">3.8. User Session Status Bar</a></h3>
+<h3 id="USSB"><a class="link" href="#USSB">3.9. User Session Status Bar</a></h3>
 <div class="paragraph">
 <p>The <strong>User Session Status Bar</strong> displays the current user session.<br></p>
 </div>
@@ -267,6 +269,41 @@ each of the sections is explained as below.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section is designed to provide a list of features that are implemented/working in progress to ease users in the day-to-day operations at the clinic.</p>
+</div>
+<div class="paragraph">
+<p>As a doctor, you will be able to do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>View patient record</p>
+</li>
+<li>
+<p>Enter patient additional medical information.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As a receptionist, you will be able to do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Manage patient record</p>
+</li>
+<li>
+<p>Manage clinic queue</p>
+</li>
+<li>
+<p>Manage medicine inventory in the clinic</p>
+</li>
+<li>
+<p>Manage future patient appointment</p>
+</li>
+<li>
+<p>View statistics and export data.</p>
+</li>
+</ul>
 </div>
 <div class="exampleblock">
 <div class="content">
@@ -307,6 +344,7 @@ in a new window.<br></p>
 <div class="content">
 <img src="images/user-guide-help-window-after.png" alt="user guide help window after" width="500">
 </div>
+<div class="title">Figure 5. Help Window</div>
 </div>
 </div>
 <div class="sect3">
@@ -476,6 +514,7 @@ If you have already logged in, you cannot login again.<br>
 <div class="content">
 <img src="images/user-guide-login-before.png" alt="user guide login before" width="500">
 </div>
+<div class="title">Figure 6. User login before</div>
 </div>
 <div class="paragraph">
 <p>Once you have login successfully, the ClinicIO user status will be updated as below:</p>
@@ -484,6 +523,7 @@ If you have already logged in, you cannot login again.<br>
 <div class="content">
 <img src="images/user-guide-login-after.png" alt="user guide login after" width="500">
 </div>
+<div class="title">Figure 7. User login after</div>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -500,7 +540,7 @@ If you have already logged in, you cannot login again.<br>
 </div>
 </div>
 <div class="sect3">
-<h4 id="log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code"><a class="link" href="#log-out-of-the-program-code-logout-code-code-coming-in-v2-0-code">4.2.2. Log out of the program : <code>logout</code> <code>[coming in v2.0]</code></a></h4>
+<h4 id="log-out-of-the-program-code-logout-code"><a class="link" href="#log-out-of-the-program-code-logout-code">4.2.2. Log out of the program : <code>logout</code></a></h4>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -516,6 +556,15 @@ You must login in order to use this feature.<br>
 <div class="paragraph">
 <p>You can log out of ClinicIO.<br>
 Format: <code>logout</code></p>
+</div>
+<div class="paragraph">
+<p>Once you entered the logout command, you will be redirected back to the startup page.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Ui.png" alt="Ui" width="500">
+</div>
+<div class="title">Figure 8. User logout success</div>
 </div>
 </div>
 </div>
@@ -547,6 +596,24 @@ You must login as a receptionist in order to use this feature.<br>
 </div>
 <div class="paragraph">
 <p>Format: <code>addpatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]&#8230;&#8203; [med/MEDICATIONS]&#8230;&#8203; [alrg/ALLERGIES]&#8230;&#8203; [preDr/PREFERRED_DOC]</code></p>
+</div>
+<div class="paragraph">
+<p>You just need to type in the <code>addpatient</code> command as shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/user-guide-addpatient-before.png" alt="user guide addpatient before" width="500">
+</div>
+<div class="title">Figure 9. Before adding patient</div>
+</div>
+<div class="paragraph">
+<p>Then, the new patient will be added to the list as shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/user-guide-addpatient-after.png" alt="user guide addpatient after" width="500">
+</div>
+<div class="title">Figure 10. After adding patient</div>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -698,6 +765,18 @@ Edits the name of the 2nd patient to be <code>Betsy Crower</code> and clears all
 <div class="paragraph">
 <p>You can find patients whose names contain any of the given keywords.<br></p>
 </div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+You must login in order to use this feature.<br>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Format: <code>findpatient KEYWORD [MORE_KEYWORDS]</code></p>
 </div>
@@ -723,6 +802,24 @@ Edits the name of the 2nd patient to be <code>Betsy Crower</code> and clears all
 </ul>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>You just need to type in the <code>findpatient</code> command as shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/user-guide-findpatient-before.png" alt="user guide findpatient before" width="500">
+</div>
+<div class="title">Figure 11. Before finding patient</div>
+</div>
+<div class="paragraph">
+<p>Then, any patient that matches the keywords will be displayed as shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/user-guide-findpatient-after.png" alt="user guide findpatient after" width="500">
+</div>
+<div class="title">Figure 12. After adding patient</div>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -759,6 +856,24 @@ You must login in order to use this feature.<br>
 </div>
 <div class="paragraph">
 <p>Format: <code>listpatient</code></p>
+</div>
+<div class="paragraph">
+<p>You just need to type in the <code>listpatient</code> command as shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/user-guide-listpatient-before.png" alt="user guide listpatient before" width="500">
+</div>
+<div class="title">Figure 13. Before showing all patient</div>
+</div>
+<div class="paragraph">
+<p>Then, all patients will be displayed as shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/user-guide-listpatient-after.png" alt="user guide listpatient after" width="500">
+</div>
+<div class="title">Figure 14. After showing all patient</div>
 </div>
 </div>
 <div class="sect3">
@@ -1607,4 +1722,4 @@ e.g. <code>cancelappt 2</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:18:55 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:04:34 UTC</div></div></div></body></html>

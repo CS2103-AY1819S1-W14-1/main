@@ -242,10 +242,13 @@ The implemented operations include:<br></p>
 <p><code>addappt</code> Command - Adds appointments to the appointment schedule.</p>
 </li>
 <li>
-<p><code>cancelappt</code> Command - Cancels appointments found within the appointment schedule.</p>
+<p><code>listappt</code> Command - Lists the appointment schedule of the date specified.</p>
 </li>
 <li>
-<p><code>listappt</code> Command - Lists the appointment schedule of the date specified.</p>
+<p>`listallappt`Command - Lists all appointments.</p>
+</li>
+<li>
+<p><code>cancelappt</code> Command - Cancels appointments found within the appointment schedule.</p>
 </li>
 </ul>
 </div>
@@ -254,7 +257,7 @@ The implemented operations include:<br></p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/ApptClassDiagram.png" alt="ApptClassDiagram" width="">
+<img src="../images/ApptClassDiagram.PNG" alt="ApptClassDiagram" width="">
 </div>
 <div class="title">Figure 1. Appointment class diagram.</div>
 </div>
@@ -281,7 +284,7 @@ appointment.</p>
 <p>The <code>addappt</code> command behaves similarly to the <code>add</code> command used for <code>Patient</code> and <code>Doctor</code>. The command takes in the
 parameters required to construct <code>Date</code>, <code>Time</code> and takes in <code>Patient</code> details. Patient parameters will be simplified
 upon the complete implementation of the <code>Patient</code> class  in v2.0. The image below shows how the <code>Appointment</code> object is
-constructed.+</p>
+constructed.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -297,7 +300,7 @@ The image does not include the method calls to construct a <code>Patient</code> 
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/AddApptSequenceDiagram.png" alt="AddApptSequenceDiagram" width="">
+<img src="../images/AddApptSequenceDiagram.PNG" alt="AddApptSequenceDiagram" width="">
 </div>
 <div class="title">Figure 2. Appointment Construction Process in addappt Command.</div>
 </div>
@@ -312,8 +315,8 @@ The image does not include the method calls to construct a <code>Patient</code> 
 <div class="sect3">
 <h4 id="code-listappt-code-command"><a class="link" href="#code-listappt-code-command"><code>listappt</code> Command</a></h4>
 <div class="paragraph">
-<p>The <code>listappt</code> command searches for that land on the date that was entered by the user.
-The filtered appointments are found in the found in <code>ModelManager</code>. The list instantiated by filtering the <code>UniqueAppointmentList</code>
+<p>The <code>listappt</code> command searches for appointments that land on the date that was entered by the user.
+The filtered appointments are found in <code>ModelManager</code>. The list is instantiated by filtering the <code>UniqueAppointmentList</code>
 using <code>AppointmentContainsDatePredicate</code> which is created from the <code>Date</code> argument supplied by the user.</p>
 </div>
 </div>
@@ -332,7 +335,7 @@ Instead, it automatically executes <code>ListAllApptCommand</code> with the pred
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/CancelApptSequenceDiagram.png" alt="CancelApptSequenceDiagram" width="">
+<img src="../images/CancelApptSequenceDiagram.PNG" alt="CancelApptSequenceDiagram" width="">
 </div>
 <div class="title">Figure 3. Sequence diagram of cancelappt.</div>
 </div>
@@ -342,8 +345,8 @@ appointment list (<code>lastShownList</code>) is retrieved and the index is used
 </div>
 <div class="paragraph">
 <p>The <code>cancelAppointment()</code> method, under <code>Model</code>, is then called on the <code>targetAppointment</code>. The process of cancellation
-has two parts, <code>cancelAppointment</code> and <code>removeAppointment</code>. <code>cancelAppointment</code> simply changes the status of the appointment and
-adds it to the <code>Patient</code> s <code>AppointmentHistory</code> (not shown). <code>removeAppointment</code> actually removes the appointment from the
+has two parts, <code>cancelAppointment</code> and <code>removeAppointment</code>. <code>ClinicIO#cancelAppointment</code> simply changes the status of the appointment and
+adds it to the <code>Patient</code> s <code>AppointmentHistory</code> (not shown). <code>ClinicIO#removeAppointment</code> actually removes the appointment from the
 <code>UniqueAppointmentList</code>.</p>
 </div>
 <div class="admonitionblock note">
@@ -354,7 +357,7 @@ adds it to the <code>Patient</code> s <code>AppointmentHistory</code> (not shown
 </td>
 <td class="content">
 Due to the current composition relationship between the <code>Appointment</code> class and <code>Patient</code> class, the additional tasks
-of changing appointment status and addition into the appointment history seems redundant. In v2.0, the usage of
+of changing appointment status and addition into the patient&#8217;s appointment history seems redundant. In v2.0, the usage of
 pre-existing patients to make appointments will make these additional tasks more useful.
 </td>
 </tr>
@@ -396,9 +399,8 @@ pre-existing patients to make appointments will make these additional tasks more
 </ul>
 </div>
 </div>
-</div>
-<div class="sect3">
-<h4 id="aspect-how-to-cancel-appointments"><a class="link" href="#aspect-how-to-cancel-appointments">Aspect: How to cancel appointments</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-to-cancel-appointments"><a class="link" href="#aspect-how-to-cancel-appointments">Aspect: How to cancel appointments</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -406,11 +408,11 @@ pre-existing patients to make appointments will make these additional tasks more
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Allows more leeway for receptionist if a booking mistake was made rather than cancelling and adding
-the mistake to the patient&#8217;s appointment history.</p>
+<p>Pros: Reduces the occurrences of directly manipulating a Patient&#8217;s history. It also upholds the
+Separation of Concerns Principle.</p>
 </li>
 <li>
-<p>Cons: Violates Don&#8217;t Repeat Yourself principle.</p>
+<p>Cons: Violates Don&#8217;t Repeat Yourself Principle.</p>
 </li>
 </ul>
 </div>
@@ -431,6 +433,40 @@ the mistake to the patient&#8217;s appointment history.</p>
 </ul>
 </div>
 </div>
+<div class="sect4">
+<h5 id="aspect-how-to-display-appointments"><a class="link" href="#aspect-how-to-display-appointments">Aspect: How to display appointments</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Display appointments in a tab</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Creates an intuitive and easily navigable screen to access appointments.</p>
+</li>
+<li>
+<p>Cons: Decreases the efficiency of CLI by having to use GUI inputs.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Have appointments appear when using an appointment command</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Keeps the onscreen clutter at a minimum and stays in line with the CLI concept.</p>
+</li>
+<li>
+<p>Cons: Increases difficulty in freely accessing appointments.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:18:56 UTC</div></div></div></body></html>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:04:34 UTC</div></div></div></body></html>
