@@ -41,7 +41,7 @@
 <li><a href="#analytics-feature">4.5. Analytics feature</a></li>
 <li><a href="#export-feature">4.6. Export feature</a></li>
 <li><a href="#user-authentication">4.7. User Authentication</a></li>
-<li><a href="#patient-management">4.8. Patient Management</a></li>
+<li><a href="#patient-management-feature">4.8. Patient Management feature</a></li>
 <li><a href="#logging">4.9. Logging</a></li>
 <li><a href="#Implementation-Configuration">4.10. Configuration</a></li>
 </ul>
@@ -506,6 +506,9 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 <div class="sect2">
 <h3 id="Design-Ui"><a class="link" href="#Design-Ui">3.2. UI component</a></h3>
+<div class="paragraph">
+<p>This section introduces you to the UI component of ClinicIO&#8217;s architecture.</p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/UiClassDiagram.png" alt="UiClassDiagram" width="800">
@@ -513,16 +516,17 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="title">Figure 5. Structure of the UI Component</div>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-W14-1/main/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
+<p> <br>
+<strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-W14-1/main/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
 </div>
 <div class="paragraph">
-<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>PersonListPanel</code>, <code>StatusBarFooter</code>, <code>BrowserPanel</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class.</p>
+<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>PatientListPanel</code>, <code>StatusBarFooter</code>, <code>PatientDetailsDisplayPanel</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class.</p>
 </div>
 <div class="paragraph">
 <p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="https://github.com/CS2103-AY1819S1-W14-1/main/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/CS2103-AY1819S1-W14-1/main/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
 </div>
 <div class="paragraph">
-<p>The <code>UI</code> component,</p>
+<p>The <code>UI</code> component does the following:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1928,12 +1932,31 @@ difficult to implement.</p>
 <div class="sect3">
 <h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">4.7.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The User Authentication feature comprises of <code>LoginCommand</code> and <code>LogoutCommand</code>.</p>
+<p>The User Authentication feature comprises of commands as below:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>login</code> Command: Allow users to login.</p>
+</li>
+<li>
+<p><code>logout</code> Command: Allow users to logout.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following class diagram below illustrates the association between the Staff class and its associated class.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LoginClassDiagram.png" alt="LoginClassDiagram" width="1080">
+</div>
+<div class="title">Figure 13. Class Diagram for the Staff.</div>
 </div>
 <div class="sect4">
-<h5 id="code-logincommand-code"><a class="link" href="#code-logincommand-code"><code>LoginCommand</code></a></h5>
+<h5 id="code-login-code-command"><a class="link" href="#code-login-code-command"><code>login</code> Command</a></h5>
 <div class="paragraph">
-<p>The <code>LoginCommand</code> contains multiple operations to manipulate the <code>UniqueStaffList</code> indirectly.
+<p>The <code>login</code> Command contains multiple operations to manipulate the <code>UniqueStaffList</code> indirectly.
 The implemented operations include:<br></p>
 </div>
 <div class="ulist">
@@ -1987,9 +2010,6 @@ The implemented operations include:<br></p>
 <p>Step 5: To indicate successful completion of verification, the <code>login</code> command raises a <code>LoginSuccessEvent</code>.<br></p>
 </div>
 <div class="paragraph">
-<p>Step 6: Once verification has been made successfully, the <code>login</code> command raise an <code>SuccessfulLoginEvent</code> to indicate that a successful attempt to login has been made.<br></p>
-</div>
-<div class="paragraph">
 <p>The following sequence diagrams shows how the login works:</p>
 </div>
 <div class="paragraph">
@@ -1997,24 +2017,48 @@ The implemented operations include:<br></p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/LoginSequenceDiagram.png" alt="LoginSequenceDiagram" width="1080">
+<img src="images/LoginLogicSequenceDiagram.png" alt="LoginLogicSequenceDiagram" width="1080">
 </div>
-<div class="title">Figure 13. Sequence Diagram for the <code>LoginCommand</code> for the logic component.</div>
+<div class="title">Figure 14. Sequence Diagram for the <code>login</code> Command for the logic component.</div>
 </div>
 <div class="paragraph">
-<p>The following activity diagram summarizes what happens when a user executes <code>LoginCommand</code>:</p>
+<p> <br>
+<strong>Model</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LoginModelSequenceDiagram.png" alt="LoginModelSequenceDiagram" width="1080">
+</div>
+<div class="title">Figure 15. Sequence Diagram for the <code>login</code> Command for the model component.</div>
+</div>
+<div class="paragraph">
+<p> <br>
+<strong>Commons</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LoginCommonsSequenceDiagram.png" alt="LoginCommonsSequenceDiagram" width="1080">
+</div>
+<div class="title">Figure 16. Sequence Diagram for the <code>login</code> Command for the commons component.</div>
+</div>
+<div class="paragraph">
+<p> <br>
+The following activity diagram summarizes what happens when a user executes <code>LoginCommand</code>:</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/LoginActivityDiagram.png" alt="LoginActivityDiagram" width="1080">
 </div>
-<div class="title">Figure 14. Activity Diagram for the <code>LoginCommand</code></div>
+<div class="title">Figure 17. Activity Diagram for the <code>login</code> Command</div>
+</div>
+<div class="paragraph">
+<p> <br></p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="code-logoutcommand-code"><a class="link" href="#code-logoutcommand-code"><code>LogoutCommand</code></a></h5>
+<h5 id="code-logout-code-command"><a class="link" href="#code-logout-code-command"><code>logout</code> Command</a></h5>
 <div class="paragraph">
-<p>The <code>LogoutCommand</code> post a <code>LogoutClinicIoEvent</code> to notify the UI that you want to log out of ClinicIO. It uses
+<p>The <code>logout</code> command post a <code>LogoutClinicIoEvent</code> to notify the UI that you want to log out of ClinicIO. It uses
 the <code>EventCenter</code> to communicate between components without requiring the components to register with
 each other explicitly.</p>
 </div>
@@ -2108,24 +2152,51 @@ to ClinicIO.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="patient-management"><a class="link" href="#patient-management">4.8. Patient Management</a></h3>
+<h3 id="patient-management-feature"><a class="link" href="#patient-management-feature">4.8. Patient Management feature</a></h3>
 <div class="paragraph">
-<p>ClinicIO provides a centralised patient management system to allow you to manage the clinic’s patient record more efficiently.</p>
+<p>ClinicIO provides a centralised patient management system to allow you to manage the clinic’s patient record more efficiently.
+This patient management is the equivalent of <a href="#crud">Create, Read, Update and Delete (CRUD)</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">4.8.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The Patient Management comprises of <code>AddPatientCommand</code>, <code>ListPatientCommand</code>, <code>EditPatientCommand</code> and <code>DeletePatientCommand</code>
-which is the equivalent of <a href="#crud">Create, Read, Update and Delete (CRUD)</a>.</p>
+<p>The Patient Management feature contains multiple operations to indirectly manipulate the <code>UniquePatientList</code>. The implemented operations include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addpatient</code>: Add patient in ClinicIO.</p>
+</li>
+<li>
+<p><code>listpatient</code>: Show all the patients in the ClinicIO record.</p>
+</li>
+<li>
+<p><code>findpatient</code>: Find the patient from the patient list.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following class diagram below illustrates the association between the Patient class and its associated class:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/PatientClassDiagram.png" alt="PatientClassDiagram" width="1080">
+</div>
+<div class="title">Figure 18. Class Diagram for the Patient.</div>
+</div>
+<div class="paragraph">
+<p> <br></p>
 </div>
 <div class="sect4">
-<h5 id="code-addpatientcommand-code"><a class="link" href="#code-addpatientcommand-code"><code>AddPatientCommand</code></a></h5>
+<h5 id="code-addpatient-code-command"><a class="link" href="#code-addpatient-code-command"><code>addpatient</code> Command</a></h5>
 <div class="paragraph">
-<p>The <code>AddPatientCommand</code> add patient to the ClinicIO. <code>AddPatientCommand</code> requires the current <code>UserSession</code> to be login as a receptionist
-in order to add patient.</p>
+<p>The <code>addpatient</code> command behaves similarly to the <code>add</code>. The command takes in parameters that required to construct patients <code>Nric</code>.
+The <code>AddPatientCommandParser</code> can parse command as usual despite not having a list of medical problems and medications, allergies and a preferred doctor.
+Furthermore, <code>addpatient</code> command requires user to be login as a receptionist in order to add patient. If the <code>preDr</code> prefix is being specify, user must ensure
+that the <code>preferredDoctor</code> exists inside the staff records.</p>
 </div>
 <div class="paragraph">
-<p>The following code snippet shows how <code>AddPatientCommand</code> is executed:</p>
+<p>The following code snippet shows how <code>addpatient</code> Command is executed:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2134,15 +2205,32 @@ in order to add patient.</p>
             <span class="directive">throws</span> CommandException {
         requireNonNull(model);
 
-        <span class="keyword">if</span> (!UserSession.isLogin()) { <i class="conum" data-value="1"></i><b>(1)</b>
-            <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_NOT_LOGIN);
+        <span class="keyword">if</span> (!UserSession.isLoginAsReceptionist()) { <i class="conum" data-value="1"></i><b>(1)</b>
+            <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST);
         } <span class="keyword">else</span> <span class="keyword">if</span> (model.hasPatient(toAdd)) { <i class="conum" data-value="2"></i><b>(2)</b>
             <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_DUPLICATE_PATIENT);
+        } <span class="keyword">else</span> <span class="keyword">if</span> ((toAdd.getPreferredDoctor().isPresent())
+                &amp;&amp; (!isPreferredDoctor(model, toAdd.getPreferredDoctor().get()))) { <i class="conum" data-value="3"></i><b>(3)</b>
+            <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_NO_DOCTOR_FOUND);
         }
 
-        model.addPatient(toAdd); <i class="conum" data-value="3"></i><b>(3)</b>
+        model.addPatient(toAdd); <i class="conum" data-value="4"></i><b>(4)</b>
+        model.switchTab(<span class="integer">0</span>);
         model.commitClinicIo();
         <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(<span class="predefined-type">String</span>.format(MESSAGE_SUCCESS, toAdd));    }
+    }
+
+    <span class="comment">/**
+     * Check if the staff is the preferred doctor.
+     * @param model The current model in ClinicIO
+     * @param preferredDoctor Patient's preferred doctor
+     * @return True if the staff is a doctor found in ClinicIO.
+     */</span>
+    <span class="directive">public</span> <span class="type">boolean</span> isPreferredDoctor(Model model, Staff preferredDoctor) {
+        requireNonNull(preferredDoctor);
+        <span class="type">boolean</span> hasStaff = model.hasStaff(preferredDoctor);
+        <span class="type">boolean</span> isDoctor = preferredDoctor.getRole().equals(DOCTOR);
+        <span class="keyword">return</span> hasStaff &amp;&amp; isDoctor;
     }</code></pre>
 </div>
 </div>
@@ -2150,35 +2238,33 @@ in order to add patient.</p>
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Check if user is login as receptionist</td>
+<td>Check if user is login as receptionist.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Check if there is an existing patient record in ClinicIO</td>
+<td>Check if there is an existing patient record.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Add patient to ClinicIO</td>
+<td>Check if the preferred doctor exist in the staff record.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Add patient to ClinicIO.</td>
 </tr>
 </table>
 </div>
 </div>
 <div class="sect4">
-<h5 id="code-listpatientcommand-code"><a class="link" href="#code-listpatientcommand-code"><code>ListPatientCommand</code></a></h5>
+<h5 id="code-listpatient-code-command"><a class="link" href="#code-listpatient-code-command"><code>listpatient</code> Command</a></h5>
 <div class="paragraph">
-<p>The <code>ListPatientCommand</code> retrieve all patients in the <code>UniquePatientList</code> by creating a FilteredAppointmentList and display all patients in the <code>PatientListPanel</code>.</p>
+<p>The <code>listpatient</code> Command retrieve all patients in the <code>UniquePatientList</code> by creating a FilteredAppointmentList and display all patients in the <code>PatientListPanel</code>.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="code-editpatientcommand-code"><a class="link" href="#code-editpatientcommand-code"><code>EditPatientCommand</code></a></h5>
+<h5 id="code-findpatient-code-command"><a class="link" href="#code-findpatient-code-command"><code>findpatient</code> Command</a></h5>
 <div class="paragraph">
-<p>{Add implementation}</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="code-deletepatientcommand-code"><a class="link" href="#code-deletepatientcommand-code"><code>DeletePatientCommand</code></a></h5>
-<div class="paragraph">
-<p>{Add implementation}</p>
+<p>The <code>findpatient</code></p>
 </div>
 </div>
 </div>
@@ -2295,7 +2381,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 15. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 19. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 <div class="sect2">
@@ -4219,4 +4305,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 10:15:35 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 10:48:08 UTC</div></div></div></body></html>
