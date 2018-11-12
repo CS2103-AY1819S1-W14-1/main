@@ -1085,12 +1085,13 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <div class="sect2">
 <h3 id="appointment-feature"><a class="link" href="#appointment-feature">4.3. Appointment feature</a></h3>
 <div class="paragraph">
-<p>The Appointment feature provides users the ability to schedule future appointments, view daily appointment schedules and to cancel them.</p>
+<p>The Appointment feature provides users the ability to schedule future appointments, view daily appointment
+schedules and to cancel them.</p>
 </div>
 <div class="sect3">
 <h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">4.3.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The Appointment feature contains multiple operations to indirectly manipulate the <code>UniqueAppointmentList</code> stored within <code>ModelManager</code>.
+<p>The Appointment feature contains multiple operations to indirectly manipulate the <code>UniqueAppointmentList</code>.
 The implemented operations include:<br></p>
 </div>
 <div class="ulist">
@@ -1107,34 +1108,60 @@ The implemented operations include:<br></p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Each <code>Appointment</code> object consists of a <code>Date</code>, <code>Time</code>, <code>Type</code> and <code>Patient</code>.</p>
+<p>The class diagram below illustrates the interactions between the Appointment class and associated classes.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ApptClassDiagram.png" alt="ApptClassDiagram" width="">
+</div>
+<div class="title">Figure 10. Appointment class diagram.</div>
+</div>
+<div class="paragraph">
+<p>Each <code>Appointment</code> object consists of a <code>Date</code>, <code>Time</code>, <code>Patient</code> and <code>Optional&lt;Staff&gt;</code>.<code>Patient</code> contains an
+<code>Optional&lt;Staff&gt;#preferredDoctor</code> and is assigned to the <code>Appointment</code> object. The
+<code>UniqueAppointmentList</code> contains 0 or more <code>Appointment</code> s.</p>
+</div>
+<div class="paragraph">
+<p>The current implementation of <code>Appointment</code> has the <code>Patient</code> object as a separate entity from the <code>Patient</code> s in
+<code>UniquePatientList</code>. This means that the <code>Patient</code> object only exists within the context of the <code>Appointment</code> object,
+or according to the diagram, would be destroyed if the <code>Appointment</code> object is destroyed (composition). Likewise, the
+<code>Optional&lt;Staff&gt;</code> would be destroyed if the <code>Appointment</code> object is destroyed too.</p>
+</div>
+<div class="paragraph">
+<p>In future implementations, i.e. v2.0, the <code>Patient</code> object will be checked if it exists within the <code>Model#UniquePatientList</code>
+before constructing the <code>Appointment</code> object. This ensures that the <code>Patient</code> is registered before making an
+appointment.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="code-addappt-code-command"><a class="link" href="#code-addappt-code-command">4.3.2. <code>addappt</code> Command</a></h4>
 <div class="paragraph">
-<p>The <code>addappt</code> command behaves similarly to the <code>add</code> command used for <code>Patient</code> and <code>Doctor</code>. The command takes in the parameters required to construct <code>Date</code>, <code>Time</code> and takes in <code>Patient</code> details. Patient parameters will be simplified upon the addition of <code>Patient IC</code> in v2.0.<br></p>
+<p>The <code>addappt</code> command behaves similarly to the <code>add</code> command used for <code>Patient</code> and <code>Doctor</code>. The command takes in the
+parameters required to construct <code>Date</code>, <code>Time</code> and takes in <code>Patient</code> details. Patient parameters will be simplified
+upon the complete implementation of the <code>Patient</code> class  in v2.0. The image below shows how the <code>Appointment</code> object is
+constructed.+</p>
 </div>
-<div class="paragraph">
-<p>The image below illustrates this process.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The image does not include the method calls to construct a <code>Patient</code> object.
+</td>
+</tr>
+</table>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/ApptConstructorSequenceDiagram.png" alt="ApptConstructorSequenceDiagram" width="0">
+<img src="images/AddApptSequenceDiagram.png" alt="AddApptSequenceDiagram" width="">
 </div>
-<div class="title">Figure 10. Appointment construction process.</div>
-</div>
-<div class="paragraph">
-<p>Once the Appointment object is constructed, <code>AddressBook#addAppointment(Appointment appt)</code> is called to add the Appointment object into the <code>UniqueAppointmentList</code>.</p>
+<div class="title">Figure 11. Appointment Construction Process in addappt Command.</div>
 </div>
 <div class="paragraph">
-<p>Before it can successfully add the <code>Appointment</code> object into the list, a check for any appointment clash is carried out via <code>UniqueAppointmentList#hasClash(Appointment appt)</code> and <code>UniqueAppointmentList#hasOverlap(Appointment appt)</code>.</p>
-</div>
-<div class="paragraph">
-<p>Additionally, duplicates are checked for via <code>UniqueAppointmentList#hasAppointment(Appointment appt)</code>. If no exception is thrown, the Appointment is then successfully added into the <code>UniqueAppointmentList</code>.</p>
-</div>
-<div class="paragraph">
-<p><code>ModelManager#indicateAddressBookChanged()</code> is then called to shift the <code>VersionedAddressBook#pointer</code> to it&#8217;s latest state, i.e. The addition of a new <code>Appointment</code> object.</p>
+<p>After the construction of the appointment, the appointment is added into the <code>UniqueAppointmentList</code> found in the
+<code>ClinicIo</code> class. The changes done to the list are then 'saved' via the <code>commitClinicIo</code> method.</p>
 </div>
 <div class="paragraph">
 <p>This means that this command can be undone or redone.</p>
@@ -1143,24 +1170,124 @@ The implemented operations include:<br></p>
 <div class="sect3">
 <h4 id="code-listappt-code-command"><a class="link" href="#code-listappt-code-command">4.3.3. <code>listappt</code> Command</a></h4>
 <div class="paragraph">
-<p>The <code>listappt</code> command searches for appointments in the <code>UniqueAppointmentList</code> by creating a <code>FilteredAppointmentList</code> containing appointments that land on the date that was entered by the user.</p>
-</div>
-<div class="paragraph">
-<p>A <code>Date</code> object is instantiated from the user-entered date. This is done via <code>ParseUtil#parseDate()</code>. The <code>date</code> object is then used to make a <code>AppointmentContainsDatePredicate</code> object. The list of filtered appointments by date are generated once the method <code>ModelManager#updateFilteredAppointmentList</code>. The new <code>FilteredAppointmentList</code> is finally displayed on screen with appointments chronologically ordered with their respective indices.</p>
-</div>
-<div class="paragraph">
-<p>For example, <code>listappt 03 03 2018</code> is entered by the user. A <code>Date</code> object with data fields <code>Date#day</code>, <code>Date#Time</code>, <code>Date#Year</code> filled out as 3, 3 and 2018 respectively, is constructed. [too much create!!!]</p>
+<p>The <code>listappt</code> command searches for that land on the date that was entered by the user.
+The filtered appointments are found in the found in <code>ModelManager</code>. The list instantiated by filtering the <code>UniqueAppointmentList</code>
+using <code>AppointmentContainsDatePredicate</code> which is created from the <code>Date</code> argument supplied by the user.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="code-cancelappt-code-command"><a class="link" href="#code-cancelappt-code-command">4.3.4. <code>cancelappt</code> Command</a></h4>
+<h4 id="code-listallappt-code-command"><a class="link" href="#code-listallappt-code-command">4.3.4. <code>listallappt</code> Command</a></h4>
 <div class="paragraph">
-<p>Individual patients also contain their own specific <code>AppointmentHistoryList</code> consisting of both cancelled and finished Appointments. <code>cancelAppt</code> is the only command that directly modifies the <code>Patient#AppointmentHistoryList</code>.</p>
+<p>The <code>listallappt</code> behaves similarly to <code>listappt</code> with the exception that it does not take in any arguments.
+Instead, it automatically executes <code>ListAllApptCommand</code> with the predicate <code>SHOW_ALL_FILTERED_APPOINTMENTS</code>.
+<code>updateFilteredAppointmentList()</code> is called and the entire list of appointments is shown to the user.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">4.3.5. Design Considerations</a></h4>
-
+<h4 id="code-cancelappt-code-command"><a class="link" href="#code-cancelappt-code-command">4.3.5. <code>cancelappt</code> Command</a></h4>
+<div class="paragraph">
+<p><code>cancelappt</code> simply takes in the index of the target appointment to cancel according to the displayed appointment list.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/CancelApptSequenceDiagram.png" alt="CancelApptSequenceDiagram" width="">
+</div>
+<div class="title">Figure 12. Sequence diagram of cancelappt.</div>
+</div>
+<div class="paragraph">
+<p>The index is parsed using the <code>parseIndex()</code> and is used in <code>execute()</code>. A filtered
+appointment list (<code>lastShownList</code>) is retrieved and the index is used to get the <code>targetAppointment</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>cancelAppointment()</code> method, under <code>Model</code>, is then called on the <code>targetAppointment</code>. The process of cancellation
+has two parts, <code>cancelAppointment</code> and <code>removeAppointment</code>. <code>cancelAppointment</code> simply changes the status of the appointment and
+adds it to the <code>Patient</code> s <code>AppointmentHistory</code> (not shown). <code>removeAppointment</code> actually removes the appointment from the
+<code>UniqueAppointmentList</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Due to the current composition relationship between the <code>Appointment</code> class and <code>Patient</code> class, the additional tasks
+of changing appointment status and addition into the appointment history seems redundant. In v2.0, the usage of
+pre-existing patients to make appointments will make these additional tasks more useful.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">4.3.6. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-to-store-date-and-time-fields"><a class="link" href="#aspect-how-to-store-date-and-time-fields">Aspect: How to store Date and Time fields</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Store as integers</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Makes it easier to calculate timings and clashes between multiple dates and times.</p>
+</li>
+<li>
+<p>Cons: Requires additional code to store and interact with other common methods that rely on Strings.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Store as Strings</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Makes it easier to implement.</p>
+</li>
+<li>
+<p>Cons: Requires additional code to convert into integers when carrying out calculating methods.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="aspect-how-to-cancel-appointments"><a class="link" href="#aspect-how-to-cancel-appointments">4.3.7. Aspect: How to cancel appointments</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Differentiate between cancellation and deletion</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Allows more leeway for receptionist if a booking mistake was made rather than cancelling and adding
+the mistake to the patient&#8217;s appointment history.</p>
+</li>
+<li>
+<p>Cons: Violates Don&#8217;t Repeat Yourself principle.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Lump deletion into cancellation</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Makes it easier to implement and prevents redundancy in code.</p>
+</li>
+<li>
+<p>Cons: Violates Separation of Concerns Principle.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1872,7 +1999,7 @@ The implemented operations include:<br></p>
 <div class="content">
 <img src="images/LoginSequenceDiagram.png" alt="LoginSequenceDiagram" width="1080">
 </div>
-<div class="title">Figure 11. Sequence Diagram for the <code>LoginCommand</code> for the logic component.</div>
+<div class="title">Figure 13. Sequence Diagram for the <code>LoginCommand</code> for the logic component.</div>
 </div>
 <div class="paragraph">
 <p>The following activity diagram summarizes what happens when a user executes <code>LoginCommand</code>:</p>
@@ -1881,7 +2008,7 @@ The implemented operations include:<br></p>
 <div class="content">
 <img src="images/LoginActivityDiagram.png" alt="LoginActivityDiagram" width="1080">
 </div>
-<div class="title">Figure 12. Activity Diagram for the <code>LoginCommand</code></div>
+<div class="title">Figure 14. Activity Diagram for the <code>LoginCommand</code></div>
 </div>
 </div>
 <div class="sect4">
@@ -2168,7 +2295,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 13. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 15. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 <div class="sect2">
@@ -4092,4 +4219,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 08:44:33 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 08:49:00 UTC</div></div></div></body></html>
