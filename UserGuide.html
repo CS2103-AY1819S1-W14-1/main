@@ -542,7 +542,7 @@ If you have already logged in, you cannot login again.<br>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-You must login in order to use this feature.<br>
+You must log-in in order to use this feature.<br>
 </td>
 </tr>
 </table>
@@ -580,7 +580,7 @@ to allow you to manage the clinic&#8217;s patient record more efficiently.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-You must login as a receptionist in order to use this feature.<br>
+You must log-in as a receptionist in order to use this feature.<br>
 </td>
 </tr>
 </table>
@@ -1295,10 +1295,24 @@ Format: <code>exportpatientsconsultations</code></p>
 <div class="sect2">
 <h3 id="medicine-inventory-commands"><a class="link" href="#medicine-inventory-commands">4.6. Medicine Inventory Commands</a></h3>
 <div class="sect3">
-<h4 id="adding-a-medicine-code-add-medicine-code"><a class="link" href="#adding-a-medicine-code-add-medicine-code">4.6.1. Adding a medicine: <code>add medicine</code></a></h4>
+<h4 id="adding-a-medicine-code-addmed-code"><a class="link" href="#adding-a-medicine-code-addmed-code">4.6.1. Adding a medicine: <code>addmed</code></a></h4>
 <div class="paragraph">
-<p>Adds a medicine to the medicine inventory<br>
-Format: <code>add medicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]&#8230;&#8203;</code></p>
+<p>Adds a medicine to the medicine inventory<br></p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+You must log-in as a receptionist in order to use this feature.<br>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Format: <code>addmed mn/MEDICINE_NAME mt/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE mp/PRICE mq/QUANTITY</code></p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1307,7 +1321,7 @@ Format: <code>add medicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE 
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-A medicine can have any number of tags (including 0)
+The <em>lethal dosage</em> of a <code>Medicine</code> should be more than its <em>effective dosage</em>.
 </td>
 </tr>
 </table>
@@ -1318,16 +1332,43 @@ A medicine can have any number of tags (including 0)
 <div class="ulist">
 <ul>
 <li>
-<p><code>add m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary t/effects last 6 hours</code></p>
+<p><code>addmed mn/fedac mt/tablet ed/2 ld/8 mp/0.09 mq/1500</code></p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Usage: (refer to screenshots below)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Enter the command in the correct format to add a medicine to the medicine inventory.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/before-addmed-command.png" alt="before addmed command" width="500">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>After successfully entering the command, you will see the newly added medicine in the displayed list of medicines.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/after-addmed-command.png" alt="after addmed command" width="500">
+</div>
+</div>
 </div>
 <div class="sect3">
-<h4 id="finding-a-medicine-by-name-code-find-medicine-code"><a class="link" href="#finding-a-medicine-by-name-code-find-medicine-code">4.6.2. Finding a medicine by name: <code>find medicine</code></a></h4>
+<h4 id="finding-a-medicine-by-name-code-findmed-code"><a class="link" href="#finding-a-medicine-by-name-code-findmed-code">4.6.2. Finding a medicine by name: <code>findmed</code></a></h4>
 <div class="paragraph">
 <p>Find a medicine in the medicine inventory<br>
-Format: <code>find medicine MEDICINE_NAME</code></p>
+Format: <code>findmed MEDICINE_NAME</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -1355,29 +1396,68 @@ Format: <code>find medicine MEDICINE_NAME</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>find ibuprofen</code><br>
-Returns <code>Ibuprofen</code></p>
+<p><code>findmed ibuprofen</code><br>
+Returns the details of <code>Ibuprofen</code></p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="removing-a-medicine-by-name-code-remove-medicine-code"><a class="link" href="#removing-a-medicine-by-name-code-remove-medicine-code">4.6.3. Removing a medicine by name : <code>remove medicine</code></a></h4>
+<h4 id="listing-all-medicines-code-listmed-code"><a class="link" href="#listing-all-medicines-code-listmed-code">4.6.3. Listing all medicines: <code>listmed</code></a></h4>
 <div class="paragraph">
-<p>Removes the specified medicine from the medicine inventory.<br>
-Format: <code>remove medicine MEDICINE_NAME</code></p>
+<p>Displays a list of all the medicines in the medicine inventory.<br>
+Format: <code>listmed</code></p>
 </div>
-<div class="sidebarblock">
-<div class="content">
+<div class="paragraph">
+<p>Example:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>The medicine name is case insensitive.</p>
-</li>
-<li>
-<p>Medicine with the matching name will be removed.</p>
+<p><code>listmed</code></p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Usage: (refer to screenshot below)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>After successfully entering the command, you will see a list of medicines in the medicine inventory.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/listmed-command.png" alt="listmed command" width="500">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="removing-a-medicine-by-index-code-deletemed-code"><a class="link" href="#removing-a-medicine-by-index-code-deletemed-code">4.6.4. Removing a medicine by index : <code>deletemed</code></a></h4>
+<div class="paragraph">
+<p>Removes the specified medicine from the medicine inventory.<br></p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+You must log-in as a receptionist in order to use this feature.<br>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Format: <code>deletemed INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>The medicine with the matching index in the displayed list of medicines will be removed.</p>
 </div>
 </div>
 </div>
@@ -1387,8 +1467,126 @@ Format: <code>remove medicine MEDICINE_NAME</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>remove medicine Paracetemol</code><br>
-Removes the Paracetemol entry from the medicine inventory.</p>
+<p><code>listmed</code><br>
+Displays list of medicines in the medicine inventory.</p>
+</li>
+<li>
+<p><code>deletemed 1</code><br>
+Removes the first entry in the list of medicines.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Usage: (refer to screenshots below)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Enter the command in the correct format to remove a medicine from the medicine inventory.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/before-deletemed-command.png" alt="before deletemed command" width="500">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>After successfully entering the command, you will see the updated displayed list of medicines without the removed medicine.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/after-deletemed-command.png" alt="after deletemed command" width="500">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="selecting-a-medicine-by-index-code-selectmed-code"><a class="link" href="#selecting-a-medicine-by-index-code-selectmed-code">4.6.5. Selecting a medicine by index : <code>selectmed</code></a></h4>
+<div class="paragraph">
+<p>Selects the specified medicine in the displayed list of medicines.<br>
+Format: <code>selectmed INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>The medicine with the matching index in the displayed list of medicines will be selected.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>listmed</code><br>
+Displays a list of medicines in the medicine inventory.</p>
+</li>
+<li>
+<p><code>selectmed 3</code><br>
+Selects the third entry in the list of medicines.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="increasing-quantity-of-a-medicine-code-increasemed-code-code-coming-in-v2-0-code"><a class="link" href="#increasing-quantity-of-a-medicine-code-increasemed-code-code-coming-in-v2-0-code">4.6.6. Increasing quantity of a medicine : <code>increasemed</code> <code>[coming in v2.0]</code></a></h4>
+<div class="paragraph">
+<p>Increases the quantity of the specified medicine in the displayed list of medicines.<br>
+Format: <code>increasemed INDEX mq/QUANTITY</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>The quantity of the medicine with the matching index in the displayed list of medicines will be increased.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>listmed</code><br>
+Displays a list of medicines in the medicine inventory.</p>
+</li>
+<li>
+<p><code>increasemed 3 mq/500</code><br>
+Increase the quantity of the third entry in the list of medicines by 500 units.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="decreasing-quantity-of-a-medicine-code-decreasemed-code-code-coming-in-v2-0-code"><a class="link" href="#decreasing-quantity-of-a-medicine-code-decreasemed-code-code-coming-in-v2-0-code">4.6.7. Decreasing quantity of a medicine : <code>decreasemed</code> <code>[coming in v2.0]</code></a></h4>
+<div class="paragraph">
+<p>Decreases the quantity of the specified medicine in the displayed list of medicines.<br>
+Format: <code>decreasemed INDEX mq/QUANTITY</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>The quantity of the medicine with the matching index in the displayed list of medicines will be decreased.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>listmed</code><br>
+Displays a list of medicines in the medicine inventory.</p>
+</li>
+<li>
+<p><code>decreasemed 2 mq/10</code><br>
+Decrease the quantity of the second entry in the list of medicines by 10 units.</p>
 </li>
 </ul>
 </div>
@@ -1624,8 +1822,8 @@ e.g.<code>selectpatient 2</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Show patients in the queue</strong> : <code>queue</code><br>
-e.g. <code>queue</code></p>
+<p><strong>Show patients in the queue</strong> : <code>showqueue</code><br>
+e.g. <code>showqueue</code></p>
 </li>
 <li>
 <p><strong>Enqueue a patient</strong> : <code>enqueuepatient INDEX</code><br>
@@ -1671,24 +1869,34 @@ e.g. <code>dequeuepatient 4</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Add Medicine</strong> : <code>addmedicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>addmedicine m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary</code></p>
+<p><strong>Add Medicine</strong> : <code>addmed mn/MEDICINE_NAME mt/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE mp/PRICE mq/QUANTITY</code><br>
+e.g. <code>addmed mn/Paracetamol mt/tablet ed/2 ld/8 mp/0.05 mq/1000</code></p>
 </li>
 <li>
-<p><strong>Delete Medicine</strong> : <code>deletemedicine MEDICINE_NAME</code><br>
-e.g. <code>deletemedicine Paracetamol</code></p>
+<p><strong>Find Medicine</strong> : <code>findmed MEDICINE_NAME</code><br>
+e.g. <code>findmed Paracetamol</code></p>
 </li>
 <li>
-<p><strong>Find Medicine</strong> : <code>findmedicine MEDICINE_NAME</code><br>
-e.g. <code>findmedicine Paracetamol</code></p>
+<p><strong>List Medicine</strong> : <code>listmed</code><br>
+e.g. <code>listmed</code></p>
 </li>
 <li>
-<p><strong>Increase Medicine Quantity</strong> : <code>increasemedicine m/MEDICINE_NAME q/QUANTITY</code><br>
-e.g. <code>increasemedicine m/Paracetamol q/500</code></p>
+<p><strong>Delete Medicine</strong> : <code>deletemed INDEX</code><br>
+e.g. <code>deletemed 1</code></p>
 </li>
 <li>
-<p><strong>Decrease Medicine Quantity</strong> : <code>decreasemedicine m/MEDICINE_NAME q/QUANTITY</code><br>
-e.g. <code>decreasemedicine m/Paracetamol q/20</code></p>
+<p><strong>Select Medicine</strong> : <code>selectmed INDEX</code><br>
+e.g. <code>selectmed 3</code></p>
+</li>
+<li>
+<p><strong>Increase Medicine Quantity</strong> : <code>increasemed INDEX mq/QUANTITY</code><br>
+<code>[coming in v2.0]</code><br>
+e.g. <code>increasemed 3 mq/500</code></p>
+</li>
+<li>
+<p><strong>Decrease Medicine Quantity</strong> : <code>decreasemed INDEX mq/QUANTITY</code>
+<code>[coming in v2.0]</code><br>
+e.g. <code>decreasemed 2 mq/20</code></p>
 </li>
 </ul>
 </div>
@@ -1716,4 +1924,4 @@ e.g. <code>cancelappt 2</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:45:23 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 15:36:37 UTC</div></div></div></body></html>

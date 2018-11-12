@@ -1351,39 +1351,58 @@ Separation of Concerns Principle.</p>
 <div class="sect3">
 <h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">4.4.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The <code>MedicineInventory</code> extends <code>ClinicIO</code> with a medicine inventory. The <code>MedicineInventory</code> provides the user with an organised system to manage the medicines in the clinic.
-It implements the following operations:</p>
+<p>The <code>MedicineInventory</code> extends <code>ClinicIO</code> with a medicine inventory. The <code>MedicineInventory</code> provides the user with an
+organised system to manage the medicines in the clinic.</p>
+</div>
+<div class="paragraph">
+<p>It implements the following operations:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>MedicineInventory#hasMedicine(MedicineName medicineName)</code>&#8201;&#8212;&#8201;Checks if the <code>MedicineInventory</code> contains the <code>Medicine</code> with name <code>medicineName</code>.</p>
+<p><code>MedicineInventory#hasMedicine(MedicineName medicineName)</code>&#8201;&#8212;&#8201;Checks if the <code>MedicineInventory</code> contains the
+<code>Medicine</code> with name <code>medicineName</code>.</p>
 </li>
 <li>
-<p><code>MedicineInventory#addMedicine(MedicineName medicineName, Medicine newMedicine)</code>&#8201;&#8212;&#8201;Adds <code>newMedicine</code> to the <code>MedicineInventory</code> with its <code>medicineName</code>.</p>
+<p><code>MedicineInventory#addMedicine(MedicineName medicineName, Medicine newMedicine)</code>&#8201;&#8212;&#8201;Adds <code>newMedicine</code> to the
+<code>MedicineInventory</code> with its <code>medicineName</code>.</p>
 </li>
 <li>
-<p><code>MedicineInventory#updateMedicineQuantity(MedicineName medicineName, MedicineQuantity newQuantity)</code>&#8201;&#8212;&#8201;Updates the <code>MedicineQuantity</code> of the <code>Medicine</code> with name <code>medicineName</code> with the <code>newQuantity</code> in the <code>MedicineInventory</code>.</p>
+<p><code>MedicineInventory#updateMedicineQuantity(MedicineName medicineName, MedicineQuantity newQuantity)</code>&#8201;&#8212;&#8201;Updates the
+<code>MedicineQuantity</code> of the <code>Medicine</code> with name <code>medicineName</code> with the <code>newQuantity</code> in the <code>MedicineInventory</code>.</p>
 </li>
 <li>
-<p><code>MedicineInventory#deleteMedicine(MedicineName medicineName)</code>&#8201;&#8212;&#8201;Deletes the <code>Medicine</code> with name <code>medicineName</code> from the <code>MedicineInventory</code>.</p>
+<p><code>MedicineInventory#deleteMedicine(MedicineName medicineName)</code>&#8201;&#8212;&#8201;Deletes the <code>Medicine</code> with name <code>medicineName</code> from
+the <code>MedicineInventory</code>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>These operations are exposed in the <code>Model</code> interface as <code>Model#hasMedicine(MedicineName medicine)</code>, <code>Model#addMedicine(MedicineName medicineName, Medicine medicine)</code>, <code>Model#updateMedicine(MedicineName target, MedicineQuantity newQuantity)</code>, and <code>Model#deleteMedicine(MedicineName medicine)</code> respectively.</p>
+<p>These operations are exposed in the <code>Model</code> interface as <code>Model#hasMedicine(MedicineName medicine)</code>,
+<code>Model#addMedicine(MedicineName medicineName, Medicine medicine)</code>, <code>Model#updateMedicine(MedicineName target,
+MedicineQuantity newQuantity)</code>, and <code>Model#deleteMedicine(MedicineName medicine)</code> respectively.</p>
 </div>
 <div class="paragraph">
 <p>Given below is an example usage scenario and how the <code>MedicineInventory</code> behaves at each step.</p>
 </div>
 <div class="paragraph">
-<p>Step 1. The user launches the ClinicIO application. The empty <code>MedicineInventory</code> will be initialized at the same time as the <code>ClinicIO</code>.</p>
+<p>Step 1. The user launches the ClinicIO application. The empty <code>MedicineInventory</code> will be initialized at the same time
+as the <code>ClinicIO</code>.</p>
 </div>
 <div class="paragraph">
-<p>Step 2. The user executes <code>addmedicine m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary t/effects last 6 hours</code> command to add a new <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code> to the <code>MedicineInventory</code>. The <code>addmedicine</code> command creates a new <code>Medicine</code> <code>newMedicine</code> with the fields specified by the command and calls <code>Model#addMedicine(Paracetamol, newMedicine)</code>. This adds a new entry into <code>MedicineInventory</code>.</p>
+<p>Step 2. The user executes <code>addmed mn/Paracetamol mt/tablet ed/2 ld/8 mp/0.05 mq/1000</code> command to add a new <code>Medicine</code> to
+the <code>MedicineInventory</code>. The <code>addmed</code> command creates a new <code>Medicine</code> <code>newMedicine</code> with the fields specified by the
+command and calls <code>Model#addMedicine(Paracetamol)</code>. This adds a new entry into <code>MedicineInventory</code>.</p>
 </div>
 <div class="paragraph">
-<p>Step 3. The user executes <code>increasemedicine m/Paracetamol q/500</code> command to increase the current <code>MedicineQuantity</code> of the <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code> by <code>500</code> units in the <code>MedicineInventory</code>. The <code>increase medicine</code> command first calls <code>Model#hasMedicine(Paracetamol)</code> to check if the <code>MedicineInventory</code> contains a <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code>. Next, the <code>increasemedicine</code> command adds <code>500</code> to the current <code>MedicineQuantity</code>, and calls <code>Model#updateMedicine(Paracetamol, increasedQuantity)</code>. This updates the <code>MedicineQuantity</code> data attribute of the <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code> in the <code>MedicineInventory</code> with the latest quantity <code>increasedQuantity</code>.</p>
+<p>Step 3. The user execute <code>listmed</code> command to view the list of all <code>Medicine`s in the `MedicineInventory</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 4. The user executes <code>increasemed 1 mq/500</code> command to increase the current <code>MedicineQuantity</code> of the <code>Medicine</code> at
+<code>index 1</code> in the <code>Medicine List</code> by <code>500</code> units. The <code>increasemed</code> command first checks if the <code>MedicineInventory</code>
+contains a <code>Medicine</code> at <code>index 1</code>. Next, the <code>increasemed</code> command adds <code>500</code> to the current <code>MedicineQuantity</code>, and
+calls <code>Model#updateMedicine(Paracetamol, increasedQuantity)</code>. This updates the <code>MedicineQuantity</code> data attribute of the
+<code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code> in the <code>MedicineInventory</code> with the latest quantity <code>increasedQuantity</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1392,13 +1411,20 @@ It implements the following operations:</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-In the example outlined in Step 3, if the <code>Model#hasMedicine(Paracetamol)</code> returns false, the <code>MedicineInventory</code> does not contain a <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code>, and will not call <code>Model#updateMedicine(Paracetamol, increasedQuantity)</code>. This prevents the user from adding extra quantity to a <code>Medicine</code> that does not exist in the <code>MedicineInventory</code>.
+In the example outlined in Step 4, if the <code>Model#hasMedicine(Paracetamol)</code> returns false, the <code>MedicineInventory</code> does
+not contain a <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code>, and will not call
+<code>Model#updateMedicine(Paracetamol, increasedQuantity)</code>. This prevents the user from adding extra quantity to a
+<code>Medicine</code> that does not exist in the <code>MedicineInventory</code>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Step 4. The user executes <code>decreasemedicine m/Paracetamol q/20</code> command to decrease the current <code>MedicineQuantity</code> of the <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code> by <code>20</code> units in the <code>MedicineInventory</code>. The <code>decreasemedicine</code> command first calls <code>Model#hasMedicine(Paracetamol)</code> to check if the <code>MedicineInventory</code> contains a <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code>. Next, the <code>decreasemedicine</code> command subtracts <code>20</code> from the current <code>MedicineQuantity</code>, and calls <code>Model#updateMedicine(Paracetamol, decreasedQuantity)</code>. This updates the <code>MedicineQuantity</code> data attribute of the <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code> in the <code>MedicineInventory</code> with the latest quantity <code>decreasedQuantity</code>.</p>
+<p>Step 5. The user executes <code>decreasemed 1 q/20</code> command to decrease the current <code>MedicineQuantity</code> of the <code>Medicine</code> at
+<code>index 1</code> in the <code>Medicine List</code> by <code>20</code> units. The <code>decreasemed</code> command first checks if the <code>MedicineInventory</code>
+contains a <code>Medicine</code> at <code>index 1</code>. Next, the <code>decreasemed</code> command subtracts <code>20</code> from the current <code>MedicineQuantity</code>,
+and calls <code>Model#updateMedicine(Paracetamol, decreasedQuantity)</code>. This updates the <code>MedicineQuantity</code> data attribute of
+the <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code> in the <code>MedicineInventory</code> with the latest quantity <code>decreasedQuantity</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1407,13 +1433,20 @@ In the example outlined in Step 3, if the <code>Model#hasMedicine(Paracetamol)</
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-In the example outlined in Step 4, if the current value of the <code>MedicineQuantity</code> of the <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code> is less than <code>20</code>, the <code>MedicineInventory</code> does not contain enough quantity of <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code> to prescribe to the <code>Patient</code>, and will not call <code>Model#updateMedicine(Paracetamol, decreasedQuantity)</code>. This prevents the user from getting a negative value for <code>MedicineQuantity</code> of a <code>Medicine</code> in the <code>MedicineInventory</code>.
+In the example outlined in Step 5, if the current value of the <code>MedicineQuantity</code> of the <code>Medicine</code> with <code>MedicineName</code>
+<code>Paracetamol</code> is less than <code>20</code>, the <code>MedicineInventory</code> does not contain enough quantity of <code>Medicine</code> with
+<code>MedicineName</code> <code>Paracetamol</code> to prescribe to the <code>Patient</code>, and will not call <code>Model#updateMedicine(Paracetamol,
+decreasedQuantity)</code>. This prevents the user from getting a negative value for <code>MedicineQuantity</code> of a <code>Medicine</code>
+in the <code>MedicineInventory</code>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Step 5. The user executes <code>deletemedicine Paracetamol</code> command to delete the  <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code> from the <code>MedicineInventory</code>. The <code>deletemedicine</code> command calls <code>Model#hasMedicine(Paracetamol)</code> to check if the <code>MedicineInventory</code> contains a <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code>. Next, it calls <code>Model#deleteMedicine(Paracetamol)</code> to delete the <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code> from the <code>MedicineInventory</code>. Now the <code>MedicineInventory</code> is empty.</p>
+<p>Step 6. The user executes <code>deletemed 1</code> command to delete the <code>Medicine</code> at <code>index 1</code> in the <code>Medicine List</code>. The
+<code>deletemed</code> command first checks if the <code>MedicineInventory</code> contains a <code>Medicine</code> at <code>index 1</code>. Next, it calls
+<code>Model#deleteMedicine(Paracetamol)</code> to delete the <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code> from the
+<code>MedicineInventory</code>. Now the <code>MedicineInventory</code> is empty.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1422,7 +1455,9 @@ In the example outlined in Step 4, if the current value of the <code>MedicineQua
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-In the example outlined in Step 5, if the <code>Model#hasMedicine(Paracetamol)</code> returns false, the <code>MedicineInventory</code> does not contain a <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code>, and will not call <code>Model#deleteMedicine(Paracetamol, increasedQuantity)</code>. This prevents the user from deleting a <code>Medicine</code> that does not exist in the <code>MedicineInventory</code>.
+In the example outlined in Step 6, if the <code>Model#hasMedicine(Paracetamol)</code> returns false, the <code>MedicineInventory</code> does
+not contain a <code>Medicine</code> with <code>MedicineName</code> <code>Paracetamol</code>, and will not call <code>Model#deleteMedicine(Paracetamol,
+increasedQuantity)</code>. This prevents the user from deleting a <code>Medicine</code> that does not exist in the <code>MedicineInventory</code>.
 </td>
 </tr>
 </table>
@@ -1435,14 +1470,15 @@ In the example outlined in Step 5, if the <code>Model#hasMedicine(Paracetamol)</
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Use one <code>MedicineInventory</code> and implement different protocols for each <code>MedicineType</code>.</p>
+<p><strong>Alternative 1 (current choice):</strong> Use one <code>MedicineInventory</code> and implement different protocols for each
+<code>MedicineType</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Use less memory.</p>
+<p>Pros: Uses less memory.</p>
 </li>
 <li>
-<p>Cons: More complicated to implement.</p>
+<p>Cons: Complicates implementation.</p>
 </li>
 </ul>
 </div>
@@ -1452,10 +1488,10 @@ In the example outlined in Step 5, if the <code>Model#hasMedicine(Paracetamol)</
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Use more memory.</p>
+<p>Pros: Uses more memory.</p>
 </li>
 <li>
-<p>Cons: Easier to implement logic for commands.</p>
+<p>Cons: Eases implementation of logic for commands.</p>
 </li>
 </ul>
 </div>
@@ -1469,27 +1505,28 @@ In the example outlined in Step 5, if the <code>Model#hasMedicine(Paracetamol)</
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Design a predictive algorithm using data from <code>Analytics</code>.</p>
+<p><strong>Alternative 1:</strong> Design a predictive algorithm using data from <code>Analytics</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: <code>MedicineInventory</code> will not have too large a surplus of un-prescribed <code>Medicine</code>.</p>
+<p>Pros: Ensures that <code>MedicineInventory</code> will not have too large a surplus of un-prescribed <code>Medicine</code>.</p>
 </li>
 <li>
-<p>Cons: Logic difficult to implement, will be complicated to incorporate data from <code>Analytics</code>.</p>
+<p>Cons: Complicates implementation of logic and incorporation of data from <code>Analytics</code>.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Maintain a fixed amount of <code>MedicineQuantity</code> for each <code>Medicine</code> in the <code>MedicineInventory</code>.</p>
+<p><strong>Alternative 2 (current choice):</strong> Maintain a fixed amount of <code>MedicineQuantity</code> for each <code>Medicine</code> in the
+<code>MedicineInventory</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Easier and more straightforward to implement logic.</p>
+<p>Pros: Enables logic implementation to be easier and more straightforward.</p>
 </li>
 <li>
-<p>Cons: Might end up with too large a surplus of un-prescribed <code>Medicine</code>.</p>
+<p>Cons: Introduces the risk of ending up with too large a surplus of un-prescribed <code>Medicine</code>.</p>
 </li>
 </ul>
 </div>
@@ -4497,4 +4534,4 @@ Expected: An error message will show "Invalid login credentials. Please try agai
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:45:23 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 15:36:37 UTC</div></div></div></body></html>
